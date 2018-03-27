@@ -25,10 +25,9 @@ export default class Friends extends Component {
       ],
       friendsListDisplay: false,
       socket: null,
-      selectedChat: null,
-      showFriends: false,
       // store: store.getState(),
       setInactive: {},
+      currentChatIndex: -1,
     };
     // store.subscribe(() => {
     //   this.state = store.getState();
@@ -68,12 +67,17 @@ export default class Friends extends Component {
   //   this.setState( { socket: this.socket }); // eslint-disable-line
   // }
 
-  // changeSelectedChat(friendName, roomID) {
-  //   this.setState({ selectedChat: false });
-  //   setTimeout(() => {
-  //     this.setState({ selectedChat: [friendName, roomID] });
-  //     document.getElementById('selectedChat').classList.remove('hide');
-  //   }, 0);
+  // async changeSelectedChat(index) {
+  //   const { socket, currentChatIndex } = this.state;
+
+  //   if (currentChatIndex >= 0) {
+  //     const currentChat = document.getElementById(`show-${currentChatIndex}`);
+  //     currentChat.style.width = '0px';
+  //     currentChat.classList.add('hide');
+  //   }
+
+  //   await socket.emit('client.selectedChat', index);
+  //   this.setState({ currentChatIndex: index });
   // }
 
   openFriendsList() {
@@ -83,36 +87,61 @@ export default class Friends extends Component {
     this.setState({ friendsListDisplay: !friendsListDisplay });
   }
 
+  // openFriendList(e) {
+  //   e.preventDefault();
+  //   document.getElementById('friendList').style.height = '200px';
+
+  //   const { socket } = this.state;
+  //   socket.emit('client.inLobby', this.state.store.user);
+  // }
+
+  // closeFriendList() {
+  //   document.getElementById('friendList').style.height = '0';
+  //   const { currentChatIndex } = this.state;
+
+  //   if (currentChatIndex >= 0) {
+  //     const currentChat = document.getElementById(`show-${currentChatIndex}`);
+  //     currentChat.style.width = '0px';
+  //     currentChat.classList.add('hide');
+  //     this.setState({ currentChatIndex: -1 });
+  //   }
+  // }
+
  render() {
-    const { showFriends, friendsList, friendsListDisplay } = this.state;
-    // const { selectedChat } = this.state;
+    const { friendsList, friendsListDisplay, socket } = this.state;
 
     return (
       <View style={{ flex: 1, borderWidth: 1, borderColor: 'green', width: '90%' }}>
         <ScrollView style={[friends.list, !friendsListDisplay && { display: 'none'}]}>
-            {friendsList.map((friend, index) => 
-                <View key={Math.random() * 1000} style={{ flexDirection: 'row' }}>
-                  <Text key={Math.random() * 1000} style={friends.dot}></Text>
-                  <Text 
-                    key={index}
-                    style={friends.friend}
-                    onPress={() => this.changeSelectedChat(friend[0], friend[1])}
-                  >
-                    {friend[0]}
-                  </Text>
-                </View>
-            )}
+          {friendsList.map((friend, index) => 
+              <View key={Math.random() * 1000} style={{ flexDirection: 'row' }}>
+                <View key={Math.random() * 1000} style={friends.dot}></View>
+                <Text 
+                  key={index}
+                  style={friends.friend}
+                  onPress={() => this.changeSelectedChat(index)}
+                >
+                  {friend[0]}
+                </Text>
+              </View>
+          )}
         </ScrollView>
         <View style={friends.button}>
           <TouchableOpacity onPress={() => this.openFriendsList()}>
             <Text style={friends.container}>Friends</Text>
           </TouchableOpacity>
         </View>
+        {friendsList.map((friend, index) => 
+          (
+            <View>
+              <Chat friendName={friend[0]} roomID={friend[1]} index={index} mainSocket={socket} />
+            </View>
+          )
+        )}
       </View>
     )
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -154,7 +183,7 @@ const friends = StyleSheet.create({
     right: 0,
     borderWidth: 1,
     borderColor: 'green',
-    width: 200,
+    width: 220,
     height: 300
   }
 });
