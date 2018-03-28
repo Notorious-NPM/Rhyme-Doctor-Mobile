@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TextInput, Button } from 'react-native';
+import { AppRegistry, StyleSheet, Text, View, Image, TextInput, Button } from 'react-native';
 import { registerRootComponent } from 'expo';
+import SessionBar from './src/components/navbar/SessionBar';
 
 export default class App extends React.Component {
   componentDidMount() {
@@ -11,20 +12,8 @@ export default class App extends React.Component {
       uri: 'https://i.imgur.com/vWA2TAB.jpg'
     };
     return (
-      
-      // <View style={styles.container}>
-      //   {/* <Text>Whaddup People</Text> */}
-        // <Image source={pic} style={{width: 300, height: 110}}/>
-      //   {/* <Text>Changes you make will automatically reload.</Text>
-      //   <Text>Shake your phone to open the developer menu.</Text> */}
-      // </View>
-
       <View style={styles.container}>
-        <View style={styles.toolbar}>
-            <Text style={styles.toolbarButton}>Sign Up</Text>
-            <Text style={styles.toolbarTitle}>Rhyme Doctor</Text>
-            <Text style={styles.toolbarButton}>Login</Text>
-        </View>
+        <SessionBar />
           <View style={styles.image}>
             <Image source={pic} style={{alignSelf: 'stretch', height: 200}}/>
           </View>
@@ -86,25 +75,8 @@ var styles = StyleSheet.create({
     backgroundColor: '#333',
     // alignItems: 'center',
     // justifyContent: 'center'
-  },
-
-  toolbar:{
-    backgroundColor:'#ffff64',
-    paddingTop:30,
-    paddingBottom:10,
-    flexDirection:'row'
-},
-toolbarButton:{
-    width: 50,
-    color:'#333',
-    textAlign:'center'
-},
-toolbarTitle:{
-    color:'#333',
-    textAlign:'center',
-    fontWeight:'bold',
-    flex:1
-}
+  }
 });
 
 registerRootComponent(App);
+AppRegistry.registerComponent('SessionBar', () => App);
