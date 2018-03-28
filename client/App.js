@@ -3,6 +3,8 @@ import { AppRegistry, StyleSheet, Text, View, Image, TextInput, Button } from 'r
 import { registerRootComponent } from 'expo';
 import SessionBar from './src/components/navbar/SessionBar';
 
+import FriendChat from './src/components/buttons/FriendChat';
+
 export default class App extends React.Component {
   componentDidMount() {
     
@@ -43,6 +45,7 @@ export default class App extends React.Component {
             />
           </View>
         </View>
+        <FriendChat />
         
       </View>
     );

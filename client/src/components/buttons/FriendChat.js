@@ -10,16 +10,61 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-nati
 // import './FriendChat.css';
 // import location from '../../../../config';
 
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#000000',
+  },
+});
+
+const friends = StyleSheet.create({
+  button: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    backgroundColor: '#000000',
+  },
+  container: {
+    color: 'yellow',
+    fontSize: 20,
+    fontWeight: 'bold',
+    fontStyle: 'italic',
+    textAlign: 'center'
+  },
+  dot: {
+    height: 10,
+    width: 10,
+    backgroundColor: '#bbb',
+    borderRadius: 100,
+    margin: 8,
+    position: 'relative',
+    top: 10,
+
+  },
+  friend: {
+    color: 'black',
+    fontSize: 40,
+  },
+  list: {
+    position: 'absolute',
+    bottom: 24,
+    right: 0,
+    borderWidth: 1,
+    borderColor: 'green',
+    width: 220,
+    height: 300,
+  },
+});
+
 export default class Friends extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       friendsList: [
-        ['Joker', 'one'], 
-        ['Batman', 'two'], 
+        ['Joker', 'one'],
+        ['Batman', 'two'],
         ['Robin', 'three'],
         ['Clayface', 'four'],
-        ['Harley Q', 'five'], 
+        ['Harley Q', 'five'],
         ['Solomon G', 'six'],
         ['Azrael', 'six'],
       ],
@@ -107,16 +152,23 @@ export default class Friends extends Component {
   //   }
   // }
 
- render() {
+  render() {
     const { friendsList, friendsListDisplay, socket } = this.state;
 
     return (
-      <View style={{ flex: 1, borderWidth: 1, borderColor: 'green', width: '90%' }}>
-        <ScrollView style={[friends.list, !friendsListDisplay && { display: 'none'}]}>
-          {friendsList.map((friend, index) => 
+      <View style={{
+        flex: 1,
+        borderWidth: 1,
+        borderColor: 'green',
+        width: '90%',
+        }}
+      >
+        <ScrollView style={[friends.list, !friendsListDisplay && { display: 'none' }]}>
+          {friendsList.map((friend, index) =>
+            (
               <View key={Math.random() * 1000} style={{ flexDirection: 'row' }}>
-                <View key={Math.random() * 1000} style={friends.dot}></View>
-                <Text 
+                <View key={Math.random() * 1000} style={friends.dot} />
+                <Text
                   key={index}
                   style={friends.friend}
                   onPress={() => this.changeSelectedChat(index)}
@@ -124,80 +176,20 @@ export default class Friends extends Component {
                   {friend[0]}
                 </Text>
               </View>
-          )}
+            ))}
         </ScrollView>
         <View style={friends.button}>
           <TouchableOpacity onPress={() => this.openFriendsList()}>
             <Text style={friends.container}>Friends</Text>
           </TouchableOpacity>
         </View>
-        {friendsList.map((friend, index) => 
+        {friendsList.map((friend, index) =>
           (
             <View>
-              <Chat friendName={friend[0]} roomID={friend[1]} index={index} mainSocket={socket} />
+              {/* <Chat friendName={friend[0]} roomID={friend[1]} index={index} mainSocket={socket} /> */}
             </View>
-          )
-        )}
+          ))}
       </View>
-    )
+    );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#000000',
-  },
-});
-
-const friends = StyleSheet.create({
-  button: {
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-    backgroundColor: '#000000',
-  },
-  container: {
-    color: 'yellow',
-    fontSize: 20,
-    fontWeight: 'bold',
-    fontStyle: 'italic',
-    textAlign: 'center'
-  },
-  dot: {
-    height: 10,
-    width: 10,
-    backgroundColor: '#bbb',
-    borderRadius: 100,
-    margin: 8,
-    position: 'relative',
-    top: 10,
-
-  },
-  friend: {
-    color: 'black',
-    fontSize: 40,
-  },
-  list: {
-    position: 'absolute',
-    bottom: 24,
-    right: 0,
-    borderWidth: 1,
-    borderColor: 'green',
-    width: 220,
-    height: 300
-  }
-});
-
-      {/* <View style={{ flex: 1 }}>
-        <View style={{ height: 300 }}>
-        <ScrollView style={friends.list}>
-          {showFriends && friendsList.map( (friend, i) => 
-          <Text style={friends.friend} key={i}>{friend}</Text>)}
-        </ScrollView>
-        </View>
-        <View style={styles.container}>
-          <TouchableOpacity onPress={() => this.updateState()}>
-            <Text style={friends.container}>Friends</Text>
-          </TouchableOpacity>
-        </View>
-      </View> */}
