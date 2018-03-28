@@ -1,27 +1,31 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {StyleSheet, View, Text} from 'react-native';
+// import { Link } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import $ from 'jquery';
 
-import store from '../../redux/store';
+// import store from '../../redux/store';
 
-const history = createHistory();
+// const history = createHistory();
 
-const logout = () => {
-  $.ajax({
-    url: '/api/auth/logout',
-    method: 'POST',
-    success() {
-      store.dispatch({ type: 'sessionlogout' });
-      store.dispatch({ type: 'wipestore' });
-      history.push('/');
-    },
-  });
-};
+// const logout = () => {
+//   $.ajax({
+//     url: '/api/auth/logout',
+//     method: 'POST',
+//     success() {
+//       store.dispatch({ type: 'sessionlogout' });
+//       store.dispatch({ type: 'wipestore' });
+//       history.push('/');
+//     },
+//   });
+// };
 
 const SessionBar = () => (
+  <View style={styles.toolbar}>
+    <Text style={styles.toolbarButton}>Sign Up</Text>
+    <Text style={styles.toolbarTitle}>Rhyme Doctor</Text>
+    <Text style={styles.toolbarButton}>Login</Text>
+  </View>
   // <div>
   //   <nav id="nav" className="navbar navbar-expand-md navbar-dark bg-dark">
   //     <div className="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
@@ -57,5 +61,25 @@ const SessionBar = () => (
   //   </nav>
   // </div>
 );
+
+var styles = StyleSheet.create({
+  toolbar:{
+    backgroundColor:'#ffff64',
+    paddingTop:30,
+    paddingBottom:10,
+    flexDirection:'row'
+  },
+  toolbarButton:{
+      width: 50,
+      color:'#333',
+      textAlign:'center'
+  },
+  toolbarTitle:{
+      color:'#333',
+      textAlign:'center',
+      fontWeight:'bold',
+      flex:1
+  }
+})
 
 export default SessionBar;
