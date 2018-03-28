@@ -10,51 +10,6 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-nati
 // import './FriendChat.css';
 // import location from '../../../../config';
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#000000',
-  },
-});
-
-const friends = StyleSheet.create({
-  button: {
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-    backgroundColor: '#000000',
-  },
-  container: {
-    color: 'yellow',
-    fontSize: 20,
-    fontWeight: 'bold',
-    fontStyle: 'italic',
-    textAlign: 'center'
-  },
-  dot: {
-    height: 10,
-    width: 10,
-    backgroundColor: '#bbb',
-    borderRadius: 100,
-    margin: 8,
-    position: 'relative',
-    top: 10,
-
-  },
-  friend: {
-    color: 'black',
-    fontSize: 40,
-  },
-  list: {
-    position: 'absolute',
-    bottom: 24,
-    right: 0,
-    borderWidth: 1,
-    borderColor: 'green',
-    width: 220,
-    height: 300,
-  },
-});
-
 export default class Friends extends Component {
   constructor(props) {
     super(props);
@@ -193,3 +148,49 @@ export default class Friends extends Component {
     );
   }
 }
+
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#000000',
+  },
+});
+
+const friends = StyleSheet.create({
+  button: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    backgroundColor: '#000000',
+  },
+  container: {
+    color: 'yellow',
+    fontSize: 20,
+    fontWeight: 'bold',
+    fontStyle: 'italic',
+    textAlign: 'center'
+  },
+  dot: {
+    height: 10,
+    width: 10,
+    backgroundColor: '#bbb',
+    borderRadius: 100,
+    margin: 8,
+    position: 'relative',
+    top: 10,
+
+  },
+  friend: {
+    color: 'black',
+    fontSize: 40,
+  },
+  list: {
+    position: 'absolute',
+    bottom: 24,
+    right: 0,
+    borderWidth: 1,
+    borderColor: 'green',
+    width: 220,
+    height: 300,
+  },
+});
