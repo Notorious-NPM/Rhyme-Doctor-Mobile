@@ -2,6 +2,8 @@ import React from 'react';
 import $ from 'jquery';
 
 import { AppRegistry, StyleSheet, Text, View, Image, TextInput, Button } from 'react-native';
+
+import {MenuContext}  from 'react-native-menu';
 import SessionBar from '../navbar/SessionBar';
 
 // import Textarea from '../textarea/Textarea';
@@ -45,16 +47,17 @@ export default class Home extends React.Component {
       uri: 'https://i.imgur.com/vWA2TAB.jpg'
     };
     return (
-      <View>
-        <SessionBar nav={this.props}/>
-        <View style={styles.image}>
-          <Image source={pic} style={{alignSelf: 'stretch', height: 200}}/>
-        </View>
+      <View style={styles.container}>
+        <MenuContext>
+          <SessionBar nav={this.props}/>
+          <View style={styles.image}>
+            <Image source={pic} style={{alignSelf: 'stretch', height: 200}}/>
+          </View>
         <Text style={{color:'white', textAlign:'center', paddingTop: 10, paddingBottom: 10}}>Compose as you normally would. But be aware: commas signify a word to be rhymed with, as does the end of a line.</Text>
         <TextInput
-        style={{height: 150, width: 300, alignSelf: 'center', backgroundColor: '#D7D7D7', borderColor: 'gray', borderWidth: 1}}
-        placeholder="Type here..."
-        placeholderTextColor="#333"
+          style={{height: 150, width: 300, alignSelf: 'center', backgroundColor: '#D7D7D7', borderColor: 'gray', borderWidth: 1}}
+          placeholder="Type here..."
+          placeholderTextColor="#333"
         // onChangeText={(text) => this.setState({text})}
         // value={this.state.text}
         />
@@ -76,6 +79,7 @@ export default class Home extends React.Component {
             />
           </View>
         </View>
+        </MenuContext>
       </View>
     )
   }
