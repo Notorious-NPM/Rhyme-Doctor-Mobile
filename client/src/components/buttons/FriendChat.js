@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { MenuContext }  from 'react-native-menu';
+import SessionBar from '../navbar/SessionBar';
 
 // import React, { Component } from 'react';
 // import axios from 'axios';
@@ -118,6 +120,8 @@ export default class Friends extends Component {
         width: '90%',
         }}
       >
+        <MenuContext>
+        <SessionBar nav={this.props}/>
         <ScrollView style={[friends.list, !friendsListDisplay && { display: 'none' }]}>
           {friendsList.map((friend, index) =>
             (
@@ -144,6 +148,7 @@ export default class Friends extends Component {
               {/* <Chat friendName={friend[0]} roomID={friend[1]} index={index} mainSocket={socket} /> */}
             </View>
           ))}
+          </MenuContext>
       </View>
     );
   }
