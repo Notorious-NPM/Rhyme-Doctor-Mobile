@@ -13,7 +13,7 @@ import SessionBar from '../navbar/SessionBar';
 // import ColorPicker from '../toolbar/ColorPicker';
 // import store from '../../redux/store';
 
-import location from '../../../../config';
+// import location from '../../../../config';
 // import './home.css';
 
 // const centerStyle = {
