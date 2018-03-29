@@ -1,9 +1,10 @@
 import React from 'react';
 import $ from 'jquery';
+import Dimensions from 'Dimensions'
 
 import { AppRegistry, StyleSheet, Text, View, Image, TextInput, Button } from 'react-native';
 
-import {MenuContext}  from 'react-native-menu';
+import { MenuContext }  from 'react-native-menu';
 import SessionBar from '../navbar/SessionBar';
 
 // import Textarea from '../textarea/Textarea';
@@ -48,38 +49,40 @@ export default class Home extends React.Component {
     };
     return (
       <View style={styles.container}>
-        <MenuContext>
-          <SessionBar nav={this.props}/>
-          <View style={styles.image}>
-            <Image source={pic} style={{alignSelf: 'stretch', height: 200}}/>
+        <SessionBar nav={this.props}/>
+        <View>
+          <View>
+            <Image source={pic} style={{ alignSelf: 'stretch', height: 200}}/>
           </View>
-        <Text style={{color:'white', textAlign:'center', paddingTop: 10, paddingBottom: 10}}>Compose as you normally would. But be aware: commas signify a word to be rhymed with, as does the end of a line.</Text>
-        <TextInput
-          style={{height: 150, width: 300, alignSelf: 'center', backgroundColor: '#D7D7D7', borderColor: 'gray', borderWidth: 1}}
-          placeholder="Type here..."
-          placeholderTextColor="#333"
-        // onChangeText={(text) => this.setState({text})}
-        // value={this.state.text}
-        />
-        <View style={styles.buttonContainer}>
-          <View style={styles.button}>
-            <Button
-              // onPress={onPressLearnMore}
-              title="Post"
-              color="#333"
-              // accessibilityLabel="Learn more about this purple button"
+          <View style={{ marginTop: 200, height: 80 }}>
+            <Text style={{color:'white', textAlign:'center', paddingTop: 10, paddingBottom: 10}}>Compose as you normally would. But be aware: commas signify a word to be rhymed with, as does the end of a line.</Text>
+            <TextInput
+              style={{height: 150, width: 300, alignSelf: 'center', backgroundColor: '#D7D7D7', borderColor: 'gray', borderWidth: 1}}
+              placeholder="Type here..."
+              placeholderTextColor="#333"
+            // onChangeText={(text) => this.setState({text})}
+            // value={this.state.text}
             />
-          </View>
-          <View style={styles.button}>
-            <Button
-              // onPress={onPressLearnMore}
-              title="Hit API"
-              color="#333"
-              // accessibilityLabel="Learn more about this purple button"
-            />
+            <View style={styles.buttonContainer}>
+              <View style={styles.button}>
+                <Button
+                  // onPress={onPressLearnMore}
+                  title="Post"
+                  color="white"
+                  // accessibilityLabel="Learn more about this purple button"
+                />
+              </View>
+              <View style={styles.button}>
+                <Button
+                  // onPress={onPressLearnMore}
+                  title="Hit API"
+                  color="white"
+                  // accessibilityLabel="Learn more about this purple button"
+                />
+              </View>
+            </View>
           </View>
         </View>
-        </MenuContext>
       </View>
     )
   }

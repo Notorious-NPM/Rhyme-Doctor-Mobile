@@ -25,7 +25,6 @@ export default class Friends extends Component {
         ['Solomon G', 'six'],
         ['Azrael', 'six'],
       ],
-      friendsListDisplay: false,
       socket: null,
       // store: store.getState(),
       setInactive: {},
@@ -50,7 +49,7 @@ export default class Friends extends Component {
   //   this.socket = io(`http://${location}:3444`, {
   //     query: {
   //       roomId: 'lobby',
-  //     },
+      // },
   //   });
   
   //   this.socket.on('server.inLobby', (payload) => {
@@ -82,12 +81,9 @@ export default class Friends extends Component {
   //   this.setState({ currentChatIndex: index });
   // }
 
-  openFriendsList() {
     // const { socket } = this.state;
     // socket.emit('client.inLobby', this.state.store.user);
-    const { friendsListDisplay } = this.state;
-    this.setState({ friendsListDisplay: !friendsListDisplay });
-  }
+
 
   // openFriendList(e) {
   //   e.preventDefault();
@@ -117,43 +113,38 @@ export default class Friends extends Component {
         flex: 1,
         borderWidth: 1,
         borderColor: 'green',
-        width: '90%',
         }}
       >
-        <MenuContext>
         <SessionBar nav={this.props}/>
-        <ScrollView style={[friends.list, !friendsListDisplay && { display: 'none' }]}>
+        <ScrollView style={{ marginTop: 300}}>
+        <Text onPress={() => this.props.navigation.navigate('Home')}>Home</Text>
+          <Text style={{ fontSize: 30, padding: 5 }} >Chats</Text>
+          <View style={{ borderWidth: 1 }}>
           {friendsList.map((friend, index) =>
             (
-              <View key={Math.random() * 1000} style={{ flexDirection: 'row' }}>
-                <View key={Math.random() * 1000} style={friends.dot} />
+              <View style={friends.list}>
+                <View style={friends.dot} />
                 <Text
                   key={index}
-                  style={friends.friend}
+                  style={friends.name}
                   onPress={() => this.changeSelectedChat(index)}
                 >
                   {friend[0]}
                 </Text>
               </View>
             ))}
+          </View>
         </ScrollView>
-        <View style={friends.button}>
-          <TouchableOpacity onPress={() => this.openFriendsList()}>
-            <Text style={friends.container}>Friends</Text>
-          </TouchableOpacity>
-        </View>
         {friendsList.map((friend, index) =>
           (
             <View>
               {/* <Chat friendName={friend[0]} roomID={friend[1]} index={index} mainSocket={socket} /> */}
             </View>
           ))}
-          </MenuContext>
       </View>
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -162,19 +153,6 @@ const styles = StyleSheet.create({
 });
 
 const friends = StyleSheet.create({
-  button: {
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-    backgroundColor: '#000000',
-  },
-  container: {
-    color: 'yellow',
-    fontSize: 20,
-    fontWeight: 'bold',
-    fontStyle: 'italic',
-    textAlign: 'center'
-  },
   dot: {
     height: 10,
     width: 10,
@@ -185,17 +163,14 @@ const friends = StyleSheet.create({
     top: 10,
 
   },
-  friend: {
+  name: {
     color: 'black',
     fontSize: 40,
   },
   list: {
-    position: 'absolute',
-    bottom: 24,
-    right: 0,
-    borderWidth: 1,
-    borderColor: 'green',
-    width: 220,
-    height: 300,
+    flexDirection: 'row',
+    borderTopWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
   },
 });
