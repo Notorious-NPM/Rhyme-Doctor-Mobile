@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { MenuContext }  from 'react-native-menu';
 import SessionBar from '../navbar/SessionBar';
+import Dimensions from 'Dimensions'
 
 // import React, { Component } from 'react';
 // import axios from 'axios';
@@ -109,38 +110,34 @@ export default class Friends extends Component {
     const { friendsList, friendsListDisplay, socket } = this.state;
 
     return (
-      <View style={{
-        flex: 1,
-        borderWidth: 1,
-        borderColor: 'green',
-        }}
-      >
+      <View>
         <SessionBar nav={this.props}/>
-        <ScrollView style={{ marginTop: 300}}>
-        <Text onPress={() => this.props.navigation.navigate('Home')}>Home</Text>
-          <Text style={{ fontSize: 30, padding: 5 }} >Chats</Text>
-          <View style={{ borderWidth: 1 }}>
+        <View style={{ width: '100%', height: Dimensions.get('window').height, borderWidth: 2 }}>
+          <ScrollView>
+            <Text style={{ color: 'green', fontSize: 50, padding: 5 }} >Chats</Text>
+            <View style={{ borderWidth: 1 }}>
+            {friendsList.map((friend, index) =>
+              (
+                <View style={friends.list}>
+                  <View style={friends.dot} />
+                  <Text
+                    key={index}
+                    style={friends.name}
+                    onPress={() => this.changeSelectedChat(index)}
+                  >
+                    {friend[0]}
+                  </Text>
+                </View>
+              ))}
+            </View>
+          </ScrollView>
           {friendsList.map((friend, index) =>
             (
-              <View style={friends.list}>
-                <View style={friends.dot} />
-                <Text
-                  key={index}
-                  style={friends.name}
-                  onPress={() => this.changeSelectedChat(index)}
-                >
-                  {friend[0]}
-                </Text>
+              <View>
+                {/* <Chat friendName={friend[0]} roomID={friend[1]} index={index} mainSocket={socket} /> */}
               </View>
             ))}
-          </View>
-        </ScrollView>
-        {friendsList.map((friend, index) =>
-          (
-            <View>
-              {/* <Chat friendName={friend[0]} roomID={friend[1]} index={index} mainSocket={socket} /> */}
-            </View>
-          ))}
+        </View>
       </View>
     );
   }
@@ -164,7 +161,7 @@ const friends = StyleSheet.create({
 
   },
   name: {
-    color: 'black',
+    color: 'white',
     fontSize: 40,
   },
   list: {

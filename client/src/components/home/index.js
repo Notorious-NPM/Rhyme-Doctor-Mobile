@@ -1,6 +1,5 @@
 import React from 'react';
 import $ from 'jquery';
-import Dimensions from 'Dimensions'
 
 import { AppRegistry, StyleSheet, Text, View, Image, TextInput, Button } from 'react-native';
 
@@ -202,8 +201,6 @@ export default class Home extends React.Component {
 // }
 
 // export default Home;
-
-
 
 var styles = StyleSheet.create({
   button: {
