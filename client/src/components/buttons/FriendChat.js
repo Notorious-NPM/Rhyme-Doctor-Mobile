@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-nati
 import { MenuContext }  from 'react-native-menu';
 import SessionBar from '../navbar/SessionBar';
 import Dimensions from 'Dimensions';
+import FriendList from './FriendList';
 
 // import React, { Component } from 'react';
 // import axios from 'axios';
@@ -117,26 +118,16 @@ export default class Friends extends Component {
             <Text style={{ color: 'green', fontSize: 50, padding: 5 }}>Chats</Text>
             <View style={{ borderWidth: 1 }}>
             {friendsList.map((friend, index) =>
-              (
-                <View style={friends.list}>
-                  <View style={friends.dot} />
-                  <Text
-                    key={index}
-                    style={friends.name}
-                    onPress={() => this.changeSelectedChat(index)}
-                  >
-                    {friend[0]}
-                  </Text>
-                </View>
-              ))}
+                <FriendList key={index} index={index} friend={friend} changeSelectedChat={this.changeSelectedChat}/>
+              )}
             </View>
           </ScrollView>
-          {friendsList.map((friend, index) =>
+          {/* {friendsList.map((friend, index) =>
             (
-              <View>
-                {/* <Chat friendName={friend[0]} roomID={friend[1]} index={index} mainSocket={socket} /> */}
-              </View>
-            ))}
+              <View> }
+                <Chat friendName={friend[0]} roomID={friend[1]} index={index} mainSocket={socket} />
+                </View>
+            ))} */}
         </View>
       </View>
     );
