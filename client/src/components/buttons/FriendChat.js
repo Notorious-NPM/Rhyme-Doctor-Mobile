@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { MenuContext }  from 'react-native-menu';
 import SessionBar from '../navbar/SessionBar';
-import Dimensions from 'Dimensions'
+import Dimensions from 'Dimensions';
 
 // import React, { Component } from 'react';
 // import axios from 'axios';
@@ -114,7 +114,7 @@ export default class Friends extends Component {
         <SessionBar nav={this.props}/>
         <View style={{ width: '100%', height: Dimensions.get('window').height, borderWidth: 2 }}>
           <ScrollView>
-            <Text style={{ color: 'green', fontSize: 50, padding: 5 }} >Chats</Text>
+            <Text style={{ color: 'green', fontSize: 50, padding: 5 }}>Chats</Text>
             <View style={{ borderWidth: 1 }}>
             {friendsList.map((friend, index) =>
               (
