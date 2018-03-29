@@ -49,7 +49,7 @@ export default class Friends extends Component {
   //   this.socket = io(`http://${location}:3444`, {
   //     query: {
   //       roomId: 'lobby',
-  //     },
+      // },
   //   });
   
   //   this.socket.on('server.inLobby', (payload) => {
@@ -113,12 +113,11 @@ export default class Friends extends Component {
         flex: 1,
         borderWidth: 1,
         borderColor: 'green',
-        width: '100%',
         }}
       >
-        <MenuContext>
         <SessionBar nav={this.props}/>
-        <ScrollView>
+        <ScrollView style={{ marginTop: 300}}>
+        <Text onPress={() => this.props.navigation.navigate('Home')}>Home</Text>
           <Text style={{ fontSize: 30, padding: 5 }} >Chats</Text>
           <View style={{ borderWidth: 1 }}>
           {friendsList.map((friend, index) =>
@@ -142,7 +141,6 @@ export default class Friends extends Component {
               {/* <Chat friendName={friend[0]} roomID={friend[1]} index={index} mainSocket={socket} /> */}
             </View>
           ))}
-          </MenuContext>
       </View>
     );
   }
