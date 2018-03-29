@@ -8,7 +8,7 @@ import FriendList from './FriendList';
 // import React, { Component } from 'react';
 // import axios from 'axios';
 // import io from 'socket.io-client/dist/socket.io';
-// import Chat from './Chat';
+import Chat from './Chat';
 // import store from '../../redux/store';
 
 // import './FriendChat.css';
@@ -70,45 +70,17 @@ export default class Friends extends Component {
   //   this.setState( { socket: this.socket }); // eslint-disable-line
   // }
 
-  // async changeSelectedChat(index) {
-  //   const { socket, currentChatIndex } = this.state;
-
-  //   if (currentChatIndex >= 0) {
-  //     const currentChat = document.getElementById(`show-${currentChatIndex}`);
-  //     currentChat.style.width = '0px';
-  //     currentChat.classList.add('hide');
-  //   }
-
-  //   await socket.emit('client.selectedChat', index);
-  //   this.setState({ currentChatIndex: index });
-  // }
+  changeSelectedChat = (index) => {
+    // alert(index);
+    const { currentChatIndex } = this.state;
+    this.setState({ currentChatIndex: index });
+  }
 
     // const { socket } = this.state;
     // socket.emit('client.inLobby', this.state.store.user);
 
-
-  // openFriendList(e) {
-  //   e.preventDefault();
-  //   document.getElementById('friendList').style.height = '200px';
-
-  //   const { socket } = this.state;
-  //   socket.emit('client.inLobby', this.state.store.user);
-  // }
-
-  // closeFriendList() {
-  //   document.getElementById('friendList').style.height = '0';
-  //   const { currentChatIndex } = this.state;
-
-  //   if (currentChatIndex >= 0) {
-  //     const currentChat = document.getElementById(`show-${currentChatIndex}`);
-  //     currentChat.style.width = '0px';
-  //     currentChat.classList.add('hide');
-  //     this.setState({ currentChatIndex: -1 });
-  //   }
-  // }
-
   render() {
-    const { friendsList, friendsListDisplay, socket } = this.state;
+    const { friendsList, friendsListDisplay, socket, currentChatIndex } = this.state;
 
     return (
       <View>
@@ -122,12 +94,12 @@ export default class Friends extends Component {
               )}
             </View>
           </ScrollView>
-          {/* {friendsList.map((friend, index) =>
+          {friendsList.map((friend, index) =>
             (
-              <View> }
-                <Chat friendName={friend[0]} roomID={friend[1]} index={index} mainSocket={socket} />
-                </View>
-            ))} */}
+            <View key={index} style={ index === currentChatIndex ? friends.show : friends.hide }>
+              <Chat friendName={friend[0]} roomID={friend[1]} index={index} mainSocket={socket} />
+            </View>
+            ))}
         </View>
       </View>
     );
@@ -141,6 +113,12 @@ const styles = StyleSheet.create({
 });
 
 const friends = StyleSheet.create({
+  show: {
+    display: 'flex',
+  },
+  hide: {
+    display: 'none',
+  },
   dot: {
     height: 10,
     width: 10,

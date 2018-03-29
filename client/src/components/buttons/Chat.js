@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: 300,
     backgroundColor: 'grey',
-    color: 'black',
+    // color: 'black',
   },
   txtBubble:{
     backgroundColor: 'grey',
