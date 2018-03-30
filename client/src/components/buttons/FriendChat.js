@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { MenuContext }  from 'react-native-menu';
 import SessionBar from '../navbar/SessionBar';
 import Dimensions from 'Dimensions';
@@ -71,7 +71,6 @@ export default class Friends extends Component {
   // }
 
   changeSelectedChat = (index) => {
-    // alert(index);
     const { currentChatIndex } = this.state;
     this.setState({ currentChatIndex: index });
   }
@@ -83,11 +82,11 @@ export default class Friends extends Component {
     const { friendsList, friendsListDisplay, socket, currentChatIndex } = this.state;
 
     return (
-      <View>
+      <View style={styles.main}>
         <SessionBar nav={this.props}/>
         <View style={{ width: '100%', height: Dimensions.get('window').height, borderWidth: 2 }}>
           <ScrollView>
-            <Text style={{ color: 'green', fontSize: 50, padding: 5 }}>Chats</Text>
+            <Text style={styles.title}>Chats</Text>
             <View style={{ borderWidth: 1 }}>
             {friendsList.map((friend, index) =>
                 <FriendList key={index} index={index} friend={friend} changeSelectedChat={this.changeSelectedChat}/>
@@ -97,7 +96,7 @@ export default class Friends extends Component {
           {friendsList.map((friend, index) =>
             (
             <View key={index} style={ index === currentChatIndex ? friends.show : friends.hide }>
-              <Chat friendName={friend[0]} roomID={friend[1]} index={index} mainSocket={socket} />
+              <Chat friendName={friend[0]} roomID={friend[1]} index={index} mainSocket={socket} changeSelectedChat={this.changeSelectedChat} />
             </View>
             ))}
         </View>
@@ -107,36 +106,88 @@ export default class Friends extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#000000',
-  },
+  ...Platform.select({
+    ios: {
+      container: {
+        backgroundColor: '#000000',
+      },
+      main: {
+        backgroundColor: '#333',
+      },
+      title: {
+        color: '#EADC5B', 
+        fontSize: 50, 
+        padding: 5,
+      }
+    },
+    android: {
+      container: {
+        backgroundColor: '#000000',
+      },
+      main: {
+        backgroundColor: '#333',
+      }
+    }
+  })
 });
 
 const friends = StyleSheet.create({
-  show: {
-    display: 'flex',
-  },
-  hide: {
-    display: 'none',
-  },
-  dot: {
-    height: 10,
-    width: 10,
-    backgroundColor: '#bbb',
-    borderRadius: 100,
-    margin: 8,
-    position: 'relative',
-    top: 10,
-
-  },
-  name: {
-    color: 'white',
-    fontSize: 40,
-  },
-  list: {
-    flexDirection: 'row',
-    borderTopWidth: 1,
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-  },
+  ...Platform.select({
+    ios: {
+      show: {
+        display: 'flex',
+      },
+      hide: {
+        display: 'none',
+      },
+      dot: {
+        height: 10,
+        width: 10,
+        backgroundColor: '#bbb',
+        borderRadius: 100,
+        margin: 8,
+        position: 'relative',
+        top: 10,
+    
+      },
+      name: {
+        color: 'white',
+        fontSize: 40,
+      },
+      list: {
+        flexDirection: 'row',
+        borderTopWidth: 1,
+        borderLeftWidth: 1,
+        borderRightWidth: 1,
+      },
+    },
+    android: {
+      show: {
+        display: 'flex',
+      },
+      hide: {
+        display: 'none',
+      },
+      dot: {
+        height: 10,
+        width: 10,
+        backgroundColor: '#bbb',
+        borderRadius: 100,
+        margin: 8,
+        position: 'relative',
+        top: 10,
+    
+      },
+      name: {
+        color: 'white',
+        fontSize: 40,
+      },
+      list: {
+        flexDirection: 'row',
+        borderTopWidth: 1,
+        borderLeftWidth: 1,
+        borderRightWidth: 1,
+      },
+    }
+  })
 });

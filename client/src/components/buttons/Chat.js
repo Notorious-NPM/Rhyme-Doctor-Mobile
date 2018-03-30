@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client/dist/socket.io';
-import { ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Keyboard, Platform, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import location from '../../../../config';
 import Dimensions from 'Dimensions';
-
-// import('./Chat.css');
 
 class Chat extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      msg: '',
+      text: '',
       messages: [],
       socket: null,
       randomCode: (Math.random() * 666).toString(),
+      unhideInput: false,
     };
   }
 
@@ -30,29 +29,45 @@ class Chat extends Component {
       } else {
         text = this.props.friendName + ': ' + text;
       }
-      this.setState({ messages: [...this.state.messages, msg] });
+      this.setState({ messages: [...this.state.messages, text] });
     });
 
     this.setState({ socket: this.socket }) // eslint-disable-line
-
-    // setTimeout(() => document.getElementById('selectedChat').style.width = "250px", 0);
   }
 
-  sendMsg() {
+  componentWillMount() {
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+  }
+
+  componentWillUnmount() {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
+
+  _keyboardDidShow = () => {
+    this.setState({ unhideInput: true })
+  }
+
+  _keyboardDidHide = () => {
+    this.setState({ unhideInput: false })
+  }
+
+  sendMsg = () => {
     const { socket, randomCode, text } = this.state;
     socket.emit('client.sendMsg', { text, randomCode });
     this.textInput.clear();
   }
 
   render() {
-    const { messages } = this.state;
+    const { messages, unhideInput } = this.state;
 
     return (
+      <ScrollView>
       <View>
-        <Text>Keep NavBar here</Text>
         <View style={styles.main}>
           <View>
-            <Text style={styles.close}>X</Text>
+            <Text style={styles.close} onPress={() => this.props.changeSelectedChat(-1)}>X</Text>
           </View>
           <View style={styles.chatDisplay}>
             <ScrollView     
@@ -69,63 +84,127 @@ class Chat extends Component {
               })}
             </ScrollView>
           </View>
-          <View style={styles.textInput}>
-            <TextInput style={{ fontSize: 25 }} placeholder="enter txt here" 
-              ref={input => {this.textInput = input}}
-              onChangeText={(text) => this.setState({text})} 
-              onSubmitEditing={() => this.sendMsg()}
-            />
+          <View style={[styles.textInput, unhideInput && styles.mobilePopShow]}>
+            <TextInput style={{ fontSize: 25, zIndex: 1, }} placeholder="enter txt here" 
+                ref={input => {this.textInput = input}}
+                onChangeText={(text) => this.setState({text})} 
+                onSubmitEditing={() => this.sendMsg()}
+              />
           </View>
         </View>
       </View>
+      </ScrollView>
     );
   }
 }
 
 export default Chat;
 
-
 const styles = StyleSheet.create({
-  close: {
-    textAlign: 'right',
-    marginRight: 5,
-  },
-  main:{
-    margin: '2%',
-    height: Dimensions.get('window').height * .9,
-    borderWidth: 1, 
-    borderColor: 'pink',
-    width: '95%',
-  },
-  chatDisplay: {
-    marginRight: '5%',
-    marginLeft: '5%',
-    marginBottom: 10,
-    width: '90%',
-    height: '80%',
-    borderWidth: 1,
-    borderColor: 'red',
-    backgroundColor: 'white',
-  },
-  chatText: {
-    fontSize: 20,
-    paddingBottom: 2,
-  },
-  textInput: {
-    height: 40,
-    left: '7%', 
-    right: '7%',
-    borderWidth: 1,
-    width: 300,
-    backgroundColor: 'grey',
-    // color: 'black',
-  },
-  txtBubble:{
-    backgroundColor: 'grey',
-    borderRadius: 10,
-    marginTop: 5,
-    marginRight: 5,
-    marginLeft: 5,
-    flex: 1,
-  },
+  ...Platform.select({
+    ios: {
+      close: {
+        textAlign: 'right',
+        marginRight: 5,
+        color: 'white',
+        fontSize: 20,
+      },
+      main: {
+        margin: '2%',
+        height: Dimensions.get('window').height * .87,
+        borderWidth: 1, 
+        backgroundColor: 'black',
+        width: '95%',
+      },
+      mobilePopShow: {
+        position: 'absolute',
+        width: '100%',
+        top: '48%',
+        left: 0,
+      },
+      chatDisplay: {
+        marginRight: '5%',
+        marginLeft: '5%',
+        marginBottom: 10,
+        width: '90%',
+        height: '80%',
+        borderWidth: 1,
+        borderColor: 'red',
+        backgroundColor: 'white',
+      },
+      chatText: {
+        fontSize: 20,
+        paddingBottom: 2,
+        color: 'black',
+      },
+      textInput: {
+        height: 40,
+        left: '7%', 
+        right: '7%',
+        borderWidth: 1,
+        width: 300,
+        backgroundColor: 'white',
+      },
+      txtBubble:{
+        backgroundColor: 'grey',
+        borderRadius: 10,
+        marginTop: 5,
+        marginRight: 5,
+        marginLeft: 5,
+        flex: 1,
+      },
+    }, 
+    android: {
+      close: {
+        textAlign: 'right',
+        marginRight: 5,
+        color: 'white',
+        fontSize: 20,
+      },
+      main: {
+        margin: '2%',
+        height: Dimensions.get('window').height * .87,
+        borderWidth: 1, 
+        backgroundColor: 'black',
+        width: '95%',
+      },
+      mobilePopShow: {
+        position: 'absolute',
+        width: '100%',
+        top: '48%',
+        left: 0,
+      },
+      chatDisplay: {
+        marginRight: '5%',
+        marginLeft: '5%',
+        marginBottom: 10,
+        width: '90%',
+        height: '80%',
+        borderWidth: 1,
+        borderColor: 'red',
+        backgroundColor: 'white',
+      },
+      chatText: {
+        fontSize: 20,
+        paddingBottom: 2,
+        color: 'black',
+      },
+      textInput: {
+        height: 40,
+        left: '7%', 
+        right: '7%',
+        borderWidth: 1,
+        width: 300,
+        backgroundColor: 'white',
+      },
+      txtBubble:{
+        backgroundColor: 'grey',
+        borderRadius: 10,
+        marginTop: 5,
+        marginRight: 5,
+        marginLeft: 5,
+        flex: 1,
+      },
+    }
+  })
 })
