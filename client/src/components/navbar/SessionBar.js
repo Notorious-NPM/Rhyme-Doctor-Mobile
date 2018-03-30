@@ -38,7 +38,7 @@ const SessionBar = ({ nav }) => (
           <Text onPress={() => nav.navigation.navigate('RapPost')}>Top/News Feed</Text>
         </MenuOption>
         <MenuOption value={3}>
-          <Text>Profile</Text>
+          <Text onPress={() => nav.navigation.navigate('Profile')}>Profile</Text>
         </MenuOption>
         <MenuOption value={4}>
           <Text>Subscriptions</Text>

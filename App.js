@@ -7,6 +7,7 @@ import { StackNavigator, DrawerNavigator } from 'react-navigation';
 import Home from './client/src/components/home/index';
 import FriendChat from './client/src/components/buttons/FriendChat';
 import RapPost from './client/src/components/rap-post/RapPost';
+import Profile from './client/src/components/user/Profile';
 
 const RootStack = StackNavigator(
   {
@@ -19,10 +20,12 @@ const RootStack = StackNavigator(
     },
     RapPost: {
       screen: RapPost,
+    },
+    Profile: {
+      screen: Profile,
     }
   },
   {
-    // headerMode: 'none',
     initialRouteName: 'Home',
     headerMode: 'none',
   }

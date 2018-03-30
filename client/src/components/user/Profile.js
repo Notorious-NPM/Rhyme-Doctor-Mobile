@@ -1,6 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import { AppRegistry, StyleSheet, Text, View, Image, TextInput, Button } from 'react-native';
+import SessionBar from '../navbar/SessionBar';
+
+import location from '../../../../config';
 // import UserPosts from './UserPosts';
 // import Stats from './Stats';
 // import ProfileImage from './ProfileImage';
@@ -10,28 +13,28 @@ import { AppRegistry, StyleSheet, Text, View, Image, TextInput, Button } from 'r
 // import store from '../../redux/store';
 
 export default class Profile extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     userPosts: [],
-  //     username: '',
-  //     likeCount: '',
-  //     image: '',
-  //     bio: '',
-  //     received: false,
-  //   };
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      userPosts: [],
+      username: '',
+      likeCount: '',
+      image: '',
+      bio: '',
+      received: false,
+    };
+  }
 
-  // componentWillMount() {
-  //   if (this.props.location.state) {
-  //     const { username } = this.props.location.state;
-  //     this.getUserData(username);
-  //     this.getUserPosts(username);
-  //   } else {
-  //     this.getUserData();
-  //     this.getUserPosts();
-  //   }
-  // }
+  componentWillMount() {
+    // if (this.props.location.state) {
+    //   const { username } = this.props.location.state;
+    //   this.getUserData(username);
+    //   this.getUserPosts(username);
+    // } else {
+      this.getUserData();
+      this.getUserPosts();
+    // }
+  }
 
   // componentDidMount() {
   //   this.setState(store.getState());  // eslint-disable-line
@@ -40,31 +43,31 @@ export default class Profile extends React.Component {
   //   });
   // }
 
-  // getUserData = async (username) => {
-  //   try {
-  //     const userData = username ? await axios.get('api/profile', { params: { name: username } }) : await axios.get('api/profile');
-  //     this.setState({
-  //       username: userData.data.name,
-  //       likeCount: userData.data.like_count,
-  //       image: userData.data.image,
-  //       bio: userData.data.bio,
-  //       received: true,
-  //     });
-  //   } catch (err) {
-  //     console.log('Failed to get user posts');
-  //   }
-  // }
+  getUserData = async (meowskers) => {
+    try {
+      const userData = username ? await axios.get('http://${location}:3000/api/profile', { params: { name: username } }) : await axios.get('api/profile');
+      this.setState({
+        username: userData.data.name,
+        likeCount: userData.data.like_count,
+        image: userData.data.image,
+        bio: userData.data.bio,
+        received: true,
+      });
+    } catch (err) {
+      console.log('Failed to get user posts');
+    }
+  }
 
-  // getUserPosts = async (username) => {
-  //   try {
-  //     const userPosts = username ? await axios.get('api/profile/posts', { params: { name: username } }) : await axios.get('api/profile/posts');
-  //     this.setState({
-  //       userPosts: userPosts.data,
-  //     });
-  //   } catch (err) {
-  //     console.log('Failed to get user posts');
-  //   }
-  // }
+  getUserPosts = async (meowskers) => {
+    try {
+      const userPosts = username ? await axios.get('http://${location}:3000/api/profile/posts', { params: { name: username } }) : await axios.get('api/profile/posts');
+      this.setState({
+        userPosts: userPosts.data,
+      });
+    } catch (err) {
+      console.log('Failed to get user posts');
+    }
+  }
 
   render() {
     // const { state } = this.props.location;
@@ -74,13 +77,14 @@ export default class Profile extends React.Component {
     let name = 'meowskers'
     return (
       <View style={styles.container}>
+        <SessionBar nav={this.props}/>
         <View style={styles.innerContainer}>
           <View style={styles.topContainer}>
             <View style={styles.image}>
-              <Image source={pic} style={{height: 100, width: 100}}/>
+              <Image source={this.state.image} style={{height: 100, width: 100}}/>
             </View>
             <View style={styles.bio}>
-              <Text>{name}</Text>
+              <Text>{this.state.username}</Text>
             </View>
           </View>
           <Text style={{color:'white', textAlign:'center', paddingTop: 10, paddingBottom: 10}}>Compose as you normally would. But be aware: commas signify a word to be rhymed with, as does the end of a line.</Text>
