@@ -1,10 +1,11 @@
 import React from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import Comments from './comments';
-import Alert from '../alert';
-import Modal from '../modal';
-import './rapPost.css';
+// import { Link } from 'react-router-dom';
+// import Comments from './comments';
+// import Alert from '../alert';
+// import Modal from '../modal';
+// import './rapPost.css';
+import { Text, View } from 'react-native';
 
 class RapPostEntry extends React.Component {
   constructor(props) {
@@ -111,6 +112,9 @@ class RapPostEntry extends React.Component {
     const { username } = this.props.rapPost;
     const rapText = this.props.rapPost.text.split('\n').map(line => <div className="rap-text">{line}</div>);
     return (
+      <View>
+        <Text>Hello from RapPostEntry</Text>
+      </View>
       // <div className="col-md-4">
       //   <div className="card">
       //     <div className="card-body">
