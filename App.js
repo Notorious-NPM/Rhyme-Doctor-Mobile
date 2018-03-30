@@ -25,7 +25,7 @@ const RootStack = StackNavigator(
     },
     Profile: {
       screen: Profile,
-    }
+    },
     Login: {
       screen: Login,
     },
