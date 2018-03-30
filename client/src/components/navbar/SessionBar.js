@@ -5,6 +5,8 @@ import Menu, {MenuOptions, MenuOption, MenuTrigger} from 'react-native-menu';
 import createHistory from 'history/createBrowserHistory';
 import $ from 'jquery';
 
+import Home from '../home/index';
+
 // import store from '../../redux/store';
 
 // const history = createHistory();

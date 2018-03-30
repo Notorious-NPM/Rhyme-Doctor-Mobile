@@ -3,7 +3,7 @@ import $ from 'jquery';
 
 import { AppRegistry, StyleSheet, Text, View, Image, TextInput, Button, Platform } from 'react-native';
 
-import { MenuContext }  from 'react-native-menu';
+import MenuContext  from 'react-native-menu';
 import SessionBar from '../navbar/SessionBar';
 
 // import Textarea from '../textarea/Textarea';
@@ -90,6 +90,27 @@ export default class Home extends React.Component {
 }
 
 // class Home extends React.Component {
+  var styles = StyleSheet.create({
+    button: {
+      margin: 10,
+      borderColor: '#D7D7D7',
+      borderWidth: 1
+    },
+    buttonContainer: {
+      flex: 1,
+      width: '100%',
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'row',
+    },
+    container: {
+      // marginLeft: 500
+      flex: 1,
+      // backgroundColor: '#333',
+      // alignItems: 'center',
+      // justifyContent: 'center'
+    }
+  });
 //   constructor(props) {
 //     super(props);
 //     this.state = store.getState();
