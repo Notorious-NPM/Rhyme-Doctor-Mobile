@@ -4,8 +4,6 @@ import { Keyboard, Platform, ScrollView, StyleSheet, Text, TextInput, View } fro
 import location from '../../../../config';
 import Dimensions from 'Dimensions';
 
-// import('./Chat.css');
-
 class Chat extends Component {
   constructor(props) {
     super(props);
@@ -35,8 +33,6 @@ class Chat extends Component {
     });
 
     this.setState({ socket: this.socket }) // eslint-disable-line
-
-    // setTimeout(() => document.getElementById('selectedChat').style.width = "250px", 0);
   }
 
   componentWillMount() {
@@ -148,7 +144,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         width: 300,
         backgroundColor: 'white',
-        // color: 'black',
       },
       txtBubble:{
         backgroundColor: 'grey',
@@ -163,13 +158,21 @@ const styles = StyleSheet.create({
       close: {
         textAlign: 'right',
         marginRight: 5,
+        color: 'white',
+        fontSize: 20,
       },
-      main:{
+      main: {
         margin: '2%',
-        height: Dimensions.get('window').height * .9,
+        height: Dimensions.get('window').height * .87,
         borderWidth: 1, 
-        borderColor: 'pink',
+        backgroundColor: 'black',
         width: '95%',
+      },
+      mobilePopShow: {
+        position: 'absolute',
+        width: '100%',
+        top: '48%',
+        left: 0,
       },
       chatDisplay: {
         marginRight: '5%',
@@ -184,6 +187,7 @@ const styles = StyleSheet.create({
       chatText: {
         fontSize: 20,
         paddingBottom: 2,
+        color: 'black',
       },
       textInput: {
         height: 40,
@@ -191,8 +195,7 @@ const styles = StyleSheet.create({
         right: '7%',
         borderWidth: 1,
         width: 300,
-        backgroundColor: 'grey',
-        // color: 'black',
+        backgroundColor: 'white',
       },
       txtBubble:{
         backgroundColor: 'grey',
