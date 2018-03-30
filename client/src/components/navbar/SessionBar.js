@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, StyleSheet, View, Text} from 'react-native';
+import { Button, Platform, StyleSheet, View, Text } from 'react-native';
 import Menu, {MenuOptions, MenuOption, MenuTrigger} from 'react-native-menu';
 // import { Link } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
@@ -32,25 +32,31 @@ const SessionBar = ({ nav }) => (
       </MenuTrigger>
       <MenuOptions>
         <MenuOption value={1}>
-          <Text onPress={() => nav.navigation.navigate('Home')}>Home</Text>
+          <Text style={styles.menuText} onPress={() => nav.navigation.navigate('Home')}>Home</Text>
         </MenuOption>
+        <View style={styles.bottomRule} />
         <MenuOption value={2}>
-          <Text onPress={() => nav.navigation.navigate('RapPost')}>Top/News Feed</Text>
+          <Text style={styles.menuText} onPress={() => nav.navigation.navigate('RapPost')}>Top/News Feed</Text>
         </MenuOption>
+        <View style={styles.bottomRule} />
         <MenuOption value={3}>
-          <Text onPress={() => nav.navigation.navigate('Profile')}>Profile</Text>
+          <Text style={styles.menuText} onPress={() => nav.navigation.navigate('Profile')}>Profile</Text>
         </MenuOption>
+        <View style={styles.bottomRule} />
         <MenuOption value={4}>
-          <Text>Subscriptions</Text>
+          <Text style={styles.menuText}>Subscriptions</Text>
         </MenuOption>
+        <View style={styles.bottomRule} />
         <MenuOption value={5}>
-          <Text onPress={() => nav.navigation.navigate('Friends')}>Friends</Text>
+          <Text style={styles.menuText} onPress={() => nav.navigation.navigate('Friends')}>Friends</Text>
         </MenuOption>
+        <View style={styles.bottomRule} />
         <MenuOption value={6}>
-          <Text>About</Text>
+          <Text style={styles.menuText}>About</Text>
         </MenuOption>
+        <View style={styles.bottomRule} />
         <MenuOption value={7}>
-          <Text>Logout</Text>
+          <Text style={styles.menuText}>Logout</Text>
         </MenuOption>
       </MenuOptions>
     </Menu>
@@ -58,23 +64,30 @@ const SessionBar = ({ nav }) => (
 );
 
 var styles = StyleSheet.create({
-  toolbar:{
-    backgroundColor:'#ffff64',
-    paddingTop:30,
-    paddingBottom:10,
-    flexDirection:'row'
-  },
-  toolbarButton:{
-      width: 50,
-      color:'#333',
-      textAlign:'center'
-  },
-  toolbarTitle:{
-      color:'#333',
-      textAlign:'center',
-      fontWeight:'bold',
-      flex:1
-  }
+  ...Platform.select({
+    ios: {
+      menuText: {
+        fontSize: 20
+      },
+      bottomRule: {
+        borderBottomColor: 'black',
+        borderBottomWidth: 1,
+        width: '80%',
+        marginLeft: '10%'
+      }
+    },
+    android: {
+      menuText: {
+        fontSize: 20
+      },
+      bottomRule: {
+        borderBottomColor: 'black',
+        borderBottomWidth: 1,
+        width: '80%',
+        marginLeft: '10%'
+      }
+    }
+  })
 })
 
 export default SessionBar;
