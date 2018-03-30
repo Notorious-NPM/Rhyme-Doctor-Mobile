@@ -1,8 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
-import Dimensions from 'Dimensions'
 
-import { AppRegistry, StyleSheet, Text, View, Image, TextInput, Button } from 'react-native';
+import { AppRegistry, StyleSheet, Text, View, Image, TextInput, Button, Platform } from 'react-native';
 
 import { MenuContext }  from 'react-native-menu';
 import SessionBar from '../navbar/SessionBar';
@@ -54,7 +53,7 @@ export default class Home extends React.Component {
           <View>
             <Image source={pic} style={{ alignSelf: 'stretch', height: 200}}/>
           </View>
-          <View style={{ marginTop: 200, height: 80 }}>
+          <View>
             <Text style={{color:'white', textAlign:'center', paddingTop: 10, paddingBottom: 10}}>Compose as you normally would. But be aware: commas signify a word to be rhymed with, as does the end of a line.</Text>
             <TextInput
               style={{height: 150, width: 300, alignSelf: 'center', backgroundColor: '#D7D7D7', borderColor: 'gray', borderWidth: 1}}
@@ -67,6 +66,7 @@ export default class Home extends React.Component {
               <View style={styles.button}>
                 <Button
                   // onPress={onPressLearnMore}
+                  onPress={() => alert('add function here')}
                   title="Post"
                   color="white"
                   // accessibilityLabel="Learn more about this purple button"
@@ -75,6 +75,7 @@ export default class Home extends React.Component {
               <View style={styles.button}>
                 <Button
                   // onPress={onPressLearnMore}
+                  onPress={() => alert('add function here')}
                   title="Hit API"
                   color="white"
                   // accessibilityLabel="Learn more about this purple button"
@@ -203,24 +204,47 @@ export default class Home extends React.Component {
 
 // export default Home;
 
-
-
 var styles = StyleSheet.create({
-  button: {
-    margin: 10,
-    borderColor: '#D7D7D7',
-    borderWidth: 1
-  },
-  buttonContainer: {
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#333',
-    // alignItems: 'center',
-    // justifyContent: 'center'
-  }
+  ...Platform.select({
+    ios: {
+      button: {
+        margin: 10,
+        borderColor: '#D7D7D7',
+        borderWidth: 1
+      },
+      buttonContainer: {
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+      },
+      container: {
+        flex: 1,
+        backgroundColor: '#333',
+        // alignItems: 'center',
+        // justifyContent: 'center'
+      }
+    },
+    android: {
+      button: {
+        margin: 10,
+        borderColor: '#D7D7D7',
+        borderWidth: 1
+      },
+      buttonContainer: {
+        width: '100%',
+        justifyContent: 'center',
+        // alignItems: 'center',
+        flexDirection: 'row',
+      },
+      container: {
+        // flex: 1,
+        backgroundColor: 'white',
+        // alignItems: 'center',
+        // justifyContent: 'center'
+
+      }
+    }
+  })
+  
 });

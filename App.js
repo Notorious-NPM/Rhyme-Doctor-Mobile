@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppRegistry, StyleSheet, Text, View, Image, TextInput, Button } from 'react-native';
+import { AppRegistry } from 'react-native';
 import { registerRootComponent } from 'expo';
 import { StackNavigator } from 'react-navigation';
 import { MenuContext }  from 'react-native-menu';
@@ -18,27 +18,19 @@ const RootStack = StackNavigator(
   },
   {
     initialRouteName: 'Home',
+    headerMode: 'none',
   }
 )
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <MenuContext>
-          <RootStack />
-        </MenuContext>
-      </View>
+      <MenuContext style={{ flex: 1 }}>
+        <RootStack />
+      </MenuContext>
     );
   }
 }
-
-var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#333',
-  }
-});
 
 registerRootComponent(App);
 AppRegistry.registerComponent('SessionBar', () => App);
