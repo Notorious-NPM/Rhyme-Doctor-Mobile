@@ -101,7 +101,7 @@ export default class Profile extends React.Component {
               <Image source={pic} style={{height: 100, width: 100}}/>
             </View>
             <View style={styles.bio}>
-              <Text style={{color:'white', fontSize:16, fontWeight: 'bold', marginLeft: 10}}>{name}</Text>
+              <Text style={{color:'white', fontSize:20, fontWeight: 'bold', marginLeft: 10}}>{name}</Text>
               <Text style={{color:'white', fontSize:14, marginLeft: 10, flex: 1}}>{bio}</Text>
             </View>
           </View>
@@ -165,7 +165,7 @@ var styles = StyleSheet.create({
   },
   bio: {
     flex: 1,
-    marginTop: 10,
+    marginTop: 5,
     flexDirection: 'column'
   },
   topContainer: {
