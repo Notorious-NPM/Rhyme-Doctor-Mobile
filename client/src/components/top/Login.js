@@ -13,6 +13,32 @@ const loginInfo = t.struct({
   password: t.String,
 })
 
+var tcomb = require('tcomb-form-native');
+
+// overriding the text color for every textbox in every form of your app
+tcomb.form.Form.stylesheet.textbox.normal.backgroundColor = 'white';
+
+
+const formStyles = {
+  ...Form.stylesheet,
+  controlLabel: {
+    normal: {
+      color: 'white',
+      fontSize: 20,
+      fontWeight: '700'
+    }
+  },
+  fields: {
+    username: {
+      color: 'white'
+    }
+  }
+}
+
+const options = {
+  stylesheet: formStyles,
+}
+
 const Login = (props) => {   //changed { history } to props.  Affects line 34
   const submitHandler = (e) => {
     e.preventDefault();
@@ -39,10 +65,10 @@ const Login = (props) => {   //changed { history } to props.  Affects line 34
     });
   };
   return (
-    <View>
-      <View>
-        <NoSessionBar nav={props} />
-        <Form type={loginInfo} />
+    <View style={styles.main}>
+      <NoSessionBar nav={props} />
+      <View style={styles.form}>
+        <Form type={loginInfo} options={options} />
       </View>
     </View>
     // <div className="container-fluid filler">
@@ -70,3 +96,25 @@ const Login = (props) => {   //changed { history } to props.  Affects line 34
 };
 
 export default Login;
+
+const styles = StyleSheet.create({
+  ...Platform.select({
+    ios: {
+      main: {
+        backgroundColor: '#333',
+        flex: 1,
+      },
+      form: {
+        // alignItems: 'center',
+        marginTop: 50,
+        // borderWidth: 5,
+        marginLeft: 10,
+        marginRight: 10,
+      },
+    },
+    android: {
+
+    }
+  })
+
+})
