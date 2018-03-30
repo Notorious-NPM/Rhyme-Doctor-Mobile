@@ -1,9 +1,19 @@
 import React from 'react';
 import $ from 'jquery';
 
-import store from '../../redux/store';
+// import store from '../../redux/store';
+import { Platform, StyleSheet, Text, TextInput, View } from 'react-native';
+import t from 'tcomb-form-native';
+import NoSessionBar from '../navbar/NoSessionBar';
 
-const Login = ({ history }) => {
+const Form = t.form.Form;
+
+const loginInfo = t.struct({
+  username: t.String,
+  password: t.String,
+})
+
+const Login = (props) => {   //changed { history } to props.  Affects line 34
   const submitHandler = (e) => {
     e.preventDefault();
     const [username, password] = [$('#username').val(), $('#password').val()];
@@ -21,7 +31,7 @@ const Login = ({ history }) => {
             username,
           },
         });
-        history.push('/');
+        props.history.push('/');   //check if this works later
       },
       error({ responseText }) {
         alert(responseText); // eslint-disable-line
@@ -29,6 +39,12 @@ const Login = ({ history }) => {
     });
   };
   return (
+    <View>
+      <View>
+        <NoSessionBar nav={props} />
+        <Form type={loginInfo} />
+      </View>
+    </View>
     // <div className="container-fluid filler">
     //   <div className="row center-block mx-auto">
     //     <div
