@@ -6,6 +6,7 @@ import { MenuContext }  from 'react-native-menu';
 
 import Home from './client/src/components/home/index';
 import FriendChat from './client/src/components/buttons/FriendChat';
+import RapPost from './client/src/components/rap-post/RapPost';
 
 const RootStack = StackNavigator(
   {
@@ -15,6 +16,9 @@ const RootStack = StackNavigator(
     Friends: {
       screen: FriendChat,
     },
+    RapPost: {
+      screen: RapPost,
+    }
   },
   {
     initialRouteName: 'Home',

@@ -30,10 +30,10 @@ const SessionBar = ({ nav }) => (
       </MenuTrigger>
       <MenuOptions>
         <MenuOption value={1}>
-        <Text onPress={() => nav.navigation.navigate('Home')}>Home</Text>
+          <Text onPress={() => nav.navigation.navigate('Home')}>Home</Text>
         </MenuOption>
         <MenuOption value={2}>
-          <Text>Top/News Feed</Text>
+          <Text onPress={() => nav.navigation.navigate('RapPost')}>Top/News Feed</Text>
         </MenuOption>
         <MenuOption value={3}>
           <Text>Profile</Text>
