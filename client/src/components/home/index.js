@@ -3,7 +3,7 @@ import $ from 'jquery';
 
 import { AppRegistry, StyleSheet, Text, View, Image, TextInput, Button, Platform } from 'react-native';
 
-import { MenuContext }  from 'react-native-menu';
+import MenuContext  from 'react-native-menu';
 import SessionBar from '../navbar/SessionBar';
 
 // import Textarea from '../textarea/Textarea';
@@ -13,7 +13,7 @@ import SessionBar from '../navbar/SessionBar';
 // import ColorPicker from '../toolbar/ColorPicker';
 // import store from '../../redux/store';
 
-import location from '../../../../config';
+// import location from '../../../../config';
 // import './home.css';
 
 // const centerStyle = {
@@ -238,8 +238,8 @@ var styles = StyleSheet.create({
         flexDirection: 'row',
       },
       container: {
-        // flex: 1,
-        backgroundColor: 'white',
+        flex: 1,
+        backgroundColor: '#333',
         // alignItems: 'center',
         // justifyContent: 'center'
 

@@ -5,6 +5,8 @@ import Menu, {MenuOptions, MenuOption, MenuTrigger} from 'react-native-menu';
 import createHistory from 'history/createBrowserHistory';
 import $ from 'jquery';
 
+import Home from '../home/index';
+
 // import store from '../../redux/store';
 
 // const history = createHistory();
@@ -36,7 +38,7 @@ const SessionBar = ({ nav }) => (
           <Text onPress={() => nav.navigation.navigate('RapPost')}>Top/News Feed</Text>
         </MenuOption>
         <MenuOption value={3}>
-          <Text>Profile</Text>
+          <Text onPress={() => nav.navigation.navigate('Profile')}>Profile</Text>
         </MenuOption>
         <MenuOption value={4}>
           <Text>Subscriptions</Text>
