@@ -68,7 +68,7 @@ export default class Home extends React.Component {
                   // onPress={onPressLearnMore}
                   onPress={() => alert('add function here')}
                   title="Post"
-                  color="white"
+                  color="#333"
                   // accessibilityLabel="Learn more about this purple button"
                 />
               </View>
@@ -77,7 +77,7 @@ export default class Home extends React.Component {
                   // onPress={onPressLearnMore}
                   onPress={() => alert('add function here')}
                   title="Hit API"
-                  color="white"
+                  color="#333"
                   // accessibilityLabel="Learn more about this purple button"
                 />
               </View>
@@ -90,27 +90,6 @@ export default class Home extends React.Component {
 }
 
 // class Home extends React.Component {
-  var styles = StyleSheet.create({
-    button: {
-      margin: 10,
-      borderColor: '#D7D7D7',
-      borderWidth: 1
-    },
-    buttonContainer: {
-      flex: 1,
-      width: '100%',
-      justifyContent: 'center',
-      alignItems: 'center',
-      flexDirection: 'row',
-    },
-    container: {
-      // marginLeft: 500
-      flex: 1,
-      // backgroundColor: '#333',
-      // alignItems: 'center',
-      // justifyContent: 'center'
-    }
-  });
 //   constructor(props) {
 //     super(props);
 //     this.state = store.getState();
@@ -259,8 +238,8 @@ var styles = StyleSheet.create({
         flexDirection: 'row',
       },
       container: {
-        // flex: 1,
-        backgroundColor: 'white',
+        flex: 1,
+        backgroundColor: '#333',
         // alignItems: 'center',
         // justifyContent: 'center'
 
