@@ -3,8 +3,9 @@ import $ from 'jquery';
 
 import { AppRegistry, StyleSheet, Text, View, Image, TextInput, Button, Platform } from 'react-native';
 
-import MenuContext  from 'react-native-menu';
 import SessionBar from '../navbar/SessionBar';
+import { MenuContext }  from 'react-native-menu';
+import NavBar from '../navbar/index';
 
 // import Textarea from '../textarea/Textarea';
 // import Paragraph from '../text/Paragraph';
@@ -48,7 +49,7 @@ export default class Home extends React.Component {
     };
     return (
       <View style={styles.container}>
-        <SessionBar nav={this.props}/>
+        <NavBar nav={this.props} />
         <View>
           <View>
             <Image source={pic} style={{ alignSelf: 'stretch', height: 200}}/>
