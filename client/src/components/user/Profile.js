@@ -13,25 +13,25 @@ import location from '../../../../config'
 // import store from '../../redux/store';
 
 export default class Profile extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     userPosts: [],
-  //     username: '',
-  //     likeCount: '',
-  //     image: '',
-  //     bio: '',
-  //     received: false,
-  //   };
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      userPosts: [],
+      username: '',
+      likeCount: '',
+      image: '',
+      bio: '',
+      received: false,
+    };
+  }
 
-  componentWillMount() {
+  componentDidMount() {
     // if (this.props.location.state) {
     //   const { username } = this.props.location.state;
     //   this.getUserData(username);
     //   this.getUserPosts(username);
     // } else {
-      // this.getUserData();
+      this.getUserData('meowskers');
       // this.getUserPosts();
     // }
   }
@@ -43,21 +43,33 @@ export default class Profile extends React.Component {
   //   });
   // }
 
-  // getUserData = async (username) => {
-  //   // onst userData = axios.get('http://localhost:3000/api/profile');
-  //   try {
-  //     const userData = username ? await axios.get('http://{location}:3000/api/profile', { params: { name: username } }) : await axios.get('http://{location}:3000/api/profile');
-  //     this.setState({
-  //       username: userData.data.name,
-  //       likeCount: userData.data.like_count,
-  //       image: userData.data.image,
-  //       bio: userData.data.bio,
-  //       received: true,
-  //     });
-  //   } catch (err) {
-  //     console.log('Failed to get user posts');
-  //   }
-  // }
+  getUserData = (username) => {
+    console.log(`http://${location}:3421/api/profile`);
+    console.log(username);
+    // console.log
+    // onst userData = axios.get('http://localhost:3000/api/profile');
+      // const userData = username ? axios.get('http://localhost:3000/api/profile', { params: { name: username } }) : axios.get('http://192.168.1.11:3000/api/profile');
+      axios.get(`http://${location}:3421/api/profile`, { params: { name: username } })
+        .then(function(res) {
+          console.log('res', res.data)
+        })
+
+        .catch(function(err) {
+          console.log('err', err)
+        })
+      
+      // console.log(userData);
+      // this.setState({
+      //   username: userData.data.name,
+      //   likeCount: userData.data.like_count,
+      //   image: userData.data.image,
+      //   bio: userData.data.bio,
+      //   received: true,
+      // });
+    // } catch (err) {
+    //   console.log('Failed to get user data', err);
+    // }
+  }
 
   // getUserData = async (username) => {
   //   try {
@@ -101,7 +113,7 @@ export default class Profile extends React.Component {
               <Image source={pic} style={{height: 100, width: 100}}/>
             </View>
             <View style={styles.bio}>
-              <Text style={{color:'white', fontSize:20, fontWeight: 'bold', marginLeft: 10}}>{name}</Text>
+              <Text style={{color:'white', fontSize:20, fontWeight: 'bold', marginLeft: 10}}>{this.state.username}</Text>
               <Text style={{color:'white', fontSize:14, marginLeft: 10, flex: 1}}>{bio}</Text>
             </View>
           </View>
