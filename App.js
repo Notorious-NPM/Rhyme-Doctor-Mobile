@@ -11,6 +11,7 @@ import Profile from './client/src/components/user/Profile';
 import Login from './client/src/components/top/Login';
 import Signup from './client/src/components/top/Signup';
 import About from './client/src/components/about/About';
+import EditProfile from './client/src/components/user/EditProfile';
 
 const RootStack = StackNavigator(
   {
@@ -35,6 +36,9 @@ const RootStack = StackNavigator(
     },
     About: {
       screen: About,
+    },
+    EditProfile: {
+      screen: EditProfile,
     },
   },
   {
