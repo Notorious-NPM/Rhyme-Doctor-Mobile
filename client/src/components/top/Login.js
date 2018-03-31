@@ -38,6 +38,12 @@ const formStyles = {
 
 const options = {
   stylesheet: formStyles,
+  fields: {
+    password: {
+      password: true,
+      secureTextEntry: true,
+    }
+  }
 }
 
 const Login = (props) => {   //changed { history } to props.  Affects line 34

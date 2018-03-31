@@ -39,6 +39,12 @@ const formStyles = {
 
 const options = {
   stylesheet: formStyles,
+  fields: {
+    password: {
+      password: true,
+      secureTextEntry: true,
+    }
+  }
 }
 
 const Signup = (props) => {  //changed { history } to props, affects line 36 
