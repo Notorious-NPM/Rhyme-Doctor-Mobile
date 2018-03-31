@@ -5,7 +5,6 @@ import React from 'react';
 import Menu, {MenuOptions, MenuOption, MenuTrigger} from 'react-native-menu';
 import { StyleSheet, Text, View, Platform } from 'react-native';
 
-
 const NoSessionBar = ({ nav }) => (
   <View style={{ height: 60, paddingTop: 30, paddingBottom: 10, paddingRight: 10, paddingLeft: 10, flexDirection: 'row', backgroundColor: '#ffff64' }}>
     <View style={{ flex: 1}}><Text style={{ fontSize: 18 }}>Rhyme Doctor</Text></View>

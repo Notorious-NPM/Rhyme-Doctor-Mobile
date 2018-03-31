@@ -3,8 +3,9 @@
 import React from 'react';
 import axios from 'axios';
 
-// import store from '../../redux/store';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import store from '../../redux/store';
+import location from '../../../../config';
+import { Button, Platform, StyleSheet, Text, View } from 'react-native';
 import t from 'tcomb-form-native';
 import NoSessionBar from '../navbar/NoSessionBar';
 
@@ -41,30 +42,34 @@ const options = {
 }
 
 const Signup = (props) => {  //changed { history } to props, affects line 36 
-  const submitHandler = (e) => {
+  const submitHandler = () => {
     const value = this._form.getValue();
     const { username, password } = value;
     axios
       .post(`http://${location}:3421/api/auth/signup`, { username, password })
       .then(({ data }) => {
-        alert('signed up');
-        // const { username } = JSON.parse(data);
-        // store.dispatch({
-        //   type: 'sessionlogin',
-        //   body: {
-        //     username,
-        //   },
-        // });
-        // props.history.push('/');
+        alert('You signed up!');
+        const { username } = data;
+        store.dispatch({
+          type: 'sessionlogin',
+          body: {
+            username,
+          },
+        });
+        props.navigation.navigate('Home');
       })
-      .catch(() => alert('invalid username/password'));
-
+      .catch(() => alert('failed to sign in'));
   };
+
   return (
     <View style={styles.main}>
       <NoSessionBar nav={props} />
       <View style={styles.form}>
-        <Form type={loginInfo} options={options} />
+        <Form type={loginInfo} ref={c => this._form = c} options={options} />
+        <Button
+          title="signup"
+          onPress={submitHandler}
+          />
       </View>
     </View>
   );
