@@ -1,4 +1,5 @@
 import React from 'react';
+import SVGImage from 'react-native-svg-image';
 
 import { Platform, StyleSheet, View, Text, ScrollView, Image } from 'react-native';
 import SessionBar from '../navbar/SessionBar';
@@ -70,117 +71,42 @@ const About = (props) => (
         </Text>
       </View>
 
-      <View style={styles.technology}>
-        <Image source={{ uri: 'https://cdn.worldvectorlogo.com/logos/react.svg' }}
-          style={styles.image} />
+
+      <View style={styles.techHeader}>
+        <Text style={styles.techTitle}>
+          Powered By
+        </Text>
+      </View>
+      <View style={styles.techRow}>
+        <SVGImage style={styles.svg}
+          source={{ uri: 'https://cdn.worldvectorlogo.com/logos/react.svg' }} />
+        <SVGImage style={styles.svg}
+          source={{ uri: 'https://cdn.worldvectorlogo.com/logos/redux.svg' }} />
+        <SVGImage style={styles.svg}
+          source={{ uri: 'https://cdn.worldvectorlogo.com/logos/nodejs-icon.svg' }} />
+        <SVGImage style={styles.svg}
+          source={{ uri: 'https://cdn.worldvectorlogo.com/logos/mysql-5.svg' }} />
+        <SVGImage style={styles.svg}
+          source={{ uri: 'https://cdn.worldvectorlogo.com/logos/socket-io.svg' }} />
+        <SVGImage style={styles.svg}
+          source={{ uri: 'https://cdn.worldvectorlogo.com/logos/passport.svg' }} />
+      </View>
+      <View style={styles.techRow2}>
+      <SVGImage style={styles.svg}
+          source={{ uri: 'https://cdn.worldvectorlogo.com/logos/dropzone.svg' }} />
+        <SVGImage style={styles.svg}
+          source={{ uri: 'https://res.cloudinary.com/demo/image/upload/e_shadow,x_13,y_13/cloudinary_icon.png' }} />
+        <SVGImage style={styles.svg}
+          source={{ uri: 'https://cdn.worldvectorlogo.com/logos/babel-10.svg' }} />
+        <SVGImage style={styles.svg}
+          source={{ uri: 'https://cdn.worldvectorlogo.com/logos/aws-ec2.svg' }} />
+        <SVGImage style={styles.svg}
+          source={{ uri: 'https://cdn.worldvectorlogo.com/logos/webpack-icon.svg' }} />
       </View>
 
     </ScrollView>
   </View>
 
-  // <div className="aboutTop">
-  //   <div className="whitespace" />
-  //   <div className="goal">
-  //     Welcome, and thank you for visiting our application!  We at Notorious NPM developed Rhyme
-  //     Doctor as a tool to assist people, amateur and professional alike, to create the sickest
-  //     lyrics and be able to share it with the world.  Simply type or paste your lyrics,
-  //     click {'"Hit API"'}, and see the wonderful rhyme structure display before you.
-  //   </div>
-  //   <div className="whitespace" />
-  //   <div className="challenges">
-  //     <h6>Technical challenges/achievements</h6>
-  //     We are proud to say that nothing like this has been realized before, especially not to the
-  //     extent where people can visualize the rhyme schemes of their lyrics.  Our experienced staff
-  //     here at Notorious NPM spent countless hours to deliver the elaborate architecture and
-  //     algorithm of Rhyme Doctor that delivers rhythmic visualization at breakneck speeds.
-  //     We hope that this tool will be of use to you and that you will enjoy your visit here!
-  //   </div>
-  //   <div className="whitespace" />
-  //   Meet the staff of Notorious NPM
-  //   <div className="contributors top">
-  //     <div className="contributors container">
-  //       <div className="contributor">
-  //         <img src="https://thumbs.dreamstime.com/t/super-cool-potato-character-cartoon-style-vector-illustration-95541644.jpg" alt="potato"/>
-  //         <br />
-  //         Senior Software Engineer
-  //         <br />
-  //         Eva Laskowski
-  //       </div>
-  //       <div className="contributor">
-  //         <img src="https://thumbs.dreamstime.com/t/super-cool-potato-character-cartoon-style-vector-illustration-95541644.jpg" alt="potato"/>
-  //         <br />
-  //         Senior Software Engineer
-  //         <br />
-  //         James Yen
-  //       </div>
-  //       <div className="contributor">
-  //         <img src="https://thumbs.dreamstime.com/t/super-cool-potato-character-cartoon-style-vector-illustration-95541644.jpg" alt="potato"/>
-  //         <br />
-  //         Senior Software Engineer
-  //         <br />
-  //         Kin Chan
-  //       </div>
-  //       <div className="contributor">
-  //         <img src="https://thumbs.dreamstime.com/t/super-cool-potato-character-cartoon-style-vector-illustration-95541644.jpg" alt="potato"/>
-  //         <br />
-  //         Senior Software Engineer
-  //         <br />
-  //         Samuel Hong
-  //       </div>
-  //     </div>
-  //   </div>
-  //   <div className="whitespace" />
-  //   <div className="tech">
-  //     <h4>Powered By</h4>
-  //     <div className="images">
-  //       <div className="image">
-  //         <img src="https://cdn.worldvectorlogo.com/logos/react.svg" alt="react" />
-  //       </div>
-  //       <div className="image">
-  //         <img src="https://cdn.worldvectorlogo.com/logos/redux.svg" alt="redux" />
-  //       </div>
-  //       <div className="image router">
-  //         <img src="https://cdn.worldvectorlogo.com/logos/react-router.svg" alt="reactRouter" />
-  //       </div>
-  //       <div className="image">
-  //         <img src="https://cdn.worldvectorlogo.com/logos/nodejs-icon.svg" alt="node" />
-  //       </div>
-  //       <div className="image">
-  //         <img src="https://cdn.worldvectorlogo.com/logos/mysql-5.svg" alt="mySql" />
-  //       </div>
-  //       <div className="image">
-  //         <img src="https://cdn.worldvectorlogo.com/logos/sequelize.svg" alt="sequelize" />
-  //       </div>
-  //       <div className="image wordsAPI">
-  //         <p>WORDSAPI</p>
-  //       </div>
-  //       <div className="image">
-  //         <img src="https://cdn.worldvectorlogo.com/logos/socket-io.svg" alt="socket" />
-  //       </div>
-  //       <div className="image">
-  //         <img src="https://cdn.worldvectorlogo.com/logos/passport.svg" alt="passport" />
-  //       </div>
-  //       <div className="image">
-  //         <img src="https://cdn.worldvectorlogo.com/logos/dropzone.svg" alt="dropzone" />
-  //       </div>
-  //       <div className="image cloudinary">
-  //         <img src="https://res.cloudinary.com/demo/image/upload/e_shadow,x_13,y_13/cloudinary_icon.png" alt="cloudinary" />
-  //       </div>
-  //       <div className="image babel">
-  //         <img src="https://cdn.worldvectorlogo.com/logos/babel-10.svg" alt="babel" />
-  //       </div>
-  //       <div className="image">
-  //         <img src="https://cdn.worldvectorlogo.com/logos/aws-ec2.svg" alt="aws" />
-  //       </div>
-  //       <div className="image">
-  //         <img src="https://cdn.worldvectorlogo.com/logos/webpack-icon.svg" alt="webpack" />
-  //       </div>
-  //     </div>
-  //   </div>
-  //   <div>
-  //     Made at <img className="hackreactor" src="https://media.glassdoor.com/sqll/843406/hack-reactor-squarelogo-1427844676793.png" alt="hackreactor" />
-  //   </div>
-  // </div>
 );
 
 export default About;
@@ -209,7 +135,6 @@ const styles = StyleSheet.create({
         color: '#D7D7D7',
       },
       contributor: {
-        // margin: 'auto',
         borderStyle: 'solid',
         borderWidth: 5,
         borderColor: 'white',
@@ -219,23 +144,47 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        // boxShadow: 2px 2px 10px white,
-        // lineHeight: 1.5,
+        shadowOffset: { width: 2, height: 2 },
+        shadowColor: 'white',
+        shadowOpacity: 1.0,
       },
-      technology: {
-        borderStyle: 'solid',
-        borderWidth: 5,
-        borderColor: 'white',
+      techTitle: {
+        backgroundColor: 'midnightblue',
+        textAlign: 'center',
+        color: 'white',
+        fontSize: 30,
+        textShadowColor: 'black',
+        textShadowOffset: { width: 5, height: 5 },
+        textShadowRadius: 4,
+      },
+      techHeader: {
+        backgroundColor: 'midnightblue',
+        marginTop: 50,
+      },
+      techRow: {
+        backgroundColor: 'midnightblue',
         padding: 15,
-        margin: 5,
         flex: 1,
-        flexDirection: 'column',
+        flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'center',        
+        alignItems: 'center',
+      },
+      techRow2: {
+        backgroundColor: 'midnightblue',
+        padding: 15,
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
       },
       image: {
         width: 300,
         height: 300,
+      },
+      svg: {
+        margin: 5,
+        width: 50,
+        height: 50,
       },
     },
     android: {
