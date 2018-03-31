@@ -127,10 +127,12 @@ class RapPostEntry extends React.Component {
   render() {
     const { username } = this.props.rapPost;
     const rapText = this.parseText(this.props.rapPost.text);
-    // const rapText = this.props.rapPost.text.split('\n').map(line => <Text>{line}</Text>);
+    const { alert } = this.state;
+
     return (
       <View style={styles.main}>
         <View>
+          {/* {alert ? } */}
           <Text>By {username}</Text>
         </View>
         <View style={styles.rapTextOuter}>
@@ -149,18 +151,9 @@ class RapPostEntry extends React.Component {
       //         By{' '}
       //         <Link to={{ pathname: '/profile', state: { username }}}>{username}</Link> {/* eslint-disable-line */}
       //       </h5>
-      //       <div className="hover-card">
 
-      //         <div className="rapText" onClick={() => this.triggerModal()}>
-      //           <div className="middle">
-      //             <div className="hidden-text">Click to expand</div>
-      //           </div>
-      //           <div className="hover-effect">
-      //             <p className="card-text">{rapText}</p>
-      //           </div>
-      //         </div>
+    
 
-      //       </div>
       //     </div>
       //   </div>
       //   <Modal
