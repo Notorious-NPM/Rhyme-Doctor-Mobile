@@ -27,7 +27,6 @@ export default class Profile extends React.Component {
   }
 
   componentDidMount() {
-    // alert(this.props.navigation.state.params.username)
     if (this.props.navigation.state.params) {
       const { username } = this.props.navigation.state.params;
       this.getUserData(username);

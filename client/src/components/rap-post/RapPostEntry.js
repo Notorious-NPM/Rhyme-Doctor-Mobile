@@ -192,6 +192,7 @@ const styles = StyleSheet.create({
       },
       likeNum:{
         fontSize: 15,
+        fontWeight: '600',
       },
       likeText: {
         color: 'white',
@@ -269,6 +270,7 @@ const styles = StyleSheet.create({
       },
       likeNum:{
         fontSize: 15,
+        fontWeight: '600',
       },
       likeText: {
         color: 'white',

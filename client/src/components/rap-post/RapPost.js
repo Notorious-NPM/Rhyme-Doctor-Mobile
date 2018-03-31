@@ -62,7 +62,6 @@ class RapPost extends React.Component {
 
 export default RapPost;
 
-
 const styles = StyleSheet.create({
   ...Platform.select({
     ios: {
