@@ -200,7 +200,21 @@ const styles = StyleSheet.create({
       }
     },
     android: {
-
+      main: {
+        flex: 1,
+        marginBottom: 20,
+        backgroundColor: '#91A3B0',
+        // paddingRight: 20,
+        paddingTop: 40,
+        padding: 20,
+      },
+      rapTextInner: {
+        paddingRight: 10,
+        paddingLeft: 10,
+      },
+      rapTextOuter: {
+        backgroundColor: 'white',
+      }
     }
   })
 })

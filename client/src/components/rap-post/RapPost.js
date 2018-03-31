@@ -79,6 +79,12 @@ const styles = StyleSheet.create({
     android: {
       main: {
         backgroundColor: '#333',
+        flex: 1,
+      },
+      view: {
+        paddingLeft: 20,
+        paddingRight: 30,
+        paddingTop: 30,
       }
     }
   })
