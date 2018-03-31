@@ -73,15 +73,15 @@ const styles = StyleSheet.create({
         paddingTop: 30,
       }
     },
-    android: {
+    android: { //fix styling for android
       main: {
         backgroundColor: '#333',
         flex: 1,
       },
       view: {
         paddingLeft: 20,
-        paddingRight: 30,
-        paddingTop: 30,
+        paddingRight: 20,
+        paddingTop: 20,
       }
     }
   })
