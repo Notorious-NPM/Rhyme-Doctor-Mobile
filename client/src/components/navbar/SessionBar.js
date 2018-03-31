@@ -53,13 +53,7 @@ const SessionBar = ({ nav }) => (
         </MenuOption>
         <View style={styles.bottomRule} />
         <MenuOption value={7}>
-<<<<<<< HEAD
-          <Text onPress={() => logout(nav)}>Logout</Text>
-||||||| merged common ancestors
-          <Text>Logout</Text>
-=======
-          <Text style={styles.menuText}>Logout</Text>
->>>>>>> master
+          <Text style={styles.menuText} onPress={() => logout(nav)}>Logout</Text>
         </MenuOption>
       </MenuOptions>
     </Menu>
@@ -67,43 +61,6 @@ const SessionBar = ({ nav }) => (
 );
 
 var styles = StyleSheet.create({
-<<<<<<< HEAD
-  toolbar: {
-    backgroundColor: '#ffff64',
-    paddingTop: 30,
-    paddingBottom: 10,
-    flexDirection: 'row'
-  },
-  toolbarButton: {
-    width: 50,
-    color: '#333',
-    textAlign: 'center'
-  },
-  toolbarTitle: {
-    color: '#333',
-    textAlign: 'center',
-    fontWeight: 'bold',
-    flex: 1
-  }
-||||||| merged common ancestors
-  toolbar:{
-    backgroundColor:'#ffff64',
-    paddingTop:30,
-    paddingBottom:10,
-    flexDirection:'row'
-  },
-  toolbarButton:{
-      width: 50,
-      color:'#333',
-      textAlign:'center'
-  },
-  toolbarTitle:{
-      color:'#333',
-      textAlign:'center',
-      fontWeight:'bold',
-      flex:1
-  }
-=======
   ...Platform.select({
     ios: {
       menuText: {
@@ -128,7 +85,6 @@ var styles = StyleSheet.create({
       }
     }
   })
->>>>>>> master
 })
 
 export default SessionBar;
