@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { StyleSheet, Text, View, Image, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, Button, TouchableHighlight } from 'react-native';
 import SessionBar from '../navbar/SessionBar';
 // import Stats from './Stats';
 // import ProfileImage from './ProfileImage';
@@ -42,37 +42,20 @@ export default class EditProfile extends React.Component {
   //   });
   // }
 
-  getUserData = (username) => {
-      axios.get(`https://${location}:${port}/api/profile`)
-        .then((res) => {
-          this.setState({
-            username: res.data.name,
-            likeCount: res.data.like_count,
-            image: {uri: res.data.image},
-            bio: res.data.bio,
-            received: true,
-          })
-        })
-
-        .catch(function(err) {
-          console.log('err', err)
-        })
+  getUserData = async (username) => {
+    try {
+      const userData = username ? await axios.get(`http://${location}:3421/api/profile`, { params: { name: username } }) : await axios.get(`http://${location}:3421/api/profile`);
+      this.setState({
+        username: userData.data.name,
+        likeCount: userData.data.like_count,
+        image: {uri: userData.data.image},
+        bio: userData.data.bio,
+        received: true
+      });
+    } catch (err) {
+      console.log('Failed to get user posts');
+    }
   }
-
-  // getUserData = async (username) => {
-  //   try {
-  //     const userData = username ? await axios.get('http://{location}:3000/api/profile', { params: { name: username } }) : await axios.get('http://{location}:3000/api/profile');
-  //     this.setState({
-  //       username: userData.data.name,
-  //       likeCount: userData.data.like_count,
-  //       image: userData.data.image,
-  //       bio: userData.data.bio,
-  //       received: true,
-  //     });
-  //   } catch (err) {
-  //     console.log('Failed to get user posts');
-  //   }
-  // }
 
   getUserPosts = async (username) => {
     try {
@@ -80,7 +63,6 @@ export default class EditProfile extends React.Component {
       this.setState({
         userPosts: userPosts.data,
       });
-      // console.log(userPosts);
     } catch (err) {
       console.log('Failed to get user posts');
     }
@@ -92,11 +74,27 @@ export default class EditProfile extends React.Component {
         <View style={styles.container}>
           <SessionBar nav={this.props}/>
           <View style={styles.innerContainer}>
-            <View style={styles.topContainer}>
-              <View style={styles.image}>
-                <Image source={this.state.image} style={{height: 100, width: 100}}/>
-              </View>
+            {/* <View style={styles.topContainer}> */}
+            <View style={styles.stats}>
+              <Text style={{color:'white', fontSize:25, fontWeight: 'bold', alignSelf: 'center'}}>{this.state.username}</Text>
             </View>
+              <View style={styles.image}>
+                <Image source={this.state.image} style={{height: 150, width: 150, alignSelf: 'center', marginTop: 15}}/>
+                <View style={styles.button}>
+                  <TouchableHighlight>
+                    <Button
+                      // onPress={onPressLearnMore}
+                      onPress={() => alert('add function here')}
+                      title="Change Picture"
+                      // color="#333"
+                      // accessibilityLabel="Learn more about this purple button"
+                    />
+                  </TouchableHighlight>
+                </View>
+              </View>
+              
+            {/* </View> */}
+
               {/* <View style={styles.bio}>
                 <Text style={{color:'white', fontSize:20, fontWeight: 'bold', marginLeft: 65}}>{this.state.username}</Text>
                 <Text style={{color:'white', fontSize:16, fontWeight: 'bold', marginLeft: 85}}>Likes: {this.state.likeCount}</Text>
@@ -122,8 +120,8 @@ export default class EditProfile extends React.Component {
 var styles = StyleSheet.create({
   button: {
     margin: 10,
-    borderColor: '#D7D7D7',
-    borderWidth: 1
+    width: 200,
+    alignSelf: 'center'
   },
   buttonContainer: {
     width: '100%',
@@ -138,7 +136,7 @@ var styles = StyleSheet.create({
     // justifyContent: 'center'
   },
   innerContainer : {
-    margin: 10
+    margin: 20
   },
   bio: {
     flex: 1,
