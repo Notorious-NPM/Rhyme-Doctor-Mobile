@@ -1,9 +1,8 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-
 import React from 'react';
-// import { Link } from 'react-router-dom';
-import Menu, {MenuOptions, MenuOption, MenuTrigger} from 'react-native-menu';
-import { StyleSheet, Text, View, Platform } from 'react-native';
+import Menu, { MenuOptions, MenuOption, MenuTrigger } from 'react-native-menu';
+import { Text, View } from 'react-native';
+
+import styles from './navbarCss';
 
 const NoSessionBar = ({ nav }) => (
   <View style={{ height: 60, paddingTop: 30, paddingBottom: 10, paddingRight: 10, paddingLeft: 10, flexDirection: 'row', backgroundColor: '#ffff64' }}>
@@ -31,29 +30,3 @@ const NoSessionBar = ({ nav }) => (
 
 export default NoSessionBar;
 
-var styles = StyleSheet.create({
-  ...Platform.select({
-    ios: {
-      menuText: {
-        fontSize: 20
-      },
-      bottomRule: {
-        borderBottomColor: 'black',
-        borderBottomWidth: 1,
-        width: '80%',
-        marginLeft: '10%'
-      }
-    },
-    android: {
-      menuText: {
-        fontSize: 20
-      },
-      bottomRule: {
-        borderBottomColor: 'black',
-        borderBottomWidth: 1,
-        width: '80%',
-        marginLeft: '10%'
-      }
-    }
-  })
-})

@@ -4,7 +4,6 @@ import NoSessionBar from './NoSessionBar';
 import SessionBar from './SessionBar';
 
 import store from '../../redux/store';
-// import './navbar.css';
 
 class Navbar extends React.Component {
   constructor(props) {
