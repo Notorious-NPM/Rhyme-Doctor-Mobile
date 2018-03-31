@@ -2,8 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import { StyleSheet, Text, View, Image, TextInput, Button } from 'react-native';
 import SessionBar from '../navbar/SessionBar';
-import UserPosts from './UserPosts';
-// import UserPosts from './UserPosts';
 // import Stats from './Stats';
 // import ProfileImage from './ProfileImage';
 // import Bio from './Bio';
@@ -148,10 +146,6 @@ var styles = StyleSheet.create({
     // flexDirection: 'column',
     alignSelf: 'center'
   },
-  image: {
-    alignSelf: 'center',
-    height: 200
-  }
   // topContainer: {
   //   flexDirection: 'row'
   // }
