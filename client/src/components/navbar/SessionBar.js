@@ -53,6 +53,10 @@ const SessionBar = ({ nav }) => (
         </MenuOption>
         <View style={styles.bottomRule} />
         <MenuOption value={7}>
+          <Text style={styles.menuText} onPress={() => nav.navigation.navigate('EditProfile')}>Edit Profile</Text>
+        </MenuOption>
+        <View style={styles.bottomRule} />
+        <MenuOption value={8}>
           <Text style={styles.menuText} onPress={() => logout(nav)}>Logout</Text>
         </MenuOption>
       </MenuOptions>

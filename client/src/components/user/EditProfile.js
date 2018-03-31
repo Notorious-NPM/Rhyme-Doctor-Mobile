@@ -13,7 +13,7 @@ import location from '../../../../config'
 
 // import store from '../../redux/store';
 
-export default class Profile extends React.Component {
+export default class EditProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,20 +44,37 @@ export default class Profile extends React.Component {
   //   });
   // }
 
-  getUserData = async (username) => {
-    try {
-      const userData = username ? await axios.get(`http://${location}:3421/api/profile`, { params: { name: username } }) : await axios.get(`http://${location}:3421/api/profile`);
-      this.setState({
-        username: userData.data.name,
-        likeCount: userData.data.like_count,
-        image: {uri: userData.data.image},
-        bio: userData.data.bio,
-        received: true
-      });
-    } catch (err) {
-      console.log('Failed to get user posts');
-    }
+  getUserData = (username) => {
+      axios.get(`http://${location}:3421/api/profile`)
+        .then((res) => {
+          this.setState({
+            username: res.data.name,
+            likeCount: res.data.like_count,
+            image: {uri: res.data.image},
+            bio: res.data.bio,
+            received: true,
+          })
+        })
+
+        .catch(function(err) {
+          console.log('err', err)
+        })
   }
+
+  // getUserData = async (username) => {
+  //   try {
+  //     const userData = username ? await axios.get('http://{location}:3000/api/profile', { params: { name: username } }) : await axios.get('http://{location}:3000/api/profile');
+  //     this.setState({
+  //       username: userData.data.name,
+  //       likeCount: userData.data.like_count,
+  //       image: userData.data.image,
+  //       bio: userData.data.bio,
+  //       received: true,
+  //     });
+  //   } catch (err) {
+  //     console.log('Failed to get user posts');
+  //   }
+  // }
 
   getUserPosts = async (username) => {
     try {
@@ -65,6 +82,7 @@ export default class Profile extends React.Component {
       this.setState({
         userPosts: userPosts.data,
       });
+      // console.log(userPosts);
     } catch (err) {
       console.log('Failed to get user posts');
     }
@@ -80,15 +98,13 @@ export default class Profile extends React.Component {
               <View style={styles.image}>
                 <Image source={this.state.image} style={{height: 100, width: 100}}/>
               </View>
-              <View style={styles.bio}>
+            </View>
+              {/* <View style={styles.bio}>
                 <Text style={{color:'white', fontSize:20, fontWeight: 'bold', marginLeft: 65}}>{this.state.username}</Text>
                 <Text style={{color:'white', fontSize:16, fontWeight: 'bold', marginLeft: 85}}>Likes: {this.state.likeCount}</Text>
               </View>
-            </View>
             <View style={{marginTop: 10}}>
-              {/* <Text style={{color:'white', fontSize:14, fontWeight: 'bold', marginLeft: 10}}>About Me</Text> */}
               <Text style={{color:'white', fontSize:14, marginLeft: 10}}>{this.state.bio}</Text>
-              {/* <Text>{this.state.userPosts.length}</Text> */}
             </View>
             <View
               style={{
@@ -96,9 +112,9 @@ export default class Profile extends React.Component {
                 borderBottomWidth: 1,
                 marginTop: 15
               }}
-            />
+            /> */}
           </View>
-          <UserPosts userPosts={this.state.userPosts}/>
+          <Text> Edit Are goes here</Text>
         </View>
     );
   }
@@ -126,16 +142,17 @@ var styles = StyleSheet.create({
   innerContainer : {
     margin: 10
   },
-  image: {
-    flexDirection: 'column'
-  },
   bio: {
     flex: 1,
     marginTop: 5,
-    flexDirection: 'column',
+    // flexDirection: 'column',
     alignSelf: 'center'
   },
-  topContainer: {
-    flexDirection: 'row'
+  image: {
+    alignSelf: 'center',
+    height: 200
   }
+  // topContainer: {
+  //   flexDirection: 'row'
+  // }
 });
