@@ -1,15 +1,32 @@
 import React from 'react';
 
-import { Platform, StyleSheet, View, Text } from 'react-native';
+import { Platform, StyleSheet, View, Text, ScrollView } from 'react-native';
 import SessionBar from '../navbar/SessionBar';
 // import './About.css';
 
 const About = (props) => (
   <View style={styles.main}>
     <SessionBar nav={props}/>
-    <Text>
-      Hey
-    </Text>
+    <ScrollView>
+      <View style={styles.view}>
+        <Text style={styles.text}>
+          Welcome, and thank you for visiting our application!  We at Notorious NPM developed Rhyme
+          Doctor as a tool to assist people, amateur and professional alike, to create the sickest
+          lyrics and be able to share it with the world.  Simply type or paste your lyrics,
+          click {'"Hit API"'}, and see the wonderful rhyme structure display before you.
+        </Text>
+      </View>
+      <View style={styles.view}>
+        <Text style={styles.text}>
+          Technical challenges/achievements
+          We are proud to say that nothing like this has been realized before, especially not to the
+          extent where people can visualize the rhyme schemes of their lyrics.  Our experienced staff
+          here at Notorious NPM spent countless hours to deliver the elaborate architecture and
+          algorithm of Rhyme Doctor that delivers rhythmic visualization at breakneck speeds.
+          We hope that this tool will be of use to you and that you will enjoy your visit here!
+        </Text>
+      </View>
+    </ScrollView>
   </View>
 
   // <div className="aboutTop">
@@ -130,7 +147,12 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         paddingRight: 30,
         paddingTop: 30,
-      }
+      },
+      text: {
+        textAlign: 'center',
+        fontSize: 30,
+        color: '#D7D7D7',
+      },
     },
     android: {
       main: {
@@ -141,7 +163,12 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         paddingRight: 30,
         paddingTop: 30,
-      }
+      },
+      text: {
+        textAlign: 'center',
+        fontSize: 30,
+        color: '#D7D7D7',
+      },
     }
   })
 
