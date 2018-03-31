@@ -44,6 +44,7 @@ class RapPost extends React.Component {
         <SessionBar nav={this.props} />
         <ScrollView style={styles.view}>
           {rapPosts.map((rapPost, i) => (<RapPostEntry
+            nav={this.props}
             rapPost={rapPost}
             key={i}
             getRapPosts={this.getRapPosts}
@@ -52,7 +53,9 @@ class RapPost extends React.Component {
         </ScrollView>
       </View>
       :
-      <View><Text>NOTHING</Text></View>
+      <View style={styles.main}>
+        <SessionBar nav={this.props} />
+      </View>
     )
   }
 }

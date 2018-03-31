@@ -27,14 +27,15 @@ export default class Profile extends React.Component {
   }
 
   componentDidMount() {
-    // if (this.props.location.state) {
-    //   const { username } = this.props.location.state;
-    //   this.getUserData(username);
-    //   this.getUserPosts(username);
-    // } else {
+    // alert(this.props.navigation.state.params.username)
+    if (this.props.navigation.state.params) {
+      const { username } = this.props.navigation.state.params;
+      this.getUserData(username);
+      this.getUserPosts(username);
+    } else {
       this.getUserData();
       this.getUserPosts();
-    // }
+    }
   }
 
   // componentDidMount() {

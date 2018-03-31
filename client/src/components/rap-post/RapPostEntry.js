@@ -2,10 +2,10 @@ import React from 'react';
 import axios from 'axios';
 // import { Link } from 'react-router-dom';
 // import Comments from './comments';
-// import Alert from '../alert';
+import Alert from '../alert';
 // import Modal from '../modal';
 // import './rapPost.css';
-import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Button, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 class RapPostEntry extends React.Component {
   constructor(props) {
@@ -112,13 +112,13 @@ class RapPostEntry extends React.Component {
 
   parseText = (jsonString) => {
     const rapObj = JSON.parse(jsonString);
-    const rapText = rapObj.map((word) => {
+    const rapText = rapObj.map((word, i) => {
       if (typeof word === 'object') {
-        return <Text style={{ color: word.color }}>{`${word.word} `}</Text>;
+        return <Text key={i} style={{ color: word.color }}>{`${word.word} `}</Text>;
       } else if (word === '\n') {
-      return <Text>{'\n'}</Text>;
+      return <Text key={i}>{'\n'}</Text>;
       }
-      return <Text>{`${word} `}</Text>;
+      return <Text key={i}>{`${word} `}</Text>;
     });
 
     return rapText;
@@ -127,53 +127,41 @@ class RapPostEntry extends React.Component {
   render() {
     const { username } = this.props.rapPost;
     const rapText = this.parseText(this.props.rapPost.text);
-    // const rapText = this.props.rapPost.text.split('\n').map(line => <Text>{line}</Text>);
+    const { alert, alertMessage, alertStatus, likes } = this.state;
+    const { nav } = this.props;
+
     return (
       <View style={styles.main}>
         <View>
-          <Text>By {username}</Text>
-        </View>
+          {alert && <Alert message={alertMessage} status={alertStatus} />}
+          <View style={styles.buttonMain}>
+            <TouchableOpacity style={styles.likeButton} onPress={this.likeRapPost}>
+              <View style={styles.likeTopContainer}>
+                <View>
+                  <Text style={styles.likeText}>Like</Text>
+                </View>
+                <View style={styles.likeNumContainer}>
+                  <Text style={styles.likeNum}>{likes}</Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.buttonMain}>
+            <TouchableOpacity style={styles.reportButton} onPress={this.reportPost}>
+              <Text style={styles.reportText}>Report Post</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.userMain}>
+            <Text style={styles.username}>By </Text>
+            <Text style={[styles.username, styles.usernameLink]} onPress={() => nav.navigation.navigate('Profile', {username})}>{username}</Text>
+          </View>
+       </View>
         <View style={styles.rapTextOuter}>
           <ScrollView style={styles.rapTextInner}>
             <Text>{rapText}</Text>
           </ScrollView>
         </View>
       </View>
-      // <div className="col-md-4">
-      //   <div className="card">
-      //     <div className="card-body">
-      //       {this.state.alert ? <Alert message={this.state.alertMessage} status={this.state.alertStatus} /> : null} {/* eslint-disable-line*/}
-      //       <p><button className="btn btn-primary" onClick={() => this.likeRapPost()}>Like <span className="badge badge-light">{this.state.likes}</span></button></p>
-      //       <button className="badge badge-warning" onClick={() => this.reportPost()}>Report Post</button>
-      //       <h5 className="card-title">
-      //         By{' '}
-      //         <Link to={{ pathname: '/profile', state: { username }}}>{username}</Link> {/* eslint-disable-line */}
-      //       </h5>
-      //       <div className="hover-card">
-
-      //         <div className="rapText" onClick={() => this.triggerModal()}>
-      //           <div className="middle">
-      //             <div className="hidden-text">Click to expand</div>
-      //           </div>
-      //           <div className="hover-effect">
-      //             <p className="card-text">{rapText}</p>
-      //           </div>
-      //         </div>
-
-      //       </div>
-      //     </div>
-      //   </div>
-      //   <Modal
-      //     name={username}
-      //     rapText={rapText}
-      //     hidden={this.state.hidden}
-      //     triggerModal={this.triggerModal}
-      //     comments={this.state.comments}
-      //     postComment={this.postComment}
-      //     createComment={this.createComment}
-      //     myComment={this.state.myComment}
-      //   />
-      // </div>
     );
   }
 }
@@ -184,12 +172,45 @@ const styles = StyleSheet.create({
   ...Platform.select({
     ios: {
       main: {
+        borderRadius: 5,
         flex: 1,
         marginBottom: 20,
         backgroundColor: '#91A3B0',
-        // paddingRight: 20,
-        paddingTop: 40,
+        paddingTop: 20,
         padding: 20,
+      },
+      likeButton: {
+        backgroundColor: '#007bff',
+        borderRadius: 5,
+        borderWidth: 1,
+        width: 85,
+        height: 45,
+      },
+      buttonMain: {
+        alignItems: 'center',
+        marginTop: 20,
+      },
+      likeNum:{
+        fontSize: 15,
+      },
+      likeText: {
+        color: 'white',
+        fontSize: 20,
+        fontWeight: '700',
+      },
+      likeNumContainer: {
+        backgroundColor: 'white',
+        borderRadius: 3,
+        width: 20,
+        height: 20,
+        marginTop: 3,
+        marginLeft: 5,
+        alignItems: 'center',
+      },
+      likeTopContainer: {
+        paddingLeft: 10,
+        paddingTop: 10,
+        flexDirection: 'row',
       },
       rapTextInner: {
         paddingRight: 10,
@@ -197,16 +218,76 @@ const styles = StyleSheet.create({
       },
       rapTextOuter: {
         backgroundColor: 'white',
+      },
+      reportButton: {
+        alignItems: 'center',
+        backgroundColor: '#ffc107',
+        height: 20,
+        width: 90,
+        borderColor: 'white',
+        borderWidth: 1,
+        borderRadius: 4,
+      },
+      reportText: {
+        marginTop: 1,
+        fontSize: 14,
+        fontWeight: '700',
+      },
+      userMain: {
+        justifyContent: 'center',
+        flexDirection: 'row',
+        marginBottom: 10,
+        marginTop: 10,
+      },
+      username: {
+        fontSize: 25,
+        fontWeight: '800',
+      },
+      usernameLink: {
+        textDecorationLine: 'underline'
       }
     },
     android: {
       main: {
+        borderRadius: 5,
         flex: 1,
         marginBottom: 20,
         backgroundColor: '#91A3B0',
-        // paddingRight: 20,
-        paddingTop: 40,
+        paddingTop: 20,
         padding: 20,
+      },
+      likeButton: {
+        backgroundColor: '#007bff',
+        borderRadius: 5,
+        borderWidth: 1,
+        width: 85,
+        height: 45,
+      },
+      buttonMain: {
+        alignItems: 'center',
+        marginTop: 20,
+      },
+      likeNum:{
+        fontSize: 15,
+      },
+      likeText: {
+        color: 'white',
+        fontSize: 20,
+        fontWeight: '700',
+      },
+      likeNumContainer: {
+        backgroundColor: 'white',
+        borderRadius: 3,
+        width: 20,
+        height: 20,
+        marginTop: 3,
+        marginLeft: 5,
+        alignItems: 'center',
+      },
+      likeTopContainer: {
+        paddingLeft: 10,
+        paddingTop: 10,
+        flexDirection: 'row',
       },
       rapTextInner: {
         paddingRight: 10,
@@ -214,6 +295,33 @@ const styles = StyleSheet.create({
       },
       rapTextOuter: {
         backgroundColor: 'white',
+      },
+      reportButton: {
+        alignItems: 'center',
+        backgroundColor: '#ffc107',
+        height: 20,
+        width: 90,
+        borderColor: 'white',
+        borderWidth: 1,
+        borderRadius: 4,
+      },
+      reportText: {
+        marginTop: 1,
+        fontSize: 14,
+        fontWeight: '700',
+      },
+      userMain: {
+        justifyContent: 'center',
+        flexDirection: 'row',
+        marginBottom: 10,
+        marginTop: 10,
+      },
+      username: {
+        fontSize: 25,
+        fontWeight: '800',
+      },
+      usernameLink: {
+        textDecorationLine: 'underline'
       }
     }
   })
