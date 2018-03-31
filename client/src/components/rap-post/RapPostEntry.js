@@ -116,7 +116,7 @@ class RapPostEntry extends React.Component {
       if (typeof word === 'object') {
         return <Text style={{ color: word.color }}>{`${word.word} `}</Text>;
       } else if (word === '\n') {
-        return <View style={{ height: 0, width: 0}}></View>;
+      return <Text>{'\n'}</Text>;
       }
       return <Text>{`${word} `}</Text>;
     });
