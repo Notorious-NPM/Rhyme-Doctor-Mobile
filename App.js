@@ -10,6 +10,7 @@ import RapPost from './client/src/components/rap-post/RapPost';
 import Profile from './client/src/components/user/Profile';
 import Login from './client/src/components/top/Login';
 import Signup from './client/src/components/top/Signup';
+import About from './client/src/components/about/About';
 
 const RootStack = StackNavigator(
   {
@@ -31,6 +32,9 @@ const RootStack = StackNavigator(
     },
     Signup: {
       screen: Signup,
+    },
+    About: {
+      screen: About,
     },
   },
   {

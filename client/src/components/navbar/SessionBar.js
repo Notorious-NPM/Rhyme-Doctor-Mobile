@@ -49,7 +49,7 @@ const SessionBar = ({ nav }) => (
         </MenuOption>
         <View style={styles.bottomRule} />
         <MenuOption value={6}>
-          <Text style={styles.menuText}>About</Text>
+          <Text style={styles.menuText} onPress={() => nav.navigation.navigate('About')}>About</Text>
         </MenuOption>
         <View style={styles.bottomRule} />
         <MenuOption value={7}>
