@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import { Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { MenuContext }  from 'react-native-menu';
-import SessionBar from '../navbar/SessionBar';
 import Dimensions from 'Dimensions';
+import axios from 'axios';
+import io from 'socket.io-client/dist/socket.io';
+
+import SessionBar from '../navbar/SessionBar';
 import FriendList from './FriendList';
-
-// import React, { Component } from 'react';
-// import axios from 'axios';
-// import io from 'socket.io-client/dist/socket.io';
 import Chat from './Chat';
-// import store from '../../redux/store';
 
-// import './FriendChat.css';
-// import location from '../../../../config';
+import store from '../../redux/store';
+import location from '../../../../config';
+import { friends, styles } from './FriendChatCss';
 
 export default class Friends extends Component {
   constructor(props) {
@@ -104,90 +103,3 @@ export default class Friends extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  ...Platform.select({
-    ios: {
-      container: {
-        backgroundColor: '#000000',
-      },
-      main: {
-        backgroundColor: '#333',
-      },
-      title: {
-        color: '#EADC5B', 
-        fontSize: 50, 
-        padding: 5,
-      }
-    },
-    android: {
-      container: {
-        backgroundColor: '#000000',
-      },
-      main: {
-        backgroundColor: '#333',
-      }
-    }
-  })
-});
-
-const friends = StyleSheet.create({
-  ...Platform.select({
-    ios: {
-      show: {
-        display: 'flex',
-      },
-      hide: {
-        display: 'none',
-      },
-      dot: {
-        height: 10,
-        width: 10,
-        backgroundColor: '#bbb',
-        borderRadius: 100,
-        margin: 8,
-        position: 'relative',
-        top: 10,
-    
-      },
-      name: {
-        color: 'white',
-        fontSize: 40,
-      },
-      list: {
-        flexDirection: 'row',
-        borderTopWidth: 1,
-        borderLeftWidth: 1,
-        borderRightWidth: 1,
-      },
-    },
-    android: {
-      show: {
-        display: 'flex',
-      },
-      hide: {
-        display: 'none',
-      },
-      dot: {
-        height: 10,
-        width: 10,
-        backgroundColor: '#bbb',
-        borderRadius: 100,
-        margin: 8,
-        position: 'relative',
-        top: 10,
-    
-      },
-      name: {
-        color: 'white',
-        fontSize: 40,
-      },
-      list: {
-        flexDirection: 'row',
-        borderTopWidth: 1,
-        borderLeftWidth: 1,
-        borderRightWidth: 1,
-      },
-    }
-  })
-});

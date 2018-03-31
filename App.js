@@ -5,7 +5,7 @@ import { MenuContext }  from 'react-native-menu';
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
 
 import Home from './client/src/components/home/index';
-import FriendChat from './client/src/components/buttons/FriendChat';
+import FriendChat from './client/src/components/friends/FriendChat';
 import RapPost from './client/src/components/rap-post/RapPost';
 import Profile from './client/src/components/user/Profile';
 import Login from './client/src/components/top/Login';
