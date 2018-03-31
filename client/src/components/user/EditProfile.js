@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { StyleSheet, Text, View, Image, TextInput, Button, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, Button, TouchableHighlight, CameraRoll } from 'react-native';
 import SessionBar from '../navbar/SessionBar';
 // import Stats from './Stats';
 // import ProfileImage from './ProfileImage';
@@ -68,6 +68,13 @@ export default class EditProfile extends React.Component {
     }
   }
 
+  getPhotosFromGallery() {
+    CameraRoll.getPhotos({ first: 100, assetType: 'Photos' })
+      .then(res => {
+        console.log(res, "images data")
+      })
+  }
+
   render() {
     // const { state } = this.props.location;
     return (
@@ -81,14 +88,12 @@ export default class EditProfile extends React.Component {
               <View style={styles.image}>
                 <Image source={this.state.image} style={{height: 150, width: 150, alignSelf: 'center', marginTop: 15}}/>
                 <View style={styles.button}>
-                  <TouchableHighlight>
-                    <Button
-                      // onPress={onPressLearnMore}
-                      onPress={() => alert('add function here')}
-                      title="Change Picture"
-                      // color="#333"
-                      // accessibilityLabel="Learn more about this purple button"
-                    />
+                  <TouchableHighlight 
+                    style={styles.touchable}
+                    onPress={() => this.getPhotosFromGallery()}>
+                    <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>CHANGE PICTURE</Text>
+                      {/* // onPress={onPressLearnMore}
+                      // onPress={() => alert('add function here')} */}
                   </TouchableHighlight>
                 </View>
               </View>
@@ -120,8 +125,13 @@ export default class EditProfile extends React.Component {
 var styles = StyleSheet.create({
   button: {
     margin: 10,
-    width: 200,
-    alignSelf: 'center'
+    width: 150,
+    height: 30,
+    alignSelf: 'center',
+    borderColor: '#D7D7D7',
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   buttonContainer: {
     width: '100%',
@@ -143,7 +153,7 @@ var styles = StyleSheet.create({
     marginTop: 5,
     // flexDirection: 'column',
     alignSelf: 'center'
-  },
+  }
   // topContainer: {
   //   flexDirection: 'row'
   // }
