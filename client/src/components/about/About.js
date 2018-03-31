@@ -6,7 +6,7 @@ import SessionBar from '../navbar/SessionBar';
 
 const About = (props) => (
   <View style={styles.main}>
-    <SessionBar nav={props}/>
+    <SessionBar nav={props} />
     <ScrollView>
       <View style={styles.view}>
         <Text style={styles.text}>
@@ -17,8 +17,10 @@ const About = (props) => (
         </Text>
       </View>
       <View style={styles.view}>
+        <Text style={styles.underlineText}>
+          Technical challenges/achievements{'\n'}
+        </Text>
         <Text style={styles.text}>
-          Technical challenges/achievements
           We are proud to say that nothing like this has been realized before, especially not to the
           extent where people can visualize the rhyme schemes of their lyrics.  Our experienced staff
           here at Notorious NPM spent countless hours to deliver the elaborate architecture and
@@ -32,40 +34,45 @@ const About = (props) => (
         </Text>
       </View>
 
-      <View>
-        <Image source={{uri: 'https://thumbs.dreamstime.com/t/super-cool-potato-character-cartoon-style-vector-illustration-95541644.jpg'}}
-        style={styles.image} />
+      <View style={styles.contributor}>
+        <Image source={{ uri: 'https://thumbs.dreamstime.com/t/super-cool-potato-character-cartoon-style-vector-illustration-95541644.jpg' }}
+          style={styles.image} />
         <Text style={styles.text}>
           Senior Software Engineer
           Eva Laskowski
         </Text>
       </View>
 
-      <View>
-        <Image source={{uri: 'https://thumbs.dreamstime.com/t/super-cool-potato-character-cartoon-style-vector-illustration-95541644.jpg'}}
-        style={styles.image} />
+      <View style={styles.contributor}>
+        <Image source={{ uri: 'https://thumbs.dreamstime.com/t/super-cool-potato-character-cartoon-style-vector-illustration-95541644.jpg' }}
+          style={styles.image} />
         <Text style={styles.text}>
           Senior Software Engineer
           James Yen
         </Text>
       </View>
 
-      <View>
-        <Image source={{uri: 'https://thumbs.dreamstime.com/t/super-cool-potato-character-cartoon-style-vector-illustration-95541644.jpg'}}
-        style={styles.image} />
+      <View style={styles.contributor}>
+        <Image source={{ uri: 'https://thumbs.dreamstime.com/t/super-cool-potato-character-cartoon-style-vector-illustration-95541644.jpg' }}
+          style={styles.image} />
         <Text style={styles.text}>
           Senior Software Engineer
           Kin Chan
         </Text>
       </View>
 
-      <View>
-        <Image source={{uri: 'https://thumbs.dreamstime.com/t/super-cool-potato-character-cartoon-style-vector-illustration-95541644.jpg'}}
-        style={styles.image} />
+      <View style={styles.contributor}>
+        <Image source={{ uri: 'https://thumbs.dreamstime.com/t/super-cool-potato-character-cartoon-style-vector-illustration-95541644.jpg' }}
+          style={styles.image} />
         <Text style={styles.text}>
           Senior Software Engineer
           Samuel Hong
         </Text>
+      </View>
+
+      <View style={styles.technology}>
+        <Image source={{ uri: 'https://cdn.worldvectorlogo.com/logos/react.svg' }}
+          style={styles.image} />
       </View>
 
     </ScrollView>
@@ -195,15 +202,40 @@ const styles = StyleSheet.create({
         fontSize: 30,
         color: '#D7D7D7',
       },
+      underlineText: {
+        textAlign: 'center',
+        fontStyle: 'italic',
+        fontSize: 30,
+        color: '#D7D7D7',
+      },
+      contributor: {
+        // margin: 'auto',
+        borderStyle: 'solid',
+        borderWidth: 5,
+        borderColor: 'white',
+        padding: 15,
+        margin: 5,
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        // boxShadow: 2px 2px 10px white,
+        // lineHeight: 1.5,
+      },
+      technology: {
+        borderStyle: 'solid',
+        borderWidth: 5,
+        borderColor: 'white',
+        padding: 15,
+        margin: 5,
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',        
+      },
       image: {
         width: 300,
         height: 300,
-        textAlign: 'center',
-        margin: 1,
-        // border: '5px solid white',
-        padding: 15,
-        // boxShadow: 2px 2px 10px white,
-        lineHeight: 1.5,
       },
     },
     android: {
@@ -221,15 +253,18 @@ const styles = StyleSheet.create({
         fontSize: 30,
         color: '#D7D7D7',
       },
-      image: {
-        width: 300,
-        height: 300,
-        textAlign: 'center',
-        margin: 1,
-        // border: '5px solid white',
+      contributor: {
+        margin: 'auto',
+        borderStyle: 'solid',
+        borderWidth: 5,
+        borderColor: 'white',
         padding: 15,
         // boxShadow: 2px 2px 10px white,
         lineHeight: 1.5,
+      },
+      image: {
+        width: 300,
+        height: 300,
       },
     }
   })
