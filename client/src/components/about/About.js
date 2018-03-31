@@ -1,10 +1,12 @@
 import React from 'react';
 
-import { View, Text } from 'react-native';
+import { Platform, StyleSheet, View, Text } from 'react-native';
+import SessionBar from '../navbar/SessionBar';
 // import './About.css';
 
-const About = () => (
-  <View>
+const About = (props) => (
+  <View style={styles.main}>
+    <SessionBar nav={props}/>
     <Text>
       Hey
     </Text>
@@ -116,3 +118,31 @@ const About = () => (
 );
 
 export default About;
+
+const styles = StyleSheet.create({
+  ...Platform.select({
+    ios: {
+      main: {
+        backgroundColor: '#333',
+        flex: 1,
+      },
+      view: {
+        paddingLeft: 20,
+        paddingRight: 30,
+        paddingTop: 30,
+      }
+    },
+    android: {
+      main: {
+        backgroundColor: '#333',
+        flex: 1,
+      },
+      view: {
+        paddingLeft: 20,
+        paddingRight: 30,
+        paddingTop: 30,
+      }
+    }
+  })
+
+})
