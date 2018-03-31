@@ -1,16 +1,17 @@
 import React from 'react';
 import axios from 'axios';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 // import store from '../../redux/store.js';
 import RapPostEntry from './RapPostEntry';
 import SessionBar from '../navbar/SessionBar';
-// import { Session } from 'inspector';
+
+import location from '../../../../config';
 
 class RapPost extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      rapPosts: null
+    this.state = {              //delete after redux store set up
+      rapPosts: false
     }
     // this.state = store.getState();
     // store.subscribe(() => {
@@ -18,38 +19,44 @@ class RapPost extends React.Component {
     // });
   }
 
-  // componentDidMount = () => {
-  //   this.getRapPosts();
-  // }
+  componentDidMount = () => {
+    this.getRapPosts();
+  }
 
   getRapPosts = async () => {
     try {
-      let url = '/api/content/posts';
+      let url = `http://${location}:3421/api/content/posts`;
       if (this.props.subscription === 1) {
-        url = '/api/content/friendsPosts';
+        url = `http://${location}:3421/api/content/friendsPosts`;
       }
-      const rapPosts = await axios.get(url);  //need to add ip address
+      const rapPosts = await axios.get(url);
       this.setState({
         rapPosts: rapPosts.data,
       });
     } catch (err) {
-      console.log('Failed to get rap posts.');
+      alert('Failed to get rap posts.');
     }
   }
 
   render() {
-    const rapPosts = this.state.rapPosts || [];
+    const { rapPosts } = this.state;
+    
     return (
+      rapPosts ? 
       <View style={styles.main}>
         <SessionBar nav={this.props} />
-        {rapPosts.map((rapPost, i) => (<RapPostEntry
-          rapPost={rapPost}
-          key={i}
-          getRapPosts={this.getRapPosts}
-          username={this.state.username}
-        />))}
+        <ScrollView style={styles.view}>
+          {rapPosts.map((rapPost, i) => (<RapPostEntry
+            rapPost={rapPost}
+            key={i}
+            getRapPosts={this.getRapPosts}
+            username={this.state.username}
+          />))}
+        </ScrollView>
       </View>
-    );
+      :
+      <View><Text>NOTHING</Text></View>
+    )
   }
 }
 
@@ -62,11 +69,22 @@ const styles = StyleSheet.create({
       main: {
         backgroundColor: '#333',
         flex: 1,
+      },
+      view: {
+        paddingLeft: 20,
+        paddingRight: 30,
+        paddingTop: 30,
       }
     },
     android: {
       main: {
         backgroundColor: '#333',
+        flex: 1,
+      },
+      view: {
+        paddingLeft: 20,
+        paddingRight: 30,
+        paddingTop: 30,
       }
     }
   })

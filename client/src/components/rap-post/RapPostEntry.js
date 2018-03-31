@@ -5,7 +5,7 @@ import axios from 'axios';
 // import Alert from '../alert';
 // import Modal from '../modal';
 // import './rapPost.css';
-import { Text, View } from 'react-native';
+import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 class RapPostEntry extends React.Component {
   constructor(props) {
@@ -74,17 +74,19 @@ class RapPostEntry extends React.Component {
   }
 
   postComment = async () => {
-    const status = await axios.post(
-      '/api/content/comment',
-      {
-        text: this.state.myComment,
-        username: this.props.rapPost.username,
-        postId: this.props.rapPost.id,
-      },
-    );
-    console.log(status.statusText);
-    this.setState({ myComment: '' });
-    this.getComments(false);
+    if (this.state.myComment) {
+      const status = await axios.post(
+        '/api/content/comment',
+        {
+          text: this.state.myComment,
+          username: this.props.rapPost.username,
+          postId: this.props.rapPost.id,
+        },
+      );
+      console.log(status.statusText);
+      this.setState({ myComment: '' });
+      this.getComments(false);
+    }
   }
 
   activateAlert = (status, message) => {
@@ -108,12 +110,34 @@ class RapPostEntry extends React.Component {
     this.getComments();
   }
 
+  parseText = (jsonString) => {
+    const rapObj = JSON.parse(jsonString);
+    const rapText = rapObj.map((word) => {
+      if (typeof word === 'object') {
+        return <Text style={{ color: word.color }}>{`${word.word} `}</Text>;
+      } else if (word === '\n') {
+      return <Text>{'\n'}</Text>;
+      }
+      return <Text>{`${word} `}</Text>;
+    });
+
+    return rapText;
+  }
+
   render() {
     const { username } = this.props.rapPost;
-    const rapText = this.props.rapPost.text.split('\n').map(line => <div className="rap-text">{line}</div>);
+    const rapText = this.parseText(this.props.rapPost.text);
+    // const rapText = this.props.rapPost.text.split('\n').map(line => <Text>{line}</Text>);
     return (
-      <View>
-        <Text>Hello from RapPostEntry</Text>
+      <View style={styles.main}>
+        <View>
+          <Text>By {username}</Text>
+        </View>
+        <View style={styles.rapTextOuter}>
+          <ScrollView style={styles.rapTextInner}>
+            <Text>{rapText}</Text>
+          </ScrollView>
+        </View>
       </View>
       // <div className="col-md-4">
       //   <div className="card">
@@ -155,3 +179,42 @@ class RapPostEntry extends React.Component {
 }
 
 export default RapPostEntry;
+
+const styles = StyleSheet.create({
+  ...Platform.select({
+    ios: {
+      main: {
+        flex: 1,
+        marginBottom: 20,
+        backgroundColor: '#91A3B0',
+        // paddingRight: 20,
+        paddingTop: 40,
+        padding: 20,
+      },
+      rapTextInner: {
+        paddingRight: 10,
+        paddingLeft: 10,
+      },
+      rapTextOuter: {
+        backgroundColor: 'white',
+      }
+    },
+    android: {
+      main: {
+        flex: 1,
+        marginBottom: 20,
+        backgroundColor: '#91A3B0',
+        // paddingRight: 20,
+        paddingTop: 40,
+        padding: 20,
+      },
+      rapTextInner: {
+        paddingRight: 10,
+        paddingLeft: 10,
+      },
+      rapTextOuter: {
+        backgroundColor: 'white',
+      }
+    }
+  })
+})

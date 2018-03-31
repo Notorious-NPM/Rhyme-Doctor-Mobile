@@ -14,13 +14,15 @@ const NoSessionBar = ({ nav }) => (
       </MenuTrigger>
       <MenuOptions>
         <MenuOption value={1}>
-          <Text onPress={() => nav.navigation.navigate('Home')}>Home</Text>
+          <Text style={styles.menuText} onPress={() => nav.navigation.navigate('Home')}>Home</Text>
         </MenuOption>
+        <View style={styles.bottomRule} />
         <MenuOption value={2}>
-          <Text onPress={() => nav.navigation.navigate('Login')}>Login</Text>
+          <Text style={styles.menuText} onPress={() => nav.navigation.navigate('Login')}>Login</Text>
         </MenuOption>
+        <View style={styles.bottomRule} />
         <MenuOption value={3}>
-          <Text onPress={() => nav.navigation.navigate('Signup')}>Signup</Text>
+          <Text style={styles.menuText} onPress={() => nav.navigation.navigate('Signup')}>Signup</Text>
         </MenuOption>
       </MenuOptions>
     </Menu>
@@ -28,3 +30,30 @@ const NoSessionBar = ({ nav }) => (
 );
 
 export default NoSessionBar;
+
+var styles = StyleSheet.create({
+  ...Platform.select({
+    ios: {
+      menuText: {
+        fontSize: 20
+      },
+      bottomRule: {
+        borderBottomColor: 'black',
+        borderBottomWidth: 1,
+        width: '80%',
+        marginLeft: '10%'
+      }
+    },
+    android: {
+      menuText: {
+        fontSize: 20
+      },
+      bottomRule: {
+        borderBottomColor: 'black',
+        borderBottomWidth: 1,
+        width: '80%',
+        marginLeft: '10%'
+      }
+    }
+  })
+})
