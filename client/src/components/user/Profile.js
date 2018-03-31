@@ -31,7 +31,7 @@ export default class Profile extends React.Component {
     //   this.getUserData(username);
     //   this.getUserPosts(username);
     // } else {
-      this.getUserData('meowskers');
+      this.getUserData();
       // this.getUserPosts();
     // }
   }
@@ -44,31 +44,24 @@ export default class Profile extends React.Component {
   // }
 
   getUserData = (username) => {
-    console.log(`http://${location}:3421/api/profile`);
-    console.log(username);
+    console.log(`http://${location}:3421/api/profile`);;
     // console.log
     // onst userData = axios.get('http://localhost:3000/api/profile');
       // const userData = username ? axios.get('http://localhost:3000/api/profile', { params: { name: username } }) : axios.get('http://192.168.1.11:3000/api/profile');
-      axios.get(`http://${location}:3421/api/profile`, { params: { name: username } })
-        .then(function(res) {
-          console.log('res', res.data)
+      axios.get(`http://${location}:3421/api/profile`)
+        .then((res) => {
+          this.setState({
+            username: res.data.name,
+            likeCount: res.data.like_count,
+            image: {uri: res.data.image},
+            bio: res.data.bio,
+            received: true,
+          })
         })
 
         .catch(function(err) {
           console.log('err', err)
         })
-      
-      // console.log(userData);
-      // this.setState({
-      //   username: userData.data.name,
-      //   likeCount: userData.data.like_count,
-      //   image: userData.data.image,
-      //   bio: userData.data.bio,
-      //   received: true,
-      // });
-    // } catch (err) {
-    //   console.log('Failed to get user data', err);
-    // }
   }
 
   // getUserData = async (username) => {
@@ -110,14 +103,18 @@ export default class Profile extends React.Component {
         <View style={styles.innerContainer}>
           <View style={styles.topContainer}>
             <View style={styles.image}>
-              <Image source={pic} style={{height: 100, width: 100}}/>
+              <Image source={this.state.image} style={{height: 100, width: 100}}/>
             </View>
             <View style={styles.bio}>
-              <Text style={{color:'white', fontSize:20, fontWeight: 'bold', marginLeft: 10}}>{this.state.username}</Text>
-              <Text style={{color:'white', fontSize:14, marginLeft: 10, flex: 1}}>{bio}</Text>
+              <Text style={{color:'white', fontSize:20, fontWeight: 'bold', marginLeft: 65}}>{this.state.username}</Text>
+              <Text style={{color:'white', fontSize:16, fontWeight: 'bold', marginLeft: 85}}>Likes: {this.state.likeCount}</Text>
             </View>
           </View>
-          <Text style={{marginTop: 200, alignSelf: 'center', fontSize: 20, fontWeight:'bold', color:'white'}}>Posts go here</Text>
+          <View style={{marginTop: 10}}>
+            {/* <Text style={{color:'white', fontSize:14, fontWeight: 'bold', marginLeft: 10}}>About Me</Text> */}
+            <Text style={{color:'white', fontSize:14, marginLeft: 10}}>{this.state.bio}</Text>
+          </View>
+          {/* <Text style={{marginTop: 200, alignSelf: 'center', fontSize: 20, fontWeight:'bold', color:'white'}}>Posts go here</Text> */}
           {/* <Text style={{color:'white', textAlign:'center', paddingTop: 10, paddingBottom: 10}}>Compose as you normally would. But be aware: commas signify a word to be rhymed with, as does the end of a line.</Text> */}
           {/* <TextInput
             style={{height: 150, width: 300, alignSelf: 'center', backgroundColor: '#D7D7D7', borderColor: 'gray', borderWidth: 1}}
@@ -178,7 +175,8 @@ var styles = StyleSheet.create({
   bio: {
     flex: 1,
     marginTop: 5,
-    flexDirection: 'column'
+    flexDirection: 'column',
+    alignSelf: 'center'
   },
   topContainer: {
     flexDirection: 'row'
