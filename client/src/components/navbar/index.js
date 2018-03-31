@@ -13,9 +13,6 @@ class Navbar extends React.Component {
     store.subscribe(() => {
       this.setState(store.getState());
     });
-    // this.state = {
-    //   session: false,
-    // };
   }
 
   render() {

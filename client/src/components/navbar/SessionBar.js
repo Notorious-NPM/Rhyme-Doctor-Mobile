@@ -13,15 +13,6 @@ import store from '../../redux/store';
 const history = createHistory();
 
 const logout = async (nav) => {
-  // $.ajax({
-  //   url: '/api/auth/logout',
-  //   method: 'POST',
-  //   success() {
-  //     store.dispatch({ type: 'sessionlogout' });
-  //     store.dispatch({ type: 'wipestore' });
-  //     nav.navigation.navigate('Home');
-  //   },
-  // });
   const result = await axios.post(`http://${location}:3421/api/auth/logout`);
   store.dispatch({ type: 'sessionlogout' });
   store.dispatch({ type: 'wipestore' });
