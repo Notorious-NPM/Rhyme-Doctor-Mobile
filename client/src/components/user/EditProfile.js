@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { StyleSheet, Text, View, Image, TextInput, Button, TouchableHighlight, CameraRoll } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, Button, TouchableHighlight, CameraRoll, PermissionsAndroid } from 'react-native';
 import SessionBar from '../navbar/SessionBar';
 // import Stats from './Stats';
 // import ProfileImage from './ProfileImage';
@@ -68,11 +68,32 @@ export default class EditProfile extends React.Component {
     }
   }
 
+  requestExternalStoragePermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        {
+          title: 'My App Storage Permission',
+          message: 'My App needs access to your storage ' +
+            'so you can save your photos',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log("You can use the camera")
+      } else {
+        console.log("Camera permission denied")
+      }
+    } catch (err) {
+      console.warn(err)
+    }
+  };
+
   getPhotosFromGallery() {
-    CameraRoll.getPhotos({ first: 100, assetType: 'Photos' })
-      .then(res => {
-        console.log(res, "images data")
-      })
+    this.requestExternalStoragePermission();
+    // CameraRoll.getPhotos({ first: 100, assetType: 'Photos' })
+    //   .then(res => {
+    //     console.log(res, "images data")
+    //   })
   }
 
   render() {
