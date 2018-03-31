@@ -12,7 +12,7 @@ import NavBar from '../navbar/index';
 // import FriendChat from '../../components/buttons/FriendChat';
 // import RhymeForm from '../rhymeSearch/RhymeForm';
 // import ColorPicker from '../toolbar/ColorPicker';
-// import store from '../../redux/store';
+import store from '../../redux/store';
 
 // import location from '../../../../config';
 // import './home.css';

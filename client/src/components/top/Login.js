@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-// import store from '../../redux/store';
+import store from '../../redux/store';
 import location from '../../../../config';
 import { Button, Platform, StyleSheet, Text, TextInput, View } from 'react-native';
 import t from 'tcomb-form-native';
@@ -47,14 +47,13 @@ const Login = (props) => {   //changed { history } to props.  Affects line 34
     axios
       .post(`http://${location}:3421/api/auth/login`, { username, password })
       .then(() => {
-        alert('logged in');
-        // store.dispatch({
-        //   type: 'sessionlogin',
-        //   body: {
-        //     username,
-        //   },
-        // });
-        // props.history.push('/');   //check if this works later
+        store.dispatch({
+          type: 'sessionlogin',
+          body: {
+            username,
+          },
+        });
+        props.navigation.navigate('Home');
       })
       .catch(err => alert('invalid username/password'));
   };

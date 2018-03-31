@@ -2,30 +2,27 @@ import React from 'react';
 import { Button, Platform, StyleSheet, View, Text } from 'react-native';
 import Menu, {MenuOptions, MenuOption, MenuTrigger} from 'react-native-menu';
 // import { Link } from 'react-router-dom';
-import createHistory from 'history/createBrowserHistory';
-import $ from 'jquery';
+import createHistory from 'history/createMemoryHistory';
+import axios from 'axios';
+import location from '../../../../config';
 
 import Home from '../home/index';
 
-// import store from '../../redux/store';
+import store from '../../redux/store';
 
-// const history = createHistory();
+const history = createHistory();
 
-// const logout = () => {
-//   $.ajax({
-//     url: '/api/auth/logout',
-//     method: 'POST',
-//     success() {
-//       store.dispatch({ type: 'sessionlogout' });
-//       store.dispatch({ type: 'wipestore' });
-//       history.push('/');
-//     },
-//   });
-// };
+const logout = async (nav) => {
+  const result = await axios.post(`http://${location}:3421/api/auth/logout`);
+  store.dispatch({ type: 'sessionlogout' });
+  store.dispatch({ type: 'wipestore' });
+  nav.navigation.navigate('Home');
+  alert('You are now logged out');
+};
 
 const SessionBar = ({ nav }) => (
   <View style={{ height: 60, paddingTop: 30, paddingBottom: 10, paddingRight: 10, paddingLeft: 10, flexDirection: 'row', backgroundColor: '#ffff64' }}>
-    <View style={{ flex: 1}}><Text style={{ fontSize: 18 }}>Rhyme Doctor</Text></View>
+    <View style={{ flex: 1 }}><Text style={{ fontSize: 18 }}>Rhyme Doctor</Text></View>
     <Menu >
       <MenuTrigger>
         <Text style={{ fontSize: 18 }}>Menu</Text>
@@ -56,7 +53,7 @@ const SessionBar = ({ nav }) => (
         </MenuOption>
         <View style={styles.bottomRule} />
         <MenuOption value={7}>
-          <Text style={styles.menuText}>Logout</Text>
+          <Text style={styles.menuText} onPress={() => logout(nav)}>Logout</Text>
         </MenuOption>
       </MenuOptions>
     </Menu>

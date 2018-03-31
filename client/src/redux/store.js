@@ -25,9 +25,9 @@ const DEFAULT = {
   color: 'red',
 };
 
-const browserSave = (state) => {
-  localStorage.setItem(state.user ? state.user : 'anonymous' /* ugh */, JSON.stringify(state));
-};
+// const browserSave = (state) => {
+//   localStorage.setItem(state.user ? state.user : 'anonymous' /* ugh */, JSON.stringify(state));
+// };
 
 const reducer = (state = Object.assign({}, DEFAULT), action) => {
   // console.log(JSON.parse(localStorage.getItem('anonymous')));
@@ -40,7 +40,7 @@ const reducer = (state = Object.assign({}, DEFAULT), action) => {
         user: state.user,
         strictness: state.strictness,
       };
-      browserSave(state);
+      // browserSave(state);
       return state;
     case 'sessionlogin':
       state.session = true;
@@ -54,37 +54,37 @@ const reducer = (state = Object.assign({}, DEFAULT), action) => {
       return state;
     case 'straighthighlight':
       state[action.body.coord] = action.body.color;
-      browserSave(state);
+      // browserSave(state);
       return state;
     case 'highlight':
       state[`${action.body.x}, ${action.body.y}`] = state.color;
-      browserSave(state);
+      // browserSave(state);
       return state;
     case 'unhighlight':
       delete state[`${action.body.x}, ${action.body.y}`];
-      browserSave(state);
+      // browserSave(state);
       return state;
     case 'changetext':
       state.text = action.body.text;
-      browserSave(state);
+      // browserSave(state);
       return state;
     case 'changestrictness':
       state.strictness = action.body.strictness;
-      browserSave(state);
+      // browserSave(state);
       return state;
     case 'changecolor':
       state.color = action.body.color;
-      browserSave(state);
+      // browserSave(state);
       return state;
     case 'browserrestore':
       Object.assign(state, JSON.parse(localStorage.getItem(action.body.username)));
-      browserSave(state);
+      // browserSave(state);
       return state;
     case 'wipestore':
       state = Object.assign({}, DEFAULT);
       return state;
     default:
-      browserSave(state); // lol
+      // browserSave(state); // lol
       return state;
   }
 };

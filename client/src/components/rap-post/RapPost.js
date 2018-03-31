@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
-// import store from '../../redux/store.js';
+import store from '../../redux/store.js';
 import RapPostEntry from './RapPostEntry';
 import SessionBar from '../navbar/SessionBar';
 
@@ -10,13 +10,10 @@ import location from '../../../../config';
 class RapPost extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {              //delete after redux store set up
-      rapPosts: false
-    }
-    // this.state = store.getState();
-    // store.subscribe(() => {
-    //   this.state = store.getState();
-    // });
+    this.state = store.getState();
+    store.subscribe(() => {
+      this.state = store.getState();
+    });
   }
 
   componentDidMount = () => {
