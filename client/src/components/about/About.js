@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Platform, StyleSheet, View, Text, ScrollView } from 'react-native';
+import { Platform, StyleSheet, View, Text, ScrollView, Image } from 'react-native';
 import SessionBar from '../navbar/SessionBar';
 // import './About.css';
 
@@ -26,6 +26,48 @@ const About = (props) => (
           We hope that this tool will be of use to you and that you will enjoy your visit here!
         </Text>
       </View>
+      <View style={styles.view}>
+        <Text style={styles.text}>
+          Meet the staff of Notorious NPM
+        </Text>
+      </View>
+
+      <View>
+        <Image source={{uri: 'https://thumbs.dreamstime.com/t/super-cool-potato-character-cartoon-style-vector-illustration-95541644.jpg'}}
+        style={styles.image} />
+        <Text style={styles.text}>
+          Senior Software Engineer
+          Eva Laskowski
+        </Text>
+      </View>
+
+      <View>
+        <Image source={{uri: 'https://thumbs.dreamstime.com/t/super-cool-potato-character-cartoon-style-vector-illustration-95541644.jpg'}}
+        style={styles.image} />
+        <Text style={styles.text}>
+          Senior Software Engineer
+          James Yen
+        </Text>
+      </View>
+
+      <View>
+        <Image source={{uri: 'https://thumbs.dreamstime.com/t/super-cool-potato-character-cartoon-style-vector-illustration-95541644.jpg'}}
+        style={styles.image} />
+        <Text style={styles.text}>
+          Senior Software Engineer
+          Kin Chan
+        </Text>
+      </View>
+
+      <View>
+        <Image source={{uri: 'https://thumbs.dreamstime.com/t/super-cool-potato-character-cartoon-style-vector-illustration-95541644.jpg'}}
+        style={styles.image} />
+        <Text style={styles.text}>
+          Senior Software Engineer
+          Samuel Hong
+        </Text>
+      </View>
+
     </ScrollView>
   </View>
 
@@ -153,6 +195,16 @@ const styles = StyleSheet.create({
         fontSize: 30,
         color: '#D7D7D7',
       },
+      image: {
+        width: 300,
+        height: 300,
+        textAlign: 'center',
+        margin: 1,
+        // border: '5px solid white',
+        padding: 15,
+        // boxShadow: 2px 2px 10px white,
+        lineHeight: 1.5,
+      },
     },
     android: {
       main: {
@@ -168,6 +220,16 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 30,
         color: '#D7D7D7',
+      },
+      image: {
+        width: 300,
+        height: 300,
+        textAlign: 'center',
+        margin: 1,
+        // border: '5px solid white',
+        padding: 15,
+        // boxShadow: 2px 2px 10px white,
+        lineHeight: 1.5,
       },
     }
   })
