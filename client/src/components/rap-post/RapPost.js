@@ -1,10 +1,11 @@
 import React from 'react';
 import axios from 'axios';
-import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import store from '../../redux/store.js';
 import RapPostEntry from './RapPostEntry';
 import SessionBar from '../navbar/SessionBar';
 
+import styles from './RapPostCss';
 import location from '../../../../config';
 
 class RapPost extends React.Component {
@@ -61,31 +62,3 @@ class RapPost extends React.Component {
 }
 
 export default RapPost;
-
-const styles = StyleSheet.create({
-  ...Platform.select({
-    ios: {
-      main: {
-        backgroundColor: '#333',
-        flex: 1,
-      },
-      view: {
-        paddingLeft: 20,
-        paddingRight: 30,
-        paddingTop: 30,
-      }
-    },
-    android: { //fix styling for android
-      main: {
-        backgroundColor: '#333',
-        flex: 1,
-      },
-      view: {
-        paddingLeft: 20,
-        paddingRight: 20,
-        paddingTop: 20,
-      }
-    }
-  })
-
-})
