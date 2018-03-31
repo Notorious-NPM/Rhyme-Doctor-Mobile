@@ -48,7 +48,6 @@ const Signup = (props) => {  //changed { history } to props, affects line 36
     axios
       .post(`http://${location}:3421/api/auth/signup`, { username, password })
       .then(({ data }) => {
-        alert('You signed up!');
         const { username } = data;
         store.dispatch({
           type: 'sessionlogin',

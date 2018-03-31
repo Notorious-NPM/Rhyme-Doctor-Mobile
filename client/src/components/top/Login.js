@@ -47,7 +47,6 @@ const Login = (props) => {   //changed { history } to props.  Affects line 34
     axios
       .post(`http://${location}:3421/api/auth/login`, { username, password })
       .then(() => {
-        alert('logged in');
         store.dispatch({
           type: 'sessionlogin',
           body: {
