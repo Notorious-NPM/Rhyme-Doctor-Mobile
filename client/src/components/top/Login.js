@@ -1,51 +1,20 @@
 import React from 'react';
 import axios from 'axios';
+import { Text, TouchableOpacity, View } from 'react-native';
 
-import store from '../../redux/store';
-import location from '../../../../config';
-import { Button, Platform, StyleSheet, Text, TextInput, View } from 'react-native';
-import t from 'tcomb-form-native';
 import NoSessionBar from '../navbar/NoSessionBar';
 
-const Form = t.form.Form;
+import store from '../../redux/store';
+import { location, port } from '../../../../config';
+import styles from './topCss';
+import { Form, loginInfo, options } from './tcombFormCss';
 
-const loginInfo = t.struct({
-  username: t.String,
-  password: t.String,
-})
-
-var tcomb = require('tcomb-form-native');
-
-// overriding the text color for every textbox in every form of your app
-tcomb.form.Form.stylesheet.textbox.normal.backgroundColor = 'white';
-
-
-const formStyles = {
-  ...Form.stylesheet,
-  controlLabel: {
-    normal: {
-      color: 'white',
-      fontSize: 20,
-      fontWeight: '700'
-    }
-  },
-  fields: {
-    username: {
-      color: 'white'
-    }
-  }
-}
-
-const options = {
-  stylesheet: formStyles,
-}
-
-const Login = (props) => {   //changed { history } to props.  Affects line 34
+const Login = (props) => {
   const submitHandler = () => {
     const value = this._form.getValue();
     const { username, password } = value;
     axios
-      .post(`http://${location}:3421/api/auth/login`, { username, password })
+      .post(`https://${location}:${port}/api/auth/login`, { username, password })
       .then(() => {
         store.dispatch({
           type: 'sessionlogin',
@@ -63,40 +32,14 @@ const Login = (props) => {   //changed { history } to props.  Affects line 34
       <NoSessionBar nav={props} />
       <View style={styles.form}>
         <Form type={loginInfo} ref={c => this._form = c} options={options} />
-        <Button
-          title="login"
-          onPress={submitHandler}
-          />
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.innerContainer} onPress={submitHandler}>
+            <Text style={styles.text}>Login</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
 };
 
 export default Login;
-
-const styles = StyleSheet.create({
-  ...Platform.select({
-    ios: {
-      main: {
-        backgroundColor: '#333',
-        flex: 1,
-      },
-      form: {
-        marginTop: 50,
-        marginLeft: 10,
-        marginRight: 10,
-      },
-    },
-    android: {
-      main: {
-        backgroundColor: '#333',
-        flex: 1,
-      },
-      form: {
-        marginTop: 50,
-        marginLeft: 10,
-        marginRight: 10,
-      },
-    }
-  })
-})

@@ -9,7 +9,7 @@ import UserPosts from './UserPosts';
 // import Bio from './Bio';
 // import FriendButton from '../buttons/FriendButton';
 
-import location from '../../../../config'
+import { location, port } from '../../../../config'
 
 // import store from '../../redux/store';
 
@@ -27,7 +27,6 @@ export default class Profile extends React.Component {
   }
 
   componentDidMount() {
-    // alert(this.props.navigation.state.params.username)
     if (this.props.navigation.state.params) {
       const { username } = this.props.navigation.state.params;
       this.getUserData(username);
@@ -47,7 +46,7 @@ export default class Profile extends React.Component {
 
   getUserData = async (username) => {
     try {
-      const userData = username ? await axios.get(`http://${location}:3421/api/profile`, { params: { name: username } }) : await axios.get(`http://${location}:3421/api/profile`);
+      const userData = username ? await axios.get(`https://${location}:${port}/api/profile`, { params: { name: username } }) : await axios.get(`http://${location}:3421/api/profile`);
       this.setState({
         username: userData.data.name,
         likeCount: userData.data.like_count,
@@ -62,7 +61,7 @@ export default class Profile extends React.Component {
 
   getUserPosts = async (username) => {
     try {
-      const userPosts = username ? await axios.get(`http://${location}:3421/api/profile/posts`, { params: { name: username } }) : await axios.get(`http://${location}:3421/api/profile/posts`);
+      const userPosts = username ? await axios.get(`https://${location}:${port}/api/profile/posts`, { params: { name: username } }) : await axios.get(`http://${location}:3421/api/profile/posts`);
       this.setState({
         userPosts: userPosts.data,
       });

@@ -1,11 +1,11 @@
 import React from 'react';
 import axios from 'axios';
-// import { Link } from 'react-router-dom';
 // import Comments from './comments';
 import Alert from '../alert';
-// import Modal from '../modal';
-// import './rapPost.css';
-import { Button, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+
+import { location, port } from '../../../../config';
+import styles from './RapPostEntryCss';
 
 class RapPostEntry extends React.Component {
   constructor(props) {
@@ -24,7 +24,7 @@ class RapPostEntry extends React.Component {
   }
 
   getComments = async (close = true) => {
-    const comments = await axios.get(`/api/content/comments/${this.props.rapPost.id}`);
+    const comments = await axios.get(`https://${location}:${port}/api/content/comments/${this.props.rapPost.id}`);
     if (close) {
       this.setState({
         comments: comments.data,
@@ -40,7 +40,7 @@ class RapPostEntry extends React.Component {
   likeRapPost = async () => {
     try {
       await axios.put(
-        '/api/vote/upvote',
+        `https://${location}:${port}/api/vote/upvote`,
         { rapPostId: this.props.rapPost.id },
       );
       this.activateAlert('success', 'You liked this rap post!');
@@ -59,7 +59,7 @@ class RapPostEntry extends React.Component {
   reportPost = async () => {
     try {
       await axios.post(
-        '/api/content/report',
+        `https://${location}:${port}/api/content/report`,
         { rapPostId: this.props.rapPost.id },
       );
       this.activateAlert('success', 'Report was successfully submitted');
@@ -76,7 +76,7 @@ class RapPostEntry extends React.Component {
   postComment = async () => {
     if (this.state.myComment) {
       const status = await axios.post(
-        '/api/content/comment',
+        `https://${location}:${port}/api/content/comment`,
         {
           text: this.state.myComment,
           username: this.props.rapPost.username,
@@ -167,162 +167,3 @@ class RapPostEntry extends React.Component {
 }
 
 export default RapPostEntry;
-
-const styles = StyleSheet.create({
-  ...Platform.select({
-    ios: {
-      main: {
-        borderRadius: 5,
-        flex: 1,
-        marginBottom: 20,
-        backgroundColor: '#91A3B0',
-        paddingTop: 20,
-        padding: 20,
-      },
-      likeButton: {
-        backgroundColor: '#007bff',
-        borderRadius: 5,
-        borderWidth: 1,
-        width: 85,
-        height: 45,
-      },
-      buttonMain: {
-        alignItems: 'center',
-        marginTop: 20,
-      },
-      likeNum:{
-        fontSize: 15,
-      },
-      likeText: {
-        color: 'white',
-        fontSize: 20,
-        fontWeight: '700',
-      },
-      likeNumContainer: {
-        backgroundColor: 'white',
-        borderRadius: 3,
-        width: 20,
-        height: 20,
-        marginTop: 3,
-        marginLeft: 5,
-        alignItems: 'center',
-      },
-      likeTopContainer: {
-        paddingLeft: 10,
-        paddingTop: 10,
-        flexDirection: 'row',
-      },
-      rapTextInner: {
-        paddingRight: 10,
-        paddingLeft: 10,
-      },
-      rapTextOuter: {
-        backgroundColor: 'white',
-      },
-      reportButton: {
-        alignItems: 'center',
-        backgroundColor: '#ffc107',
-        height: 20,
-        width: 90,
-        borderColor: 'white',
-        borderWidth: 1,
-        borderRadius: 4,
-      },
-      reportText: {
-        marginTop: 1,
-        fontSize: 14,
-        fontWeight: '700',
-      },
-      userMain: {
-        justifyContent: 'center',
-        flexDirection: 'row',
-        marginBottom: 10,
-        marginTop: 10,
-      },
-      username: {
-        fontSize: 25,
-        fontWeight: '800',
-      },
-      usernameLink: {
-        textDecorationLine: 'underline'
-      }
-    },
-    android: {
-      main: {
-        borderRadius: 5,
-        flex: 1,
-        marginBottom: 20,
-        backgroundColor: '#91A3B0',
-        paddingTop: 20,
-        padding: 20,
-      },
-      likeButton: {
-        backgroundColor: '#007bff',
-        borderRadius: 5,
-        borderWidth: 1,
-        width: 85,
-        height: 45,
-      },
-      buttonMain: {
-        alignItems: 'center',
-        marginTop: 20,
-      },
-      likeNum:{
-        fontSize: 15,
-      },
-      likeText: {
-        color: 'white',
-        fontSize: 20,
-        fontWeight: '700',
-      },
-      likeNumContainer: {
-        backgroundColor: 'white',
-        borderRadius: 3,
-        width: 20,
-        height: 20,
-        marginTop: 3,
-        marginLeft: 5,
-        alignItems: 'center',
-      },
-      likeTopContainer: {
-        paddingLeft: 10,
-        paddingTop: 10,
-        flexDirection: 'row',
-      },
-      rapTextInner: {
-        paddingRight: 10,
-        paddingLeft: 10,
-      },
-      rapTextOuter: {
-        backgroundColor: 'white',
-      },
-      reportButton: {
-        alignItems: 'center',
-        backgroundColor: '#ffc107',
-        height: 20,
-        width: 90,
-        borderColor: 'white',
-        borderWidth: 1,
-        borderRadius: 4,
-      },
-      reportText: {
-        marginTop: 1,
-        fontSize: 14,
-        fontWeight: '700',
-      },
-      userMain: {
-        justifyContent: 'center',
-        flexDirection: 'row',
-        marginBottom: 10,
-        marginTop: 10,
-      },
-      username: {
-        fontSize: 25,
-        fontWeight: '800',
-      },
-      usernameLink: {
-        textDecorationLine: 'underline'
-      }
-    }
-  })
-})

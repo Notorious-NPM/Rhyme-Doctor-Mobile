@@ -1,19 +1,14 @@
 import React from 'react';
-import { Button, Platform, StyleSheet, View, Text } from 'react-native';
+import { Button, Text, View } from 'react-native';
 import Menu, {MenuOptions, MenuOption, MenuTrigger} from 'react-native-menu';
-// import { Link } from 'react-router-dom';
-import createHistory from 'history/createMemoryHistory';
 import axios from 'axios';
-import location from '../../../../config';
 
-import Home from '../home/index';
-
+import { location, port } from '../../../../config';
 import store from '../../redux/store';
-
-const history = createHistory();
+import styles from './navbarCss';
 
 const logout = async (nav) => {
-  const result = await axios.post(`http://${location}:3421/api/auth/logout`);
+  const result = await axios.post(`https://${location}:${port}/api/auth/logout`);
   store.dispatch({ type: 'sessionlogout' });
   store.dispatch({ type: 'wipestore' });
   nav.navigation.navigate('Home');
@@ -63,32 +58,5 @@ const SessionBar = ({ nav }) => (
     </Menu>
   </View>
 );
-
-var styles = StyleSheet.create({
-  ...Platform.select({
-    ios: {
-      menuText: {
-        fontSize: 20
-      },
-      bottomRule: {
-        borderBottomColor: 'black',
-        borderBottomWidth: 1,
-        width: '80%',
-        marginLeft: '10%'
-      }
-    },
-    android: {
-      menuText: {
-        fontSize: 20
-      },
-      bottomRule: {
-        borderBottomColor: 'black',
-        borderBottomWidth: 1,
-        width: '80%',
-        marginLeft: '10%'
-      }
-    }
-  })
-})
 
 export default SessionBar;
