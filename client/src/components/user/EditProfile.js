@@ -44,7 +44,7 @@ export default class EditProfile extends React.Component {
 
   getUserData = async (username) => {
     try {
-      const userData = username ? await axios.get(`http://${location}:3421/api/profile`, { params: { name: username } }) : await axios.get(`http://${location}:3421/api/profile`);
+      const userData = username ? await axios.get(`https://${location}:3421/api/profile`, { params: { name: username } }) : await axios.get(`http://${location}:3421/api/profile`);
       this.setState({
         username: userData.data.name,
         likeCount: userData.data.like_count,
