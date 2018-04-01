@@ -4,6 +4,7 @@ import axios from 'axios';
 import Alert from '../alert';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
+import { location, port } from '../../../../config';
 import styles from './RapPostEntryCss';
 
 class RapPostEntry extends React.Component {
@@ -23,7 +24,7 @@ class RapPostEntry extends React.Component {
   }
 
   getComments = async (close = true) => {
-    const comments = await axios.get(`/api/content/comments/${this.props.rapPost.id}`);
+    const comments = await axios.get(`https://${location}:${port}/api/content/comments/${this.props.rapPost.id}`);
     if (close) {
       this.setState({
         comments: comments.data,
@@ -39,7 +40,7 @@ class RapPostEntry extends React.Component {
   likeRapPost = async () => {
     try {
       await axios.put(
-        '/api/vote/upvote',
+        `https://${location}:${port}/api/vote/upvote`,
         { rapPostId: this.props.rapPost.id },
       );
       this.activateAlert('success', 'You liked this rap post!');
@@ -58,7 +59,7 @@ class RapPostEntry extends React.Component {
   reportPost = async () => {
     try {
       await axios.post(
-        '/api/content/report',
+        `https://${location}:${port}/api/content/report`,
         { rapPostId: this.props.rapPost.id },
       );
       this.activateAlert('success', 'Report was successfully submitted');
@@ -75,7 +76,7 @@ class RapPostEntry extends React.Component {
   postComment = async () => {
     if (this.state.myComment) {
       const status = await axios.post(
-        '/api/content/comment',
+        `https://${location}:${port}/api/content/comment`,
         {
           text: this.state.myComment,
           username: this.props.rapPost.username,

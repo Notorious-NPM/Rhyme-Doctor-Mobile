@@ -5,16 +5,16 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import NoSessionBar from '../navbar/NoSessionBar';
 
 import store from '../../redux/store';
-import location from '../../../../config';
+import { location, port } from '../../../../config';
 import styles from './topCss';
 import { Form, loginInfo, options } from './tcombFormCss';
 
-const Login = (props) => {   //changed { history } to props.  Affects line 34
+const Login = (props) => {
   const submitHandler = () => {
     const value = this._form.getValue();
     const { username, password } = value;
     axios
-      .post(`http://${location}:3421/api/auth/login`, { username, password })
+      .post(`https://${location}:${port}/api/auth/login`, { username, password })
       .then(() => {
         store.dispatch({
           type: 'sessionlogin',

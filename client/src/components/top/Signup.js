@@ -5,7 +5,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import NoSessionBar from '../navbar/NoSessionBar';
 
 import store from '../../redux/store';
-import location from '../../../../config';
+import { location, port } from '../../../../config';
 import styles from './topCss';
 import { Form, loginInfo, options } from './tcombFormCss';
 
@@ -14,7 +14,7 @@ const Signup = (props) => {  //changed { history } to props, affects line 36
     const value = this._form.getValue();
     const { username, password } = value;
     axios
-      .post(`http://${location}:3421/api/auth/signup`, { username, password })
+      .post(`https://${location}:${port}/api/auth/signup`, { username, password })
       .then(({ data }) => {
         const { username } = data;
         store.dispatch({

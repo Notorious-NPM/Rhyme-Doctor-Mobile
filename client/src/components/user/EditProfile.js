@@ -9,7 +9,7 @@ import UserPosts from './UserPosts';
 // import Bio from './Bio';
 // import FriendButton from '../buttons/FriendButton';
 
-import location from '../../../../config'
+import { location, port } from '../../../../config'
 
 // import store from '../../redux/store';
 
@@ -45,7 +45,7 @@ export default class EditProfile extends React.Component {
   // }
 
   getUserData = (username) => {
-      axios.get(`http://${location}:3421/api/profile`)
+      axios.get(`https://${location}:${port}/api/profile`)
         .then((res) => {
           this.setState({
             username: res.data.name,

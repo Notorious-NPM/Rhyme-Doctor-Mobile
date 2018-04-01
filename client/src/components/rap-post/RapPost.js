@@ -6,7 +6,7 @@ import RapPostEntry from './RapPostEntry';
 import SessionBar from '../navbar/SessionBar';
 
 import styles from './RapPostCss';
-import location from '../../../../config';
+import { location, port } from '../../../../config';
 
 class RapPost extends React.Component {
   constructor(props) {
@@ -23,9 +23,9 @@ class RapPost extends React.Component {
 
   getRapPosts = async () => {
     try {
-      let url = `http://${location}:3421/api/content/posts`;
+      let url = `https://${location}:${port}/api/content/posts`;
       if (this.props.subscription === 1) {
-        url = `http://${location}:3421/api/content/friendsPosts`;
+        url = `https://${location}:${port}/api/content/friendsPosts`;
       }
       const rapPosts = await axios.get(url);
       this.setState({
