@@ -10,75 +10,76 @@ import FriendList from './FriendList';
 import Chat from './Chat';
 
 import store from '../../redux/store';
-import location from '../../../../config';
+import { location, port, socketPort } from '../../../../config';
 import { friends, styles } from './FriendChatCss';
 
 export default class Friends extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      friendsList: [
-        ['Joker', 'one'],
-        ['Batman', 'two'],
-        ['Robin', 'three'],
-        ['Clayface', 'four'],
-        ['Harley Q', 'five'],
-        ['Solomon G', 'six'],
-        ['Azrael', 'six'],
-      ],
+      friendsList: [],
+      friendsDot: {},
       socket: null,
-      // store: store.getState(),
+      store: store.getState(),
       setInactive: {},
       currentChatIndex: -1,
     };
-    // store.subscribe(() => {
-    //   this.state = store.getState();
-    // });
+    store.subscribe(() => {
+      this.state = store.getState();
+    });
   }
 
-  // componentDidMount() {
-  //   axios
-  //     .get('/api/user/friend')
-  //     .then(({ data }) => {
-  //       const friendsList = [];
-  //       data.forEach(friend =>
-  //         friendsList.push([friend.name, friend.roomID]));
-  //       this.setState({ friendsList }) // eslint-disable-line
-  //     })
-  //     .catch(err => console.log('FriendChat componentMount error: ', err));
+  async componentDidMount() {
+    const { friendsDot } = this.state;
+    axios
+      .get(`https://${location}:${port}/api/user/friend`)
+      .then(({ data }) => {
+        const friendsList = [];
+        data.forEach(friend => {
+          friendsList.push([friend.name, friend.roomID]);
+          friendsDot[friend.name] = '#bbb';
+        })
+        this.setState({ friendsList, friendsDot });
+      })
+      .catch(err => alert('FriendChat componentMount error: ', err));
 
-  //   this.socket = io(`http://${location}:3444`, {
-  //     query: {
-  //       roomId: 'lobby',
-      // },
-  //   });
+    this.socket = io(`https://${location}:${socketPort}`, {
+      query: {
+        roomId: 'lobby',
+      },
+    });
   
-  //   this.socket.on('server.inLobby', (payload) => {
-  //     const domElement = document.getElementsByClassName(payload);
-  //     if (domElement.length > 0) {
-  //       domElement[0].style.backgroundColor = '#0EFF2E';
-  //       const { setInactive } = this.state;
-  //       if (setInactive[payload]) {
-  //         clearTimeout(setInactive[payload]);
-  //       }
-  //       setInactive[payload] = setTimeout(() => { domElement[0].style.backgroundColor = '#bbb'; }, 20000);
-  //       this.setState({ setInactive });
-  //     }
-  //   });
+    await this.socket.on('server.inLobby', (payload) => {
+      const { friendsDot } = this.state;
+      if (friendsDot[payload]) {
+        friendsDot[payload] = '#0EFF2E';
+      }
+      this.setState({ friendsDot });
+      // const domElement = document.getElementsByClassName(payload);
+      // const domElement = []
+      // if (domElement.length > 0) {
+      //   domElement[0].style.backgroundColor = '#0EFF2E';
+      //   const { setInactive } = this.state;
+      //   if (setInactive[payload]) {
+      //     clearTimeout(setInactive[payload]);
+      //   }
+      //   setInactive[payload] = setTimeout(() => { domElement[0].style.backgroundColor = '#bbb'; }, 20000);
+      //   this.setState({ setInactive });
+      // }
+    });
 
-  //   this.setState( { socket: this.socket }); // eslint-disable-line
-  // }
+    await this.socket.emit('client.inLobby', this.state.store.user);
+
+    this.setState( { socket: this.socket });
+  }
 
   changeSelectedChat = (index) => {
     const { currentChatIndex } = this.state;
     this.setState({ currentChatIndex: index });
   }
 
-    // const { socket } = this.state;
-    // socket.emit('client.inLobby', this.state.store.user);
-
   render() {
-    const { friendsList, friendsListDisplay, socket, currentChatIndex } = this.state;
+    const { friendsList, friendsDot, friendsListDisplay, socket, currentChatIndex } = this.state;
 
     return (
       <View style={styles.main}>
@@ -88,7 +89,7 @@ export default class Friends extends Component {
             <Text style={styles.title}>Chats</Text>
             <View style={{ borderWidth: 1 }}>
             {friendsList.map((friend, index) =>
-                <FriendList key={index} index={index} friend={friend} changeSelectedChat={this.changeSelectedChat}/>
+                <FriendList key={index} index={index} friend={friend} dot={friendsDot[friend.name]} changeSelectedChat={this.changeSelectedChat}/>
               )}
             </View>
           </ScrollView>

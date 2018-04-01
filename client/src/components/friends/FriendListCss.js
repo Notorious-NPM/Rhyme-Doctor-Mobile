@@ -4,7 +4,6 @@ const friends = StyleSheet.create({
   dot: {
     height: 10,
     width: 10,
-    backgroundColor: '#bbb',
     borderRadius: 100,
     margin: 8,
     position: 'relative',

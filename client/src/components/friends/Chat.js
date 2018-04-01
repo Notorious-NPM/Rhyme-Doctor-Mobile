@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import io from 'socket.io-client/dist/socket.io';
 import { Keyboard, ScrollView, Text, TextInput, View } from 'react-native';
 
-import location from '../../../../config';
+import { location, socketPort } from '../../../../config';
 import styles from './ChatCss';
 
 class Chat extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: '',
+      msg: '',
       messages: [],
       socket: null,
       randomCode: (Math.random() * 666).toString(),
@@ -18,19 +18,19 @@ class Chat extends Component {
   }
 
   async componentDidMount() {
-    this.socket = await io(`http://${location}:3444`, {
+    this.socket = await io(`https://${location}:${socketPort}`, {
       query: {
         roomId: this.props.roomID,
       },
     });
 
-    await this.socket.on('server.sendMsg', ({ text, randomCode }) => {
+    await this.socket.on('server.sendMsg', ({ msg, randomCode }) => {
       if (randomCode === this.state.randomCode) {
-        text = 'Me: ' + text;
+        msg = 'Me: ' + msg;
       } else {
-        text = this.props.friendName + ': ' + text;
+        msg = this.props.friendName + ': ' + msg;
       }
-      this.setState({ messages: [...this.state.messages, text] });
+      this.setState({ messages: [...this.state.messages, msg] });
     });
 
     this.setState({ socket: this.socket }) // eslint-disable-line
@@ -55,8 +55,8 @@ class Chat extends Component {
   }
 
   sendMsg = () => {
-    const { socket, randomCode, text } = this.state;
-    socket.emit('client.sendMsg', { text, randomCode });
+    const { socket, randomCode, msg } = this.state;
+    socket.emit('client.sendMsg', { msg, randomCode });
     this.textInput.clear();
   }
 
@@ -88,7 +88,7 @@ class Chat extends Component {
           <View style={[styles.textInput, unhideInput && styles.mobilePopShow]}>
             <TextInput style={{ fontSize: 25, zIndex: 1, }} placeholder="enter txt here" 
                 ref={input => {this.textInput = input}}
-                onChangeText={(text) => this.setState({text})} 
+                onChangeText={(text) => this.setState({ msg: text })} 
                 onSubmitEditing={() => this.sendMsg()}
               />
           </View>
