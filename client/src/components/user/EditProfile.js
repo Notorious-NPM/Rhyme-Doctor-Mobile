@@ -49,11 +49,23 @@ export default class EditProfile extends React.Component {
   //   });
   // }
 
-  requestPermission() {
-    Permissions.request('photo').then(response => {
-      this.setState({photoPermission: response})
-      console.log('state', this.state);
-    })
+  requestPermission = async() => {
+    // Permissions.request('photo').then(response => {
+    //   this.setState({photoPermission: response})
+    //   console.log('state', this.state);
+    // })
+    // async function getLocationAsync() {
+      const { Location, Permissions } = Expo;
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status === 'granted') {
+        return CameraRoll.getPhotos({ first: 100, assetType: 'Photos' })
+        .then(res => {
+          console.log(res, "images data")
+        })
+      } else {
+        throw new Error('Location permission not granted');
+      }
+    // }
   }
 
 
@@ -131,7 +143,7 @@ export default class EditProfile extends React.Component {
                 <View style={styles.button}>
                   <TouchableHighlight 
                     style={styles.touchable}
-                    onPress={() => this.alertForPhotosPermission()}>
+                    onPress={() => this.requestPermission()}>
                     <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>CHANGE PICTURE</Text>
                       {/* // onPress={onPressLearnMore}
                       // onPress={() => alert('add function here')} */}
