@@ -55,6 +55,7 @@ export default class EditProfile extends React.Component {
     })
   }
 
+  
   alertForPhotosPermission() {
     Alert.alert(
       'Can we access your photos?',
