@@ -36,7 +36,7 @@ const SessionBar = ({ nav }) => (
         </MenuOption>
         <View style={styles.bottomRule} />
         <MenuOption value={4}>
-          <Text style={styles.menuText}>Subscriptions</Text>
+          <Text style={styles.menuText} onPress={() => nav.navigation.navigate('RapPost', { subscription: 1 })}>Subscriptions</Text>
         </MenuOption>
         <View style={styles.bottomRule} />
         <MenuOption value={5}>

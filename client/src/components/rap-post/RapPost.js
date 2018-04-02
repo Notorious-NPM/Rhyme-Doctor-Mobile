@@ -22,9 +22,10 @@ class RapPost extends React.Component {
   }
 
   getRapPosts = async () => {
+    this.props.navigation.state.params
     try {
       let url = `https://${location}:${port}/api/content/posts`;
-      if (this.props.subscription === 1) {
+      if (this.props.navigation.state.params && this.props.navigation.state.params.subscription === 1) {
         url = `https://${location}:${port}/api/content/friendsPosts`;
       }
       const rapPosts = await axios.get(url);
