@@ -19,6 +19,7 @@ export default class Friends extends Component {
     this.state = {
       friendsList: [],
       friendsDot: {},
+      friendsTimeout: {},
       socket: null,
       store: store.getState(),
       setInactive: {},
@@ -50,11 +51,18 @@ export default class Friends extends Component {
     });
   
     await this.socket.on('server.inLobby', (payload) => {
-      const { friendsDot } = this.state;
+      const { friendsDot, friendsTimeout } = this.state;
       if (friendsDot[payload]) {
+        clearTimeout(friendsTimeout[payload]);
         friendsDot[payload] = '#0EFF2E';
+        friendsTimeout[payload] = setTimeout( () => { 
+            friendsDot[payload] = '#bbb';
+            this.setState({ friendsDot });
+          }, 600000);
       }
       this.setState({ friendsDot });
+
+
       // const domElement = document.getElementsByClassName(payload);
       // const domElement = []
       // if (domElement.length > 0) {
@@ -89,7 +97,7 @@ export default class Friends extends Component {
             <Text style={styles.title}>Chats</Text>
             <View style={{ borderWidth: 1 }}>
             {friendsList.map((friend, index) =>
-                <FriendList key={index} index={index} friend={friend} dot={friendsDot[friend.name]} changeSelectedChat={this.changeSelectedChat}/>
+                <FriendList key={index} index={index} friend={friend} dot={friendsDot[friend[0]]} changeSelectedChat={this.changeSelectedChat}/>
               )}
             </View>
           </ScrollView>
