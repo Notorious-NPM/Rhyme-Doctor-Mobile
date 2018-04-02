@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import { StyleSheet, Text, View, Image, TextInput, Button, TouchableHighlight, CameraRoll, PermissionsAndroid } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, Button, TouchableHighlight, CameraRoll, PermissionsAndroid, Alert } from 'react-native';
 import SessionBar from '../navbar/SessionBar';
+import Permissions from 'react-native-permissions';
 // import Stats from './Stats';
 // import ProfileImage from './ProfileImage';
 // import Bio from './Bio';
@@ -31,8 +32,14 @@ export default class EditProfile extends React.Component {
     //   this.getUserPosts(username);
     // } else {
       this.getUserData();
-      this.getUserPosts();
-    // }
+      Permissions.checkMultiple(['camera', 'photo', 'storage']).then(response => {
+        this.setState({ 
+          photoPermission: response.photo,
+          cameraPermission: response.camera,
+          storagePermissions: response.storage
+        })
+        console.log('state', this.state);
+      }).catch(err => {console.log(err)})
   }
 
   // componentDidMount() {
@@ -41,6 +48,29 @@ export default class EditProfile extends React.Component {
   //     this.setState(store.getState());
   //   });
   // }
+
+  requestPermission() {
+    Permissions.request('storage').then(response => {
+      this.setState({storagePermission: response})
+    })
+  }
+
+  alertForPhotosPermission() {
+    Alert.alert(
+      'Can we access your photos?',
+      'We need access so you can set your profile pic',
+      [
+        {
+          text: 'No way',
+          onPress: () => console.log('Permission denied'),
+          style: 'cancel',
+        },
+        this.state.storagePermission === 'undetermined'
+          ? { text: 'OK', onPress: this.requestPermission}
+          : { text: 'Open Settings', onPress: Permissions.openSettings}
+      ]
+    )
+  }
 
   getUserData = async (username) => {
     try {
@@ -51,17 +81,6 @@ export default class EditProfile extends React.Component {
         image: {uri: userData.data.image},
         bio: userData.data.bio,
         received: true
-      });
-    } catch (err) {
-      console.log('Failed to get user posts');
-    }
-  }
-
-  getUserPosts = async (username) => {
-    try {
-      const userPosts = username ? await axios.get(`http://${location}:3421/api/profile/posts`, { params: { name: username } }) : await axios.get(`http://${location}:3421/api/profile/posts`);
-      this.setState({
-        userPosts: userPosts.data,
       });
     } catch (err) {
       console.log('Failed to get user posts');
@@ -89,11 +108,10 @@ export default class EditProfile extends React.Component {
   };
 
   getPhotosFromGallery() {
-    this.requestExternalStoragePermission();
-    // CameraRoll.getPhotos({ first: 100, assetType: 'Photos' })
-    //   .then(res => {
-    //     console.log(res, "images data")
-    //   })
+    CameraRoll.getPhotos({ first: 100, assetType: 'Photos' })
+      .then(res => {
+        console.log(res, "images data")
+      })
   }
 
   render() {
@@ -108,6 +126,15 @@ export default class EditProfile extends React.Component {
             </View>
               <View style={styles.image}>
                 <Image source={this.state.image} style={{height: 150, width: 150, alignSelf: 'center', marginTop: 15}}/>
+                <View style={styles.button}>
+                  <TouchableHighlight 
+                    style={styles.touchable}
+                    onPress={() => this.alertForPhotosPermission()}>
+                    <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>CHANGE PICTURE</Text>
+                      {/* // onPress={onPressLearnMore}
+                      // onPress={() => alert('add function here')} */}
+                  </TouchableHighlight>
+                </View>
                 <View style={styles.button}>
                   <TouchableHighlight 
                     style={styles.touchable}
