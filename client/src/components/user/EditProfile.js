@@ -3,7 +3,6 @@ import axios from 'axios';
 import Expo from 'expo';
 import { StyleSheet, Text, View, Image, TextInput, Button, TouchableHighlight, CameraRoll, PermissionsAndroid, Alert } from 'react-native';
 import SessionBar from '../navbar/SessionBar';
-import Permissions from 'react-native-permissions';
 // import Stats from './Stats';
 // import ProfileImage from './ProfileImage';
 // import Bio from './Bio';
@@ -49,7 +48,7 @@ export default class EditProfile extends React.Component {
   //   });
   // }
 
-  requestPermission = async() => {
+  requestPermission = async () => {
     // Permissions.request('photo').then(response => {
     //   this.setState({photoPermission: response})
     //   console.log('state', this.state);
@@ -60,35 +59,18 @@ export default class EditProfile extends React.Component {
       if (status === 'granted') {
         return CameraRoll.getPhotos({ first: 100, assetType: 'Photos' })
         .then(res => {
-          console.log(res, "images data")
+          this.setState({
+            photos: res.edges
+          })
         })
       } else {
-        throw new Error('Location permission not granted');
+        throw new Error('Location permission not granted');//change this
       }
-    // }
   }
-
-
-  alertForPhotosPermission() {
-    Alert.alert(
-      'Can we access your photos?',
-      'We need access so you can set your profile pic',
-      [
-        {
-          text: 'No way',
-          onPress: () => console.log('Permission denied'),
-          style: 'cancel',
-        },
-        this.state.photoPermission === 'undetermined'
-          ? { text: 'OK', onPress: this.requestPermission()}
-          : { text: 'Open Settings', onPress: Permissions.openSettings}
-      ]
-    )
-  }
-
+  
   getUserData = async (username) => {
     try {
-      const userData = username ? await axios.get(`https://${location}:3421/api/profile`, { params: { name: username } }) : await axios.get(`http://${location}:3421/api/profile`);
+      const userData = username ? await axios.get(`https://${location}:${port}/api/profile`, { params: { name: username } }) : await axios.get(`http://${location}:3421/api/profile`);
       this.setState({
         username: userData.data.name,
         likeCount: userData.data.like_count,
@@ -101,32 +83,12 @@ export default class EditProfile extends React.Component {
     }
   }
 
-  requestExternalStoragePermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-        {
-          title: 'My App Storage Permission',
-          message: 'My App needs access to your storage ' +
-            'so you can save your photos',
-        },
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log("You can use the camera")
-      } else {
-        console.log("Camera permission denied")
-      }
-    } catch (err) {
-      console.warn(err)
-    }
-  };
-
-  getPhotosFromGallery() {
-    CameraRoll.getPhotos({ first: 100, assetType: 'Photos' })
-      .then(res => {
-        console.log(res, "images data")
-      })
-  }
+  // getPhotosFromGallery() {
+  //   CameraRoll.getPhotos({ first: 100, assetType: 'Photos' })
+  //     .then(res => {
+  //       console.log(res, "images data")
+  //     })
+  // }
 
   render() {
     // const { state } = this.props.location;
