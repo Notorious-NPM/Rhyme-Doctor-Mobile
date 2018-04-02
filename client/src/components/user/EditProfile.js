@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Expo from 'expo';
 import { StyleSheet, Text, View, Image, TextInput, Button, TouchableHighlight, CameraRoll, PermissionsAndroid, Alert } from 'react-native';
 import SessionBar from '../navbar/SessionBar';
 import Permissions from 'react-native-permissions';
@@ -38,7 +39,6 @@ export default class EditProfile extends React.Component {
           cameraPermission: response.camera,
           storagePermissions: response.storage
         })
-        console.log('state', this.state);
       }).catch(err => {console.log(err)})
   }
 
@@ -50,12 +50,13 @@ export default class EditProfile extends React.Component {
   // }
 
   requestPermission() {
-    Permissions.request('storage').then(response => {
-      this.setState({storagePermission: response})
+    Permissions.request('photo').then(response => {
+      this.setState({photoPermission: response})
+      console.log('state', this.state);
     })
   }
 
-  
+
   alertForPhotosPermission() {
     Alert.alert(
       'Can we access your photos?',
@@ -66,8 +67,8 @@ export default class EditProfile extends React.Component {
           onPress: () => console.log('Permission denied'),
           style: 'cancel',
         },
-        this.state.storagePermission === 'undetermined'
-          ? { text: 'OK', onPress: this.requestPermission}
+        this.state.photoPermission === 'undetermined'
+          ? { text: 'OK', onPress: this.requestPermission()}
           : { text: 'Open Settings', onPress: Permissions.openSettings}
       ]
     )
