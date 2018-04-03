@@ -15,9 +15,9 @@ import EditProfile from './client/src/components/user/EditProfile';
 
 const RootStack = StackNavigator(
   {
-    Home: {
-      name: 'Home',
-      screen: Home,
+    Login: {
+      name: 'Login',
+      screen: Login,
     },
     Friends: {
       screen: FriendChat,
@@ -27,9 +27,6 @@ const RootStack = StackNavigator(
     },
     Profile: {
       screen: Profile,
-    },
-    Login: {
-      screen: Login,
     },
     Signup: {
       screen: Signup,
@@ -42,7 +39,7 @@ const RootStack = StackNavigator(
     },
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Login',
     headerMode: 'none',
   }
 )

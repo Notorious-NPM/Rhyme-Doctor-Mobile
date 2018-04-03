@@ -22,7 +22,7 @@ const Login = (props) => {
             username,
           },
         });
-        props.navigation.navigate('Home');
+        props.navigation.navigate('RapPost', { subscription: 1 });
       })
       .catch(err => alert('invalid username/password'));
   };

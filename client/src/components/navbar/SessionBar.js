@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, Text, View } from 'react-native';
-import Menu, {MenuOptions, MenuOption, MenuTrigger} from 'react-native-menu';
+import { Button, Text, TouchableOpacity, View } from 'react-native';
+import Menu, { MenuOptions, MenuOption, MenuTrigger } from 'react-native-menu';
 import axios from 'axios';
 
 import { location, port } from '../../../../config';
@@ -15,16 +15,18 @@ const logout = async (nav) => {
   alert('You are now logged out');
 };
 
+const renderTouchable = () => <TouchableHighlight/>;
+
 const SessionBar = ({ nav }) => (
   <View style={{ height: 60, paddingTop: 30, paddingBottom: 10, paddingRight: 10, paddingLeft: 10, flexDirection: 'row', backgroundColor: '#ffff64' }}>
     <View style={{ flex: 1 }}><Text style={{ fontSize: 18 }}>Rhyme Doctor</Text></View>
     <Menu >
-      <MenuTrigger>
+      <MenuTrigger renderTouchable={renderTouchable}>
         <Text style={{ fontSize: 18 }}>Menu</Text>
       </MenuTrigger>
       <MenuOptions>
         <MenuOption value={1}>
-          <Text style={styles.menuText} onPress={() => nav.navigation.navigate('Home')}>Home</Text>
+          <Text style={styles.menuText} onPress={() => nav.navigation.navigate('RapPost', { subscription: 1 })}>Home</Text>
         </MenuOption>
         <View style={styles.bottomRule} />
         <MenuOption value={2}>
@@ -36,22 +38,18 @@ const SessionBar = ({ nav }) => (
         </MenuOption>
         <View style={styles.bottomRule} />
         <MenuOption value={4}>
-          <Text style={styles.menuText} onPress={() => nav.navigation.navigate('RapPost', { subscription: 1 })}>Subscriptions</Text>
-        </MenuOption>
-        <View style={styles.bottomRule} />
-        <MenuOption value={5}>
           <Text style={styles.menuText} onPress={() => nav.navigation.navigate('Friends')}>Friends</Text>
         </MenuOption>
         <View style={styles.bottomRule} />
-        <MenuOption value={6}>
+        <MenuOption value={5}>
           <Text style={styles.menuText} onPress={() => nav.navigation.navigate('About')}>About</Text>
         </MenuOption>
         <View style={styles.bottomRule} />
-        <MenuOption value={7}>
+        <MenuOption value={6}>
           <Text style={styles.menuText} onPress={() => nav.navigation.navigate('EditProfile')}>Edit Profile</Text>
         </MenuOption>
         <View style={styles.bottomRule} />
-        <MenuOption value={8}>
+        <MenuOption value={7}>
           <Text style={styles.menuText} onPress={() => logout(nav)}>Logout</Text>
         </MenuOption>
       </MenuOptions>
