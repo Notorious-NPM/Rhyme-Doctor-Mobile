@@ -29,14 +29,13 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         width: '90%',
         height: '80%',
-        borderWidth: 1,
-        borderColor: 'red',
         backgroundColor: 'white',
       },
       chatText: {
         fontSize: 20,
-        paddingBottom: 2,
+        paddingTop: 1,
         color: 'black',
+        paddingLeft: 5,
       },
       textInput: {
         height: 40,
@@ -45,6 +44,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         width: 300,
         backgroundColor: 'white',
+        paddingRight: 10,
       },
       txtBubble:{
         backgroundColor: 'grey',
@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
         marginRight: 5,
         marginLeft: 5,
         flex: 1,
+        height: 30,
       },
     }, 
     android: {
@@ -81,8 +82,6 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         width: '90%',
         height: '80%',
-        borderWidth: 1,
-        borderColor: 'red',
         backgroundColor: 'white',
       },
       chatText: {

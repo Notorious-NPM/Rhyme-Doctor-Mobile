@@ -12,15 +12,24 @@ const styles = StyleSheet.create({
         padding: 20,
       },
       likeButton: {
-        backgroundColor: '#007bff',
+        borderColor: 'black',
         borderRadius: 5,
         borderWidth: 1,
         width: 85,
         height: 45,
       },
+      likeButtonGradient: {
+        borderRadius: 5,
+        width: 83,
+        height: 43,
+        borderColor: 'white',
+        borderWidth: 1,
+        overflow: 'hidden',
+      },
       buttonMain: {
         alignItems: 'center',
         marginTop: 20,
+        borderRadius: 5,
       },
       likeNum:{
         fontSize: 15,
@@ -44,6 +53,7 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingTop: 10,
         flexDirection: 'row',
+        borderRadius: 5,
       },
       rapTextInner: {
         paddingRight: 10,

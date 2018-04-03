@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-// import Comments from './comments';
 import Alert from '../alert';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { LinearGradient } from 'expo';
 
 import { location, port } from '../../../../config';
 import styles from './RapPostEntryCss';
@@ -136,14 +136,19 @@ class RapPostEntry extends React.Component {
           {alert && <Alert message={alertMessage} status={alertStatus} />}
           <View style={styles.buttonMain}>
             <TouchableOpacity style={styles.likeButton} onPress={this.likeRapPost}>
-              <View style={styles.likeTopContainer}>
-                <View>
-                  <Text style={styles.likeText}>Like</Text>
+              <LinearGradient  
+                colors={['#D0E4F7', '#73B1E7', '#0A77D5', '#0A77D5', '#0A77D5', '#0A77D5', '#539FE1', '#539FE1', '#87BCF3']} 
+                locations={[0, 0.07, 0.17, 0.53, 0.53, 0.57, 0.89, 0.99, 1]}
+                style={styles.likeButtonGradient}>
+                <View style={styles.likeTopContainer}>
+                  <View>
+                    <Text style={styles.likeText}>Like</Text>
+                  </View>
+                  <View style={styles.likeNumContainer}>
+                    <Text style={styles.likeNum}>{likes}</Text>
+                  </View>
                 </View>
-                <View style={styles.likeNumContainer}>
-                  <Text style={styles.likeNum}>{likes}</Text>
-                </View>
-              </View>
+              </LinearGradient>
             </TouchableOpacity>
           </View>
           <View style={styles.buttonMain}>
