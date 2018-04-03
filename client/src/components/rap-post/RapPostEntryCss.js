@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         borderRadius: 5,
       },
-      likeNum:{
+      likeNum: {
         fontSize: 15,
         fontWeight: '600',
       },
@@ -50,6 +50,38 @@ const styles = StyleSheet.create({
         alignItems: 'center',
       },
       likeTopContainer: {
+        paddingLeft: 10,
+        paddingTop: 10,
+        flexDirection: 'row',
+        borderRadius: 5,
+      },
+      commentButtonMain: {
+        alignItems: 'center',
+        marginTop: 7,
+        borderRadius: 5,
+      },
+      commentButtonGradient: {
+        borderRadius: 5,
+        width: 101,
+        height: 43,
+        borderColor: 'white',
+        borderWidth: 1,
+        overflow: 'hidden',
+      },
+      commentButton: {
+        borderColor: 'black',
+        borderRadius: 5,
+        borderWidth: 1,
+        width: 103,
+        height: 45,
+      },
+      commentsText: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: '600',
+        textAlign: 'center',
+      },
+      commentTopContainer: {
         paddingLeft: 10,
         paddingTop: 10,
         flexDirection: 'row',
@@ -132,6 +164,38 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingTop: 10,
         flexDirection: 'row',
+      },
+      commentButtonMain: {
+        alignItems: 'center',
+        marginTop: 7,
+        borderRadius: 5,
+      },
+      commentButtonGradient: {
+        borderRadius: 5,
+        width: 101,
+        height: 43,
+        borderColor: 'white',
+        borderWidth: 1,
+        overflow: 'hidden',
+      },
+      commentButton: {
+        borderColor: 'black',
+        borderRadius: 5,
+        borderWidth: 1,
+        width: 103,
+        height: 45,
+      },
+      commentsText: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: '600',
+        textAlign: 'center',
+      },
+      commentTopContainer: {
+        paddingLeft: 10,
+        paddingTop: 10,
+        flexDirection: 'row',
+        borderRadius: 5,
       },
       rapTextInner: {
         paddingRight: 10,

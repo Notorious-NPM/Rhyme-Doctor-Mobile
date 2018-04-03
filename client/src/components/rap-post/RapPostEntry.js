@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Alert from '../alert';
+import Comments from './comments';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { LinearGradient } from 'expo';
 
@@ -166,6 +167,24 @@ class RapPostEntry extends React.Component {
             <Text>{rapText}</Text>
           </ScrollView>
         </View>
+
+          <View style={styles.commentButtonMain}>
+            <TouchableOpacity style={styles.commentButton} onPress={this.getComments}>
+              <LinearGradient  
+                colors={['#D0E4F7', '#73B1E7', '#0A77D5', '#0A77D5', '#0A77D5', '#0A77D5', '#539FE1', '#539FE1', '#87BCF3']} 
+                locations={[0, 0.07, 0.17, 0.53, 0.53, 0.57, 0.89, 0.99, 1]}
+                style={styles.commentButtonGradient}>
+                <View style={styles.commentTopContainer}>
+                  <View>
+                    <Text style={styles.commentsText}>Comments</Text>
+                  </View>
+                </View>
+              </LinearGradient>
+            </TouchableOpacity>
+          </View>
+
+        {this.state.showComments ? <Comments comments={this.state.comments} /> : null}
+
       </View>
     );
   }
