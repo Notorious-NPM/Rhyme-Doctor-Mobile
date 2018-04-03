@@ -15,7 +15,7 @@ export default class ViewPhotos extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      modalVisible: true,
+      modalVisible: this.props.modalVisible,
     };
   }
 
@@ -23,6 +23,7 @@ export default class ViewPhotos extends React.Component {
     this.setState({
       modalVisible: visible
     })
+    this.props.hideModal();
   }
 
   render() {

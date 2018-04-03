@@ -20,8 +20,9 @@ export default class EditProfile extends React.Component {
       username: '',
       image: '',
       bio: '',
-      received: false,
+      modalVisible: false,
     };
+    this.hideModal = this.hideModal.bind(this);
   }
 
   componentDidMount() {
@@ -33,6 +34,11 @@ export default class EditProfile extends React.Component {
       this.getUserData();
   }
 
+  hideModal() {
+    this.setState({
+      modalVisible: false
+    })
+  }
   // componentDidMount() {
   //   this.setState(store.getState());  // eslint-disable-line
   //   store.subscribe(() => {
@@ -52,7 +58,8 @@ export default class EditProfile extends React.Component {
         return CameraRoll.getPhotos({ first: 10, assetType: 'Photos' })
         .then(res => {
           this.setState({
-            photos: res.edges
+            photos: res.edges,
+            modalVisible: true
           })
 
         })
@@ -105,7 +112,7 @@ export default class EditProfile extends React.Component {
                   </TouchableHighlight>
                 </View>
                 <View>
-                  {this.state.photos && <ViewPhotos photos={this.state.photos}/>}
+                  {this.state.modalVisible && <ViewPhotos modalVisible={this.state.modalVisible} hideModal={this.hideModal} photos={this.state.photos}/>}
                 </View>
               </View>
               
