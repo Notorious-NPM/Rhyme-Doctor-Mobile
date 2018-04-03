@@ -18,6 +18,12 @@ const styles = StyleSheet.create({
       name: {
         fontWeight: '700',
         paddingBottom: 3,
+      },
+      inputBox: {
+        height: 100,
+        width: '100%',
+        // borderColor: '#333',
+        // borderWidth: 1,
       }
     },
     android: { //fix styling for android
@@ -36,6 +42,12 @@ const styles = StyleSheet.create({
       name: {
         fontWeight: '700',
         paddingBottom: 3,
+      },
+      inputBox: {
+        height: 100,
+        width: '100%',
+        // borderColor: '#333',
+        // borderWidth: 1,
       }
     }
   })

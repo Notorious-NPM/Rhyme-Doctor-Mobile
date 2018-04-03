@@ -183,7 +183,12 @@ class RapPostEntry extends React.Component {
             </TouchableOpacity>
           </View>
 
-        {this.state.showComments ? <Comments comments={this.state.comments} /> : null}
+        {this.state.showComments ?
+          <Comments
+            comments={this.state.comments}
+            myComment={this.state.myComment}
+            createComment={this.createComment}
+          /> : null}
 
       </View>
     );
