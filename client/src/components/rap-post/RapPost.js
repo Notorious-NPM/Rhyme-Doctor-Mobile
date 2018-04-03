@@ -1,9 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import store from '../../redux/store.js';
 import RapPostEntry from './RapPostEntry';
 import SessionBar from '../navbar/SessionBar';
+import Loading from './Loading';
 
 import styles from './RapPostCss';
 import { location, port } from '../../../../config';
@@ -57,6 +58,7 @@ class RapPost extends React.Component {
       :
       <View style={styles.main}>
         <SessionBar nav={this.props} />
+        <Loading />
       </View>
     )
   }
