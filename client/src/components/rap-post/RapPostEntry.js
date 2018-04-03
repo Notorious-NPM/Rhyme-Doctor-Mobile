@@ -70,8 +70,8 @@ class RapPostEntry extends React.Component {
     }
   }
 
-  createComment = (e) => {
-    this.setState({ myComment: e.target.value });
+  createComment = (text) => {
+    this.setState({ myComment: text });
   }
 
   postComment = async () => {
@@ -176,7 +176,7 @@ class RapPostEntry extends React.Component {
                 style={styles.commentButtonGradient}>
                 <View style={styles.commentTopContainer}>
                   <View>
-                    <Text style={styles.commentsText}>Comments</Text>
+                    <Text style={styles.commentsText}>{this.state.showComments ? 'Close' : 'Comments'}</Text>
                   </View>
                 </View>
               </LinearGradient>
@@ -188,6 +188,7 @@ class RapPostEntry extends React.Component {
             comments={this.state.comments}
             myComment={this.state.myComment}
             createComment={this.createComment}
+            postComment={this.postComment}
           /> : null}
 
       </View>

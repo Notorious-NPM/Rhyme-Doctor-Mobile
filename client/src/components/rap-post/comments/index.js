@@ -1,28 +1,49 @@
 import React from 'react';
-import { Text, View, TextInput } from 'react-native';
-// import './comment.css';
+import { Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { LinearGradient } from 'expo';
 import styles from './CommentCss';
 
 
 const Comments = (props) => {
   return (
-    <View style={styles.main}>
-      {
-        props.comments.map((comment, index) =>
-          <View style={styles.comment} key={index}>
-            <Text style={styles.name}>
-              {comment.name}
-            </Text>
-            <Text>
-              {comment.text}
-            </Text>
-          </View>)
-      }
-      <TextInput
-        value={props.myComment}
-        onChange={(e) => props.createComment(e)}
-        style={styles.inputBox}
-        placeholder="Add a comment..." />
+    <View>
+      <View style={styles.main}>
+        {
+          props.comments.map((comment, index) =>
+            <View style={styles.comment} key={index}>
+              <Text style={styles.name}>
+                {comment.name}
+              </Text>
+              <Text>
+                {comment.text}
+              </Text>
+            </View>)
+        }
+        <TextInput
+          value={props.myComment}
+          onChangeText={(text) => props.createComment(text)}
+          style={styles.inputBox}
+          multiline={true}
+          numberOfLines={3}
+          placeholder="Add a comment..."
+        />
+      </View>
+
+      <View style={styles.commentButtonMain}>
+        <TouchableOpacity style={styles.commentButton} onPress={() => props.postComment()}>
+          <LinearGradient
+            colors={['#D0E4F7', '#73B1E7', '#0A77D5', '#0A77D5', '#0A77D5', '#0A77D5', '#539FE1', '#539FE1', '#87BCF3']}
+            locations={[0, 0.07, 0.17, 0.53, 0.53, 0.57, 0.89, 0.99, 1]}
+            style={styles.commentButtonGradient}>
+            <View style={styles.commentTopContainer}>
+              <View>
+                <Text style={styles.commentText}>Post</Text>
+              </View>
+            </View>
+          </LinearGradient>
+        </TouchableOpacity>
+      </View>
+
 
       {/* <div className="row modal-row">
         <div className="form-container special-container">
@@ -33,6 +54,7 @@ const Comments = (props) => {
           </div>
         </div>
       </div> */}
+
     </View>)
 };
 //   <div className="comments">
