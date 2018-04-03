@@ -1,8 +1,25 @@
 import React from 'react';
-import './comment.css';
+import { Text, View } from 'react-native';
+// import './comment.css';
+import styles from './CommentCss';
+
 
 const Comments = (props) => {
   return (
+    <View style={styles.main}>
+      {
+        props.comments.map((comment, index) =>
+          <View style={styles.comment} key={index}>
+            <Text>
+              {comment.name}
+            </Text>
+            <Text>
+              {comment.text}
+            </Text>
+          </View>)
+      }
+    </View>)
+};
   //   <div className="comments">
   //     {props.comments.map((comment, index) => (
   //       <div className="comments-list">
@@ -21,6 +38,5 @@ const Comments = (props) => {
 
   //   </div>
   // );
-};
 
 export default Comments;
