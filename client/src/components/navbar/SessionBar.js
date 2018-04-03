@@ -15,7 +15,7 @@ const logout = async (nav) => {
   alert('You are now logged out');
 };
 
-const renderTouchable = () => <TouchableHighlight/>;
+const renderTouchable = () => <TouchableOpacity/>;
 
 const SessionBar = ({ nav }) => (
   <View style={{ height: 60, paddingTop: 30, paddingBottom: 10, paddingRight: 10, paddingLeft: 10, flexDirection: 'row', backgroundColor: '#ffff64' }}>
