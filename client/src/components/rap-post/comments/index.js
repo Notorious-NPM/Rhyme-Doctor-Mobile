@@ -10,7 +10,7 @@ const Comments = (props) => {
       {
         props.comments.map((comment, index) =>
           <View style={styles.comment} key={index}>
-            <Text>
+            <Text style={styles.name}>
               {comment.name}
             </Text>
             <Text>

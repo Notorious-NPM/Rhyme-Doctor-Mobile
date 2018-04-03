@@ -11,6 +11,13 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         paddingRight: 30,
         paddingTop: 10,
+        paddingBottom: 10,
+        borderBottomColor: '#333',
+        borderBottomWidth: StyleSheet.hairlineWidth,
+      },
+      name: {
+        fontWeight: '700',
+        paddingBottom: 3,
       }
     },
     android: { //fix styling for android
@@ -22,6 +29,13 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         paddingRight: 30,
         paddingTop: 10,
+        paddingBottom: 10,
+        borderBottomColor: '#333',
+        borderBottomWidth: StyleSheet.hairlineWidth,
+      },
+      name: {
+        fontWeight: '700',
+        paddingBottom: 3,
       }
     }
   })
