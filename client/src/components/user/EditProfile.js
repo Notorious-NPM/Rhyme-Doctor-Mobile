@@ -3,6 +3,7 @@ import axios from 'axios';
 import Expo from 'expo';
 import { StyleSheet, Text, View, Image, TextInput, Button, TouchableHighlight, CameraRoll, PermissionsAndroid, Alert } from 'react-native';
 import SessionBar from '../navbar/SessionBar';
+import ViewPhotos from './ViewPhotos';
 // import Stats from './Stats';
 // import ProfileImage from './ProfileImage';
 // import Bio from './Bio';
@@ -16,9 +17,7 @@ export default class EditProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userPosts: [],
       username: '',
-      likeCount: '',
       image: '',
       bio: '',
       received: false,
@@ -32,13 +31,6 @@ export default class EditProfile extends React.Component {
     //   this.getUserPosts(username);
     // } else {
       this.getUserData();
-      Permissions.checkMultiple(['camera', 'photo', 'storage']).then(response => {
-        this.setState({ 
-          photoPermission: response.photo,
-          cameraPermission: response.camera,
-          storagePermissions: response.storage
-        })
-      }).catch(err => {console.log(err)})
   }
 
   // componentDidMount() {
@@ -57,11 +49,12 @@ export default class EditProfile extends React.Component {
       const { Location, Permissions } = Expo;
       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
       if (status === 'granted') {
-        return CameraRoll.getPhotos({ first: 100, assetType: 'Photos' })
+        return CameraRoll.getPhotos({ first: 10, assetType: 'Photos' })
         .then(res => {
           this.setState({
             photos: res.edges
           })
+
         })
       } else {
         throw new Error('Location permission not granted');//change this
@@ -111,14 +104,8 @@ export default class EditProfile extends React.Component {
                       // onPress={() => alert('add function here')} */}
                   </TouchableHighlight>
                 </View>
-                <View style={styles.button}>
-                  <TouchableHighlight 
-                    style={styles.touchable}
-                    onPress={() => this.getPhotosFromGallery()}>
-                    <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>CHANGE PICTURE</Text>
-                      {/* // onPress={onPressLearnMore}
-                      // onPress={() => alert('add function here')} */}
-                  </TouchableHighlight>
+                <View>
+                  {this.state.photos && <ViewPhotos photos={this.state.photos}/>}
                 </View>
               </View>
               
@@ -144,7 +131,6 @@ export default class EditProfile extends React.Component {
     );
   }
 }
-
 
 var styles = StyleSheet.create({
   button: {
