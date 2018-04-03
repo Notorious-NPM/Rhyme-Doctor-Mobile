@@ -61,19 +61,6 @@ export default class Friends extends Component {
           }, 600000);
       }
       this.setState({ friendsDot });
-
-
-      // const domElement = document.getElementsByClassName(payload);
-      // const domElement = []
-      // if (domElement.length > 0) {
-      //   domElement[0].style.backgroundColor = '#0EFF2E';
-      //   const { setInactive } = this.state;
-      //   if (setInactive[payload]) {
-      //     clearTimeout(setInactive[payload]);
-      //   }
-      //   setInactive[payload] = setTimeout(() => { domElement[0].style.backgroundColor = '#bbb'; }, 20000);
-      //   this.setState({ setInactive });
-      // }
     });
 
     await this.socket.emit('client.inLobby', this.state.store.user);

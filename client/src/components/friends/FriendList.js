@@ -4,7 +4,6 @@ import { Text, View } from 'react-native';
 import friends from './FriendListCss';
 
 const FriendList = ({friend, dot, index, changeSelectedChat}) => {
-  //component will receive props
 
   return (
     <View style={friends.list}>
@@ -14,7 +13,7 @@ const FriendList = ({friend, dot, index, changeSelectedChat}) => {
         style={friends.name}
         onPress={() => changeSelectedChat(index)}
       >
-        {friend[0]}
+        {'   ' + friend[0]}
       </Text>
     </View>
   )
