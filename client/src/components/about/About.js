@@ -36,7 +36,7 @@ const About = (props) => (
       </View>
 
       <View style={styles.contributor}>
-        <Image source={{ uri: 'https://thumbs.dreamstime.com/t/super-cool-potato-character-cartoon-style-vector-illustration-95541644.jpg' }}
+        <Image source={{ uri: 'https://rhymedoctor.fun/elaskowski.jpeg' }}
           style={styles.image} />
         <Text style={styles.text}>
           Senior Software Engineer
@@ -45,7 +45,7 @@ const About = (props) => (
       </View>
 
       <View style={styles.contributor}>
-        <Image source={{ uri: 'https://thumbs.dreamstime.com/t/super-cool-potato-character-cartoon-style-vector-illustration-95541644.jpg' }}
+        <Image source={{ uri: 'https://rhymedoctor.fun/jameshyen.jpeg' }}
           style={styles.image} />
         <Text style={styles.text}>
           Senior Software Engineer
@@ -54,7 +54,7 @@ const About = (props) => (
       </View>
 
       <View style={styles.contributor}>
-        <Image source={{ uri: 'https://thumbs.dreamstime.com/t/super-cool-potato-character-cartoon-style-vector-illustration-95541644.jpg' }}
+        <Image source={{ uri: 'https://rhymedoctor.fun/kkchan.png' }}
           style={styles.image} />
         <Text style={styles.text}>
           Senior Software Engineer
@@ -63,7 +63,7 @@ const About = (props) => (
       </View>
 
       <View style={styles.contributor}>
-        <Image source={{ uri: 'https://thumbs.dreamstime.com/t/super-cool-potato-character-cartoon-style-vector-illustration-95541644.jpg' }}
+        <Image source={{ uri: 'https://rhymedoctor.fun/shong.jpeg' }}
           style={styles.image} />
         <Text style={styles.text}>
           Senior Software Engineer
