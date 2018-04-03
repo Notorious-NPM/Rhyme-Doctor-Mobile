@@ -30,18 +30,27 @@ export default class ViewPhotos extends React.Component {
     return (
       <View style={{margin:30}}>
         <Modal
-          animationType="slide"
           transparent={false}
+          style={{backgroundColor: '#91A3B0'}}
+          animationType="slide"
+          presentationStyle="pageSheet"
           visible={this.state.modalVisible}
           onRequestClose={() => {
             alert('Modal has been closed.');
           }}>
+          <View style={{backgroundColor: '#333'}}>
           <TouchableHighlight
-            style={{height: 20, marginTop: 10}}
+            style={{ marginTop: 10, width: 120,
+              height: 30,
+              alignSelf: 'center',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderColor: '#D7D7D7',
+              borderWidth: 1}}
             onPress={() => {
               this.setModalVisible(!this.state.modalVisible);
             }}>
-            <Text style={{fontSize: 16, alignSelf: 'center', fontWeight: 'bold'}}>Cancel</Text>
+            <Text style={{fontSize: 16, alignSelf: 'center', fontWeight: 'bold', color: 'white'}}>CANCEL</Text>
           </TouchableHighlight>
           <ScrollView style= {{margin: 30}}>{this.props.photos.map((p, i) => {
             return(
@@ -51,12 +60,15 @@ export default class ViewPhotos extends React.Component {
                   width: 300,
                   height: 300,
                   marginTop: 10,
+                  borderColor: 'white',
+                  borderWidth: 2
                 }}
                 source={{ uri: p.node.image.uri }}
               />
             )
           })}
           </ScrollView>
+          </View>
         </Modal>
       </View>
     )
