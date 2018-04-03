@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         width: 101,
         height: 43,
+        alignItems: 'center',
         borderColor: 'white',
         borderWidth: 1,
         overflow: 'hidden',
@@ -79,10 +80,8 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 16,
         fontWeight: '600',
-        textAlign: 'center',
       },
       commentTopContainer: {
-        paddingLeft: 10,
         paddingTop: 10,
         flexDirection: 'row',
         borderRadius: 5,

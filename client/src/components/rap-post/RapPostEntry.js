@@ -26,14 +26,15 @@ class RapPostEntry extends React.Component {
 
   getComments = async (close = true) => {
     const comments = await axios.get(`https://${location}:${port}/api/content/comments/${this.props.rapPost.id}`);
+    const reversedComments = comments.data.reverse();
     if (close) {
       this.setState({
-        comments: comments.data,
+        comments: reversedComments,
         showComments: !this.state.showComments,
       });
     } else {
       this.setState({
-        comments: comments.data,
+        comments: reversedComments,
       });
     }
   }
@@ -175,7 +176,7 @@ class RapPostEntry extends React.Component {
                 locations={[0, 0.07, 0.17, 0.53, 0.53, 0.57, 0.89, 0.99, 1]}
                 style={styles.commentButtonGradient}>
                 <View style={styles.commentTopContainer}>
-                  <View>
+                  <View style={{alignItems: 'center'}}>
                     <Text style={styles.commentsText}>{this.state.showComments ? 'Close' : 'Comments'}</Text>
                   </View>
                 </View>

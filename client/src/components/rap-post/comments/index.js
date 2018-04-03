@@ -36,7 +36,7 @@ const Comments = (props) => {
             locations={[0, 0.07, 0.17, 0.53, 0.53, 0.57, 0.89, 0.99, 1]}
             style={styles.commentButtonGradient}>
             <View style={styles.commentTopContainer}>
-              <View>
+              <View style={{alignItems: 'center'}}>
                 <Text style={styles.commentText}>Post</Text>
               </View>
             </View>
