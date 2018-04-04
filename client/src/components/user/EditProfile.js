@@ -79,20 +79,19 @@ export default class EditProfile extends React.Component {
     let xhr = new XMLHttpRequest();
     var fd = new FormData();
 
-    xhr.open('POST', apiUrl, true);
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    // xhr.open('POST', apiUrl, true);
+    // xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     
     fd.append('upload_preset', 'hkhkmnpg');
     fd.append('file', `data:image/png;base64,${result.base64}`);
-    xhr.send(fd);
+    // xhr.send(fd);
 
-    xhr.onreadystatechange = function(e) {
-      if (xhr.readyState ===4 && xhr.status === 200) {
-        var response = JSON.parse(xhr.responseText);
-        var url = response.secure_url;
-      }
-    }
-    
+    axios.post(apiUrl, fd,{ headers: {'X-Requested-With': 'XMLHttpRequest' },
+    }).then(res => {
+      const {data} = res;
+      const fileUrl = data.secure_url;
+      console.log(fileUrl);
+    })
   }
   
   getUserData = async (username) => {
