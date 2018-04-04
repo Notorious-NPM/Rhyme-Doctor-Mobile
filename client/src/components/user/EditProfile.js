@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import Expo from 'expo';
+import Expo, { ImagePicker } from 'expo';
 import { StyleSheet, Text, View, Image, TextInput, Button, TouchableHighlight, CameraRoll, PermissionsAndroid, Alert } from 'react-native';
 import SessionBar from '../navbar/SessionBar';
 import ViewPhotos from './ViewPhotos';
@@ -61,11 +61,38 @@ export default class EditProfile extends React.Component {
             photos: res.edges,
             modalVisible: true
           })
-
+          console.log(res);
         })
       } else {
         throw new Error('Location permission not granted');//change this
       }
+  }
+
+  pickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      base64: true
+    })
+
+    let apiUrl = 'https://api.cloudinary.com/v1_1/dkwbeount/image/upload';
+
+    let xhr = new XMLHttpRequest();
+    var fd = new FormData();
+
+    xhr.open('POST', apiUrl, true);
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    
+    fd.append('upload_preset', 'hkhkmnpg');
+    fd.append('file', `data:image/png;base64,${result.base64}`);
+    xhr.send(fd);
+
+    xhr.onreadystatechange = function(e) {
+      if (xhr.readyState ===4 && xhr.status === 200) {
+        var response = JSON.parse(xhr.responseText);
+        var url = response.secure_url;
+      }
+    }
+    
   }
   
   getUserData = async (username) => {
@@ -83,13 +110,6 @@ export default class EditProfile extends React.Component {
     }
   }
 
-  // getPhotosFromGallery() {
-  //   CameraRoll.getPhotos({ first: 100, assetType: 'Photos' })
-  //     .then(res => {
-  //       console.log(res, "images data")
-  //     })
-  // }
-
   render() {
     // const { state } = this.props.location;
     return (
@@ -105,7 +125,8 @@ export default class EditProfile extends React.Component {
                 <View style={styles.button}>
                   <TouchableHighlight 
                     style={styles.touchable}
-                    onPress={() => this.requestPermission()}>
+                    // onPress={() => this.requestPermission()}>
+                    onPress={() => this.pickImage()}>
                     <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>CHANGE PICTURE</Text>
                       {/* // onPress={onPressLearnMore}
                       // onPress={() => alert('add function here')} */}
