@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import store from '../../redux/store.js';
 import RapPostEntry from './RapPostEntry';
 import SessionBar from '../navbar/SessionBar';
@@ -40,25 +40,30 @@ class RapPost extends React.Component {
 
   render() {
     const { rapPosts } = this.state;
-    
+    let pic = {
+      uri: 'https://i.imgur.com/vWA2TAB.jpg'
+    };
+
     return (
-      rapPosts ? 
       <View style={styles.main}>
         <SessionBar nav={this.props} />
-        <ScrollView style={styles.view}>
-          {rapPosts.map((rapPost, i) => (<RapPostEntry
-            nav={this.props}
-            rapPost={rapPost}
-            key={i}
-            getRapPosts={this.getRapPosts}
-            username={this.state.username}
-          />))}
-        </ScrollView>
-      </View>
-      :
-      <View style={styles.main}>
-        <SessionBar nav={this.props} />
-        <Loading />
+        {rapPosts ? 
+          <ScrollView>
+            <View>
+              <Image source={pic} style={{ alignSelf: 'stretch', height: 200}}/>
+            </View>
+            <View style={styles.view}>
+            {rapPosts.map((rapPost, i) => (<RapPostEntry
+              nav={this.props}
+              rapPost={rapPost}
+              key={i}
+              getRapPosts={this.getRapPosts}
+              username={this.state.username}
+            />))}
+            </View>
+          </ScrollView>
+          :
+          <Loading />}
       </View>
     )
   }
