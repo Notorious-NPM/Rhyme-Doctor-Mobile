@@ -20,19 +20,12 @@ export default class EditProfile extends React.Component {
       username: '',
       image: '',
       bio: '',
-      modalVisible: false,
+      editBio: false
     };
-    this.hideModal = this.hideModal.bind(this);
   }
 
   componentDidMount() {
       this.getUserData();
-  }
-
-  hideModal() {
-    this.setState({
-      modalVisible: false
-    })
   }
 
   pickImage = async () => {
@@ -64,6 +57,12 @@ export default class EditProfile extends React.Component {
         .catch(err => Alert.alert('Error changing profile picture'));
     });
   }
+
+  showEdit() {
+    this.setState({
+      editBio: !this.state.editBio
+    })
+  }
   
   getUserData = async (username) => {
     try {
@@ -81,12 +80,10 @@ export default class EditProfile extends React.Component {
   }
 
   render() {
-    // const { state } = this.props.location;
     return (
         <View style={styles.container}>
           <SessionBar nav={this.props}/>
           <View style={styles.innerContainer}>
-            {/* <View style={styles.topContainer}> */}
             <View style={styles.stats}>
               <Text style={{color:'white', fontSize:25, fontWeight: 'bold', alignSelf: 'center'}}>{this.state.username}</Text>
             </View>
@@ -95,15 +92,9 @@ export default class EditProfile extends React.Component {
                 <View style={styles.button}>
                   <TouchableHighlight 
                     style={styles.touchable}
-                    // onPress={() => this.requestPermission()}>
                     onPress={() => this.pickImage()}>
                     <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>CHANGE PICTURE</Text>
-                      {/* // onPress={onPressLearnMore}
-                      // onPress={() => alert('add function here')} */}
                   </TouchableHighlight>
-                </View>
-                <View>
-                  {this.state.modalVisible && <ViewPhotos modalVisible={this.state.modalVisible} hideModal={this.hideModal} photos={this.state.photos}/>}
                 </View>
               </View>
               <View>
@@ -121,11 +112,8 @@ export default class EditProfile extends React.Component {
               <View style={styles.button}>
                 <TouchableHighlight 
                   style={styles.touchable}
-                  // onPress={() => this.requestPermission()}>
-                  onPress={() => this.pickImage()}>
+                  onPress={() => this.showEdit()}>
                   <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>EDIT BIO</Text>
-                    {/* // onPress={onPressLearnMore}
-                    // onPress={() => alert('add function here')} */}
                 </TouchableHighlight>
               </View>
 
@@ -140,8 +128,25 @@ export default class EditProfile extends React.Component {
                 marginTop: 15
               }}
             /> */}
+            <View>
+              {this.state.editBio && 
+              <View>
+                <TextInput
+                  style={{height: 70, width: 300, alignSelf: 'center', backgroundColor: 'white', borderColor: 'gray', borderWidth: 1, marginTop: 15}}
+                  placeholder="Type here..."
+                  placeholderTextColor="#333"
+                />
+                <View style={styles.button}>
+                  <TouchableHighlight 
+                    style={styles.touchable}
+                    onPress={() => this.showEdit()}>
+                    <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>SUBMIT</Text>
+                  </TouchableHighlight>
+                </View>
+                </View>
+              }
+            </View>
           </View>
-          <Text> Edit Are goes here</Text>
         </View>
     );
   }
