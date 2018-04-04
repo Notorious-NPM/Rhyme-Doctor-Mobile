@@ -1,6 +1,6 @@
 import React from 'react';
 import Menu, { MenuOptions, MenuOption, MenuTrigger } from 'react-native-menu';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 
 import styles from './navbarCss';
 
@@ -8,24 +8,25 @@ const renderTouchable = () =>  <TouchableOpacity/>;
 
 const NoSessionBar = ({ nav }) => {
 
-  const navigate = (location) => {
-    nav.navigation.navigate(location);
+  const navigate = (value) => {
+    nav.navigation.navigate(value);
   }
 
+  const pic = { uri: 'https://d30y9cdsu7xlg0.cloudfront.net/png/345384-200.png' };
   return (
-    <View style={{ height: 60, paddingTop: 30, paddingBottom: 10, paddingRight: 10, paddingLeft: 10, flexDirection: 'row', backgroundColor: '#ffff64' }}>
-      <View style={{ flex: 1}}><Text style={{ fontSize: 18 }}>Rhyme Doctor</Text></View>
-      <Menu uref='menuRef'>
+    <View style={styles.main}>
+      <View style={{ flex: 1}}><Text style={styles.title}>Rhyme Doctor</Text></View>
+      <Menu onSelect={(value) => navigate(value)}>
         <MenuTrigger renderTouchable={renderTouchable}>
-          <Text style={{ fontSize: 18 }}>Menu</Text>
+          <Text><Image style={styles.menuIcon} source={pic}/></Text>
         </MenuTrigger>
         <MenuOptions>
-          <MenuOption value={1} renderTouchable={renderTouchable}>
-            <Text style={styles.menuText} onPress={() => navigate('Login')}>Login</Text>
+          <MenuOption value={'Login'} renderTouchable={renderTouchable}>
+            <Text style={styles.menuText} >Login</Text>
           </MenuOption>
           <View style={styles.bottomRule} />
-          <MenuOption value={2} renderTouchable={renderTouchable}>
-            <Text style={styles.menuText} onPress={() => navigate('Signup')}>Signup</Text>
+          <MenuOption value={'Signup'} renderTouchable={renderTouchable}>
+            <Text style={styles.menuText} >Signup</Text>
           </MenuOption>
         </MenuOptions>
       </Menu>
