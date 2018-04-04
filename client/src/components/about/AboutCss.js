@@ -14,14 +14,16 @@ const styles = StyleSheet.create({
       },
       text: {
         textAlign: 'center',
-        fontSize: 30,
+        fontSize: 25,
         color: '#D7D7D7',
       },
       underlineText: {
         textAlign: 'center',
-        fontStyle: 'italic',
         fontSize: 30,
         color: '#D7D7D7',
+        fontWeight: '700',
+        textDecorationLine: 'underline',
+        fontFamily: 'Didot-Bold',
       },
       contributor: {
         borderStyle: 'solid',

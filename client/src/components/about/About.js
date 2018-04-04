@@ -30,7 +30,7 @@ const About = (props) => (
         </Text>
       </View>
       <View style={styles.view}>
-        <Text style={styles.text}>
+        <Text style={styles.underlineText}>
           Meet the staff of Notorious NPM
         </Text>
       </View>
