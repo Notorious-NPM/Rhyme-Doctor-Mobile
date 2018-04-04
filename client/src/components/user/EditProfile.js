@@ -11,7 +11,7 @@ import ViewPhotos from './ViewPhotos';
 
 import { location, port } from '../../../../config'
 
-// import store from '../../redux/store';
+import store from '../../redux/store';
 
 export default class EditProfile extends React.Component {
   constructor(props) {
@@ -26,11 +26,6 @@ export default class EditProfile extends React.Component {
   }
 
   componentDidMount() {
-    // if (this.props.location.state) {
-    //   const { username } = this.props.location.state;
-    //   this.getUserData(username);
-    //   this.getUserPosts(username);
-    // } else {
       this.getUserData();
   }
 
@@ -38,34 +33,6 @@ export default class EditProfile extends React.Component {
     this.setState({
       modalVisible: false
     })
-  }
-  // componentDidMount() {
-  //   this.setState(store.getState());  // eslint-disable-line
-  //   store.subscribe(() => {
-  //     this.setState(store.getState());
-  //   });
-  // }
-
-  requestPermission = async () => {
-    // Permissions.request('photo').then(response => {
-    //   this.setState({photoPermission: response})
-    //   console.log('state', this.state);
-    // })
-    // async function getLocationAsync() {
-      const { Location, Permissions } = Expo;
-      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-      if (status === 'granted') {
-        return CameraRoll.getPhotos({ first: 10, assetType: 'Photos' })
-        .then(res => {
-          this.setState({
-            photos: res.edges,
-            modalVisible: true
-          })
-          console.log(res);
-        })
-      } else {
-        throw new Error('Location permission not granted');//change this
-      }
   }
 
   pickImage = async () => {
@@ -79,19 +46,23 @@ export default class EditProfile extends React.Component {
     let xhr = new XMLHttpRequest();
     var fd = new FormData();
 
-    // xhr.open('POST', apiUrl, true);
-    // xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     
     fd.append('upload_preset', 'hkhkmnpg');
     fd.append('file', `data:image/png;base64,${result.base64}`);
-    // xhr.send(fd);
 
     axios.post(apiUrl, fd,{ headers: {'X-Requested-With': 'XMLHttpRequest' },
     }).then(res => {
       const {data} = res;
       const fileUrl = data.secure_url;
-      console.log(fileUrl);
-    })
+      this.setState({
+        image: {uri: fileUrl}
+      });
+      axios.put(`https://${location}:${port}/api/profile/image`, { image: fileUrl })
+        .then(res2 => {
+          console.log('Pic changed');
+        })
+        .catch(err => Alert.alert('Error changing profile picture'));
+    });
   }
   
   getUserData = async (username) => {
@@ -135,16 +106,33 @@ export default class EditProfile extends React.Component {
                   {this.state.modalVisible && <ViewPhotos modalVisible={this.state.modalVisible} hideModal={this.hideModal} photos={this.state.photos}/>}
                 </View>
               </View>
-              
-            {/* </View> */}
+              <View>
+              <View
+                style={{
+                  borderBottomColor: '#686868',
+                  borderBottomWidth: 2,
+                  marginTop: 15
+                }}
+              />
+                <View style={{marginTop: 20}}>
+                  <Text style={{color:'#D7D7D7', fontSize:14}}>{this.state.bio}</Text>
+                </View>
+                </View>
+              <View style={styles.button}>
+                <TouchableHighlight 
+                  style={styles.touchable}
+                  // onPress={() => this.requestPermission()}>
+                  onPress={() => this.pickImage()}>
+                  <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>EDIT BIO</Text>
+                    {/* // onPress={onPressLearnMore}
+                    // onPress={() => alert('add function here')} */}
+                </TouchableHighlight>
+              </View>
 
               {/* <View style={styles.bio}>
                 <Text style={{color:'white', fontSize:20, fontWeight: 'bold', marginLeft: 65}}>{this.state.username}</Text>
                 <Text style={{color:'white', fontSize:16, fontWeight: 'bold', marginLeft: 85}}>Likes: {this.state.likeCount}</Text>
               </View>
-            <View style={{marginTop: 10}}>
-              <Text style={{color:'white', fontSize:14, marginLeft: 10}}>{this.state.bio}</Text>
-            </View>
             <View
               style={{
                 borderBottomColor: '#686868',
@@ -161,7 +149,7 @@ export default class EditProfile extends React.Component {
 
 var styles = StyleSheet.create({
   button: {
-    margin: 10,
+    marginTop: 15,
     width: 150,
     height: 30,
     alignSelf: 'center',
@@ -183,7 +171,9 @@ var styles = StyleSheet.create({
     // justifyContent: 'center'
   },
   innerContainer : {
-    margin: 20
+    margin: 20,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   bio: {
     flex: 1,
