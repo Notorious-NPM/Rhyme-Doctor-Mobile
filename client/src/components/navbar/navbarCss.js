@@ -4,8 +4,8 @@ var styles = StyleSheet.create({
   ...Platform.select({
     ios: {
       main: {
-        height: 60, 
-        paddingTop: 30, 
+        height: 40, 
+        paddingTop: 10, 
         paddingBottom: 10, 
         paddingRight: 10, 
         paddingLeft: 10, 
@@ -31,16 +31,45 @@ var styles = StyleSheet.create({
         fontWeight: '700',
         fontFamily: 'Didot-Bold'
       },
+      top: {
+        height: 20,
+        width: '100%',
+        backgroundColor: '#FDFDB8',
+      }
     },
     android: {
+      main: {
+        height: 40, 
+        paddingTop: 10, 
+        paddingBottom: 10, 
+        paddingRight: 10, 
+        paddingLeft: 10, 
+        flexDirection: 'row', 
+        backgroundColor: '#ffff64',
+      },
+      menuIcon: {
+        width: 20, 
+        height: 20, 
+        transform: [{rotateY: '180deg'}],
+      },
       menuText: {
-        fontSize: 20,
+        fontSize: 20
       },
       bottomRule: {
         borderBottomColor: 'black',
         borderBottomWidth: 1,
         width: '80%',
         marginLeft: '10%',
+      },
+      title: {
+        fontSize: 20,
+        fontWeight: '700',
+        fontFamily: 'Didot-Bold'
+      },
+      top: {
+        height: 20,
+        width: '100%',
+        backgroundColor: '#FDFDB8',
       }
     }
   })
