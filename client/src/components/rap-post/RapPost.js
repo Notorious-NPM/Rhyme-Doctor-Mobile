@@ -66,7 +66,7 @@ class RapPost extends React.Component {
             <Image source={pic} style={{ alignSelf: 'stretch', height: 200}}/>
           </View>
           {this.state.displayLoopMsg && <LoopMsg />}
-          {rapPosts ? 
+          {rapPosts && 
             <SwipeCards
               containerStyle={{ flex: 1, width: '80%' }}
               cards={rapPosts}
@@ -82,9 +82,7 @@ class RapPost extends React.Component {
               loop={true}
               onLoop={this.backToStart}
               // handleNope={renderCard}
-            />
-          :
-          <Loading />}
+            />}
         </ScrollView>
       </View>
     )
