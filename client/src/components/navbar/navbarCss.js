@@ -29,7 +29,7 @@ var styles = StyleSheet.create({
       title: {
         fontSize: 20,
         fontWeight: '700',
-        fontFamily: 'Didot-Bold'
+        // fontFamily: 'Didot-Bold'
       },
       top: {
         height: 20,
@@ -48,8 +48,8 @@ var styles = StyleSheet.create({
         backgroundColor: '#ffff64',
       },
       menuIcon: {
-        width: 20, 
-        height: 20, 
+        width: 75, 
+        height: 75, 
         transform: [{rotateY: '180deg'}],
       },
       menuText: {
@@ -64,7 +64,7 @@ var styles = StyleSheet.create({
       title: {
         fontSize: 20,
         fontWeight: '700',
-        fontFamily: 'Didot-Bold'
+        // fontFamily: 'Didot-Bold'
       },
       top: {
         height: 20,
