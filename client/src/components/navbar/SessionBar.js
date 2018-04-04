@@ -7,14 +7,6 @@ import { location, port } from '../../../../config';
 import store from '../../redux/store';
 import styles from './navbarCss';
 
-const logout = async ({ nav }) => {
-  const result = await axios.post(`https://${location}:${port}/api/auth/logout`);
-  store.dispatch({ type: 'sessionlogout' });
-  store.dispatch({ type: 'wipestore' });
-  nav.navigation.navigate('Home');
-  alert('You are now logged out');
-};
-
 const renderTouchable = () => <TouchableOpacity/>;
 
 class SessionBar extends React.Component {
@@ -32,9 +24,16 @@ class SessionBar extends React.Component {
     this.setState({ phoneVertical });
   }
 
+  logout = async (nav) => {
+    const result = await axios.post(`https://${location}:${port}/api/auth/logout`);
+    store.dispatch({ type: 'sessionlogout' });
+    store.dispatch({ type: 'wipestore' });
+    nav.navigation.navigate('Login');
+  };
+
   navigate = (value) => {
     const { nav } = this.props;
-    value === 'Home' ? nav.navigation.navigate('RapPost', { subscription: 1 }) : value === 'Logout' ? logout(nav) : nav.navigation.navigate(value);
+    value === 'Home' ? nav.navigation.navigate('RapPost', { subscription: 1 }) : value === 'Logout' ? this.logout(nav) : nav.navigation.navigate(value);
   }
 
   render() {
