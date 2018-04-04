@@ -1,5 +1,15 @@
 {
   "expo": {
-    "sdkVersion": "25.0.0"
+    "name": "Rhyme Doctor",
+    "icon": "./smiling-globe.png",
+    "version": "1.0.0",
+    "slug": "rhyme-doctor-mobile",
+    "sdkVersion": "25.0.0",
+    "ios": {
+      "bundleIdentifier": "com.notoriousnpm.rhymedoctor"
+    },
+    "android": {
+      "package": "com.notoriousnpm.rhymedoctor"
+    }
   }
 }
