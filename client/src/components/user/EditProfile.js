@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Expo, { ImagePicker } from 'expo';
-import { StyleSheet, Text, View, Image, TextInput, Button, TouchableHighlight, CameraRoll, PermissionsAndroid, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, Button, TouchableHighlight, CameraRoll, PermissionsAndroid, Alert, ScrollView } from 'react-native';
 import SessionBar from '../navbar/SessionBar';
 import ViewPhotos from './ViewPhotos';
 // import Stats from './Stats';
@@ -63,6 +63,16 @@ export default class EditProfile extends React.Component {
       editBio: !this.state.editBio
     })
   }
+
+  addBio(e) {
+    // e.preventDefault();
+    this.setState({
+      bio: this.state.input,
+      showEdit: false
+    })
+    axios.put(`https://${location}:${port}/api/profile/bio`, { bio: this.state.input })
+    console.log(this.state.input);
+  }
   
   getUserData = async (username) => {
     try {
@@ -87,47 +97,33 @@ export default class EditProfile extends React.Component {
             <View style={styles.stats}>
               <Text style={{color:'white', fontSize:25, fontWeight: 'bold', alignSelf: 'center'}}>{this.state.username}</Text>
             </View>
-              <View style={styles.image}>
-                <Image source={this.state.image} style={{height: 150, width: 150, alignSelf: 'center', marginTop: 15}}/>
-                <View style={styles.button}>
-                  <TouchableHighlight 
-                    style={styles.touchable}
-                    onPress={() => this.pickImage()}>
-                    <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>CHANGE PICTURE</Text>
-                  </TouchableHighlight>
-                </View>
+            <View style={styles.image}>
+              <Image source={this.state.image} style={{height: 150, width: 150, alignSelf: 'center', marginTop: 15}}/>
+              <View style={styles.button}>
+                <TouchableHighlight 
+                  style={styles.touchable}
+                  onPress={() => this.pickImage()}>
+                  <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>CHANGE PICTURE</Text>
+                </TouchableHighlight>
               </View>
-              <View>
+            </View>
+            <View style={{marginTop: 20, width: 300}}>
               <View
                 style={{
                   borderBottomColor: '#686868',
                   borderBottomWidth: 2,
-                  marginTop: 15
+                  marginTop: 15,
                 }}
               />
-                <View style={{marginTop: 20}}>
-                  <Text style={{color:'#D7D7D7', fontSize:14}}>{this.state.bio}</Text>
-                </View>
-                </View>
-              <View style={styles.button}>
-                <TouchableHighlight 
-                  style={styles.touchable}
-                  onPress={() => this.showEdit()}>
-                  <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>EDIT BIO</Text>
-                </TouchableHighlight>
-              </View>
-
-              {/* <View style={styles.bio}>
-                <Text style={{color:'white', fontSize:20, fontWeight: 'bold', marginLeft: 65}}>{this.state.username}</Text>
-                <Text style={{color:'white', fontSize:16, fontWeight: 'bold', marginLeft: 85}}>Likes: {this.state.likeCount}</Text>
-              </View>
-            <View
-              style={{
-                borderBottomColor: '#686868',
-                borderBottomWidth: 1,
-                marginTop: 15
-              }}
-            /> */}
+              <Text style={{color:'#D7D7D7', fontSize:14, textAlign: 'center', marginTop: 15}}>{this.state.bio}</Text>
+            </View>
+            <View style={styles.button}>
+              <TouchableHighlight 
+                style={styles.touchable}
+                onPress={() => this.showEdit()}>
+                <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>EDIT BIO</Text>
+              </TouchableHighlight>
+            </View>
             <View>
               {this.state.editBio && 
               <View>
@@ -135,11 +131,13 @@ export default class EditProfile extends React.Component {
                   style={{height: 70, width: 300, alignSelf: 'center', backgroundColor: 'white', borderColor: 'gray', borderWidth: 1, marginTop: 15}}
                   placeholder="Type here..."
                   placeholderTextColor="#333"
+                  name="input"
+                  onChangeText={(text) => this.setState({input: text})}
                 />
                 <View style={styles.button}>
                   <TouchableHighlight 
                     style={styles.touchable}
-                    onPress={() => this.showEdit()}>
+                    onPress={() => this.addBio()}>
                     <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>SUBMIT</Text>
                   </TouchableHighlight>
                 </View>
@@ -147,7 +145,7 @@ export default class EditProfile extends React.Component {
               }
             </View>
           </View>
-        </View>
+      </View>
     );
   }
 }
