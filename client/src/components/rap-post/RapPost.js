@@ -70,18 +70,17 @@ class RapPost extends React.Component {
             <SwipeCards
               containerStyle={{ flex: 1, width: '80%' }}
               cards={rapPosts}
-              renderCard={(cardData, i) => 
+              renderCard={(cardData) => 
                 <RapPostEntry  
                   nav={this.props}
                   rapPost={cardData}
-                  key={i}
+                  key={(Math.random() * 1000).toString()}
                   getRapPosts={this.getRapPosts}
                   username={this.state.username}/>}
               showYup={false}
               showNope={false}
               loop={true}
               onLoop={this.backToStart}
-              // handleNope={renderCard}
             />}
         </ScrollView>
       </View>
