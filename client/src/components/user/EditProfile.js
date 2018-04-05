@@ -3,7 +3,7 @@ import axios from 'axios';
 import Expo, { ImagePicker } from 'expo';
 import { StyleSheet, Text, View, Image, TextInput, Button, TouchableHighlight, CameraRoll, PermissionsAndroid, Alert, ScrollView } from 'react-native';
 import SessionBar from '../navbar/SessionBar';
-import ViewPhotos from './ViewPhotos';
+import EditBio from './EditBio';
 // import Stats from './Stats';
 // import ProfileImage from './ProfileImage';
 // import Bio from './Bio';
@@ -124,7 +124,7 @@ export default class EditProfile extends React.Component {
               </TouchableHighlight>
             </View>
             <View>
-              {this.state.editBio && <ViewPhotos addBio={(input) => this.addBio(input)} showEdit={() => this.showEdit()}/>}
+              {this.state.editBio && <EditBio addBio={(input) => this.addBio(input)} showEdit={() => this.showEdit()}/>}
             </View>
           </View>
       </View>

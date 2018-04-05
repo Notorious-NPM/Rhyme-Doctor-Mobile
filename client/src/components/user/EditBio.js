@@ -6,7 +6,7 @@ import { Image, View, ListView, StyleSheet, Text, TouchableHighlight, ScrollView
 import API_KEY from './config';
 import { location, port } from '../../../../config'
 
-export default class ViewPhotos extends React.Component {
+export default class EditBio extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
