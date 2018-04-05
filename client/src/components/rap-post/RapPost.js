@@ -29,7 +29,7 @@ class RapPost extends React.Component {
     const context = this;
     context.setState({ displayLoopMsg: true });
 
-    setTimeout(() => context.setState({ displayLoopMsg: false }), 2000);
+    setTimeout(() => context.setState({ displayLoopMsg: false }), 5000);
   }
 
   getRapPosts = async () => {
