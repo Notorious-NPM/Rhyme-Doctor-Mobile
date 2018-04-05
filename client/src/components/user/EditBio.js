@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Image, View, ListView, StyleSheet, Text, TouchableHighlight, ScrollView, Modal, Alert, TextInput } from 'react-native';
 
 import API_KEY from './config';
-import { location, port } from '../../../../config'
+import { location, port } from '../../../../config';
 
 export default class EditBio extends React.Component {
   constructor(props) {
