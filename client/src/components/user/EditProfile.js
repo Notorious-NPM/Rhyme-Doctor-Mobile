@@ -125,23 +125,23 @@ export default class EditProfile extends React.Component {
               </TouchableHighlight>
             </View>
             <View>
-              {this.state.editBio && 
-              <View>
-                <TextInput
-                  style={{height: 70, width: 300, alignSelf: 'center', backgroundColor: 'white', borderColor: 'gray', borderWidth: 1, marginTop: 15}}
-                  placeholder="Type here..."
-                  placeholderTextColor="#333"
-                  name="input"
-                  onChangeText={(text) => this.setState({input: text})}
-                />
-                <View style={styles.button}>
-                  <TouchableHighlight 
-                    style={styles.touchable}
-                    onPress={() => this.addBio()}>
-                    <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>SUBMIT</Text>
-                  </TouchableHighlight>
-                </View>
-                </View>
+              {this.state.editBio && <ViewPhotos />
+              // <View>
+              //   <TextInput
+              //     style={{height: 70, width: 300, alignSelf: 'center', backgroundColor: 'white', borderColor: 'gray', borderWidth: 1, marginTop: 15}}
+              //     placeholder="Type here..."
+              //     placeholderTextColor="#333"
+              //     name="input"
+              //     onChangeText={(text) => this.setState({input: text})}
+              //   />
+              //   <View style={styles.button}>
+              //     <TouchableHighlight 
+              //       style={styles.touchable}
+              //       onPress={() => this.addBio()}>
+              //       <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>SUBMIT</Text>
+              //     </TouchableHighlight>
+              //   </View>
+              // </View>
               }
             </View>
           </View>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
-import { Image, View, ListView, StyleSheet, Text, TouchableHighlight, ScrollView, Modal, Alert } from 'react-native';
+import { Image, View, ListView, StyleSheet, Text, TouchableHighlight, ScrollView, Modal, Alert, TextInput } from 'react-native';
 
 import API_KEY from './config';
 
@@ -68,60 +68,75 @@ export default class ViewPhotos extends React.Component {
 
   render() {
     return (
-      <View style={{margin:30}}>
+      <View style={{margin:30, alignSelf: 'center'}}>
         <Modal
-          transparent={false}
+          transparent={true}
           style={{backgroundColor: '#91A3B0'}}
           animationType="slide"
-          presentationStyle="pageSheet"
+          // presentationStyle="pageSheet"
           visible={this.state.modalVisible}
           onRequestClose={() => {
-            alert('Modal has been closed.'); //change this
+            this.closeModal; //change this
           }}>
-          <View style={{backgroundColor: '#333'}}>
-          <TouchableHighlight
-            style={{ marginTop: 10, width: 120,
-              height: 30,
-              alignSelf: 'center',
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderColor: '#D7D7D7',
-              borderWidth: 1}}
-            onPress={() => {
-              this.setModalVisible(!this.state.modalVisible);
-            }}>
-            <Text style={{fontSize: 16, alignSelf: 'center', fontWeight: 'bold', color: 'white'}}>CANCEL</Text>
-          </TouchableHighlight>
-          <ScrollView style= {{margin: 30}}>{this.props.photos.map((p, i) => {
-            return(
-              <TouchableHighlight 
-                key={i}
-                onPress={() => Alert.alert(
-                  'Change profile picture?',
-                  '',
-                  [
-                    {text: 'Cancel', onPress: () => console.log('Cancel Pressed')},
-                    {text: 'OK', onPress: () => this.handleDrop(p.node.image.uri)}
-                  ],
-                  // { cancelable: true }
-              )}>
-                <Image
-                  style={{
-                    width: 300,
-                    height: 300,
-                    marginTop: 10,
-                    borderColor: 'white',
-                    borderWidth: 2
-                  }}
-                  source={{ uri: p.node.image.uri }}
-                  />
-                </TouchableHighlight>
-            )
-          })}
-          </ScrollView>
+          <View style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'center', flex: 1}}>
+            <View style={{backgroundColor: 'white', height: 300}}>
+            <TextInput
+              style={{height: 200, width: 300, alignSelf: 'center', backgroundColor: 'white', borderColor: 'gray', borderWidth: 1, margin: 15}}
+              placeholder="Type here..."
+              placeholderTextColor="#333"
+              name="input"
+              onChangeText={(text) => this.setState({input: text})}
+            />
+            <View style={styles.button}>
+                <TouchableHighlight 
+                  style={styles.touchable}
+                  onPress={() => this.addBio()}>
+                <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>SUBMIT</Text>
+              </TouchableHighlight>
+              </View>
+            </View>
           </View>
         </Modal>
       </View>
     )
   }
 }
+
+var styles = StyleSheet.create({
+  button: {
+    marginTop: 10,
+    width: 150,
+    height: 30,
+    alignSelf: 'center',
+    borderColor: '#D7D7D7',
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  buttonContainer: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#333',
+    // alignItems: 'center',
+    // justifyContent: 'center'
+  },
+  innerContainer : {
+    margin: 20,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  bio: {
+    flex: 1,
+    marginTop: 5,
+    // flexDirection: 'column',
+    alignSelf: 'center'
+  }
+  // topContainer: {
+  //   flexDirection: 'row'
+  // }
+});
