@@ -76,14 +76,32 @@ const styles = StyleSheet.create({
     }, 
     android: {
       close: {
-        textAlign: 'right',
-        marginRight: 5,
         color: 'white',
         fontSize: 20,
       },
+      closeContainer: {
+        width: 80,
+        backgroundColor: '#353535',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '50%',
+      },
+      chatHeader: {
+        height: '8%',
+        flexDirection: 'row',
+      },
+      friendNameContainer: {
+        width: '75%',
+        marginLeft: '5%',
+      },
+      friendNameText: {
+        fontSize: 30,
+        fontWeight: '700',
+        color: 'white',
+      },
       main: {
         margin: '2%',
-        height: Dimensions.get('window').height * .87,
+        height: Dimensions.get('window').height * .90,
         borderWidth: 1, 
         backgroundColor: 'black',
         width: '95%',
@@ -99,13 +117,14 @@ const styles = StyleSheet.create({
         marginLeft: '5%',
         marginBottom: 10,
         width: '90%',
-        height: '80%',
+        height: '70%',
         backgroundColor: 'white',
       },
       chatText: {
         fontSize: 20,
-        paddingBottom: 2,
+        paddingTop: 1,
         color: 'black',
+        paddingLeft: 5,
       },
       textInput: {
         height: 40,
@@ -114,6 +133,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         width: 300,
         backgroundColor: 'white',
+        paddingRight: 10,
       },
       txtBubble:{
         backgroundColor: 'grey',
@@ -122,6 +142,7 @@ const styles = StyleSheet.create({
         marginRight: 5,
         marginLeft: 5,
         flex: 1,
+        height: 30,
       },
     }
   })
