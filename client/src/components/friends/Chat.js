@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client/dist/socket.io';
-import { Keyboard, ScrollView, Text, TextInput, View } from 'react-native';
+import { Keyboard, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 import { location, socketPort } from '../../../../config';
 import styles from './ChatCss';
@@ -27,6 +27,7 @@ class Chat extends Component {
     await this.socket.on('server.sendMsg', ({ msg, randomCode }) => {
       if (randomCode === this.state.randomCode) {
         msg = 'Me: ' + msg;
+        msg.text
       } else {
         msg = this.props.friendName + ': ' + msg;
       }
@@ -62,13 +63,19 @@ class Chat extends Component {
 
   render() {
     const { messages, unhideInput } = this.state;
+    const { friendName } = this.props;
 
     return (
       <ScrollView>
       <View>
         <View style={styles.main}>
-          <View>
-            <Text style={styles.close} onPress={() => this.props.changeSelectedChat(-1)}>X</Text>
+          <View style={styles.chatHeader}>
+            <View style={styles.friendNameContainer}>
+              <Text style={styles.friendNameText}>{friendName}</Text>
+            </View>
+            <TouchableOpacity onPress={() => this.props.changeSelectedChat(-1)} style={styles.closeContainer}>
+              <Text style={styles.close}>BACK</Text>
+            </TouchableOpacity>
           </View>
           <View style={styles.chatDisplay}>
             <ScrollView     
