@@ -22,6 +22,7 @@ export default class EditProfile extends React.Component {
       bio: '',
       editBio: false
     };
+    this.addBio = this.addBio.bind(this);
   }
 
   componentDidMount() {
@@ -64,14 +65,12 @@ export default class EditProfile extends React.Component {
     })
   }
 
-  addBio(e) {
-    // e.preventDefault();
+  addBio(input) {
     this.setState({
-      bio: this.state.input,
-      showEdit: false
+      bio: input,
+      editBio: !this.state.editBio
     })
-    axios.put(`https://${location}:${port}/api/profile/bio`, { bio: this.state.input })
-    console.log(this.state.input);
+    
   }
   
   getUserData = async (username) => {
@@ -125,7 +124,7 @@ export default class EditProfile extends React.Component {
               </TouchableHighlight>
             </View>
             <View>
-              {this.state.editBio && <ViewPhotos />
+              {this.state.editBio && <ViewPhotos addBio={this.addBio}/>
               // <View>
               //   <TextInput
               //     style={{height: 70, width: 300, alignSelf: 'center', backgroundColor: 'white', borderColor: 'gray', borderWidth: 1, marginTop: 15}}

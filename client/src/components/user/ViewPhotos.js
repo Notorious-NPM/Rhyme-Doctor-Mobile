@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Image, View, ListView, StyleSheet, Text, TouchableHighlight, ScrollView, Modal, Alert, TextInput } from 'react-native';
 
 import API_KEY from './config';
+import { location, port } from '../../../../config'
 
 export default class ViewPhotos extends React.Component {
   constructor(props) {
@@ -20,50 +21,11 @@ export default class ViewPhotos extends React.Component {
     this.props.hideModal();
   }
 
-  handleDrop = (file) => {
-    // console.log(files);
-    // const uploaders = (file) => {
-      const formData = new FormData(); // eslint-disable-line
-      formData.append('file', file);
-      formData.append('upload_preset', 'hkhkmnpg');
-      formData.append('api_key', API_KEY);
-      formData.append('timestamp', (Date.now() / 1000) || 0);
-
-      // return axios.post('https://api.cloudinary.com/v1_1/dkwbeount/image/upload', JSON.stringify(formData), {
-      //   headers: { 'content-type': 'application/json' },
-      // }).then((response) => {
-      //   // const { data } = response;
-      //   // const fileURL = data.secure_url;
-      //   console.log('res', JSON.parse(response));
-      //   // axios.put('api/profile/image', { image: fileURL });
-      //   // this.setState({
-      //   //   image: fileURL,
-      //   // });
-      // }).catch(err => console.log(err))
-
-      let apiUrl = 'https://api.cloudinary.com/v1_1/dkwbeount/image/upload';
-
-      let data = {
-        "file": file,
-        "upload_preset": 'hkhkmnpg'
-      }
-
-      fetch(apiUrl, {
-        body: JSON.stringify(data),
-        headers: {
-          'content-type': 'application/json'
-        },
-        method: 'POST',
-      }).then(r=> {
-        console.log(r);
-      }).catch(err => console.log(err))
-
-    // axios.all(uploaders).then(() => {
-    //   // this.setState({
-    //   //   showChangePic: false,
-    //   // });
-    //   console.log('done', this.state);
-    // });
+  updateBio(){
+    axios.put(`https://${location}:${port}/api/profile/bio`, { bio: this.state.input })
+      .then(() => {
+        this.props.addBio(this.state.input);
+      })
   }
 
   render() {
@@ -71,7 +33,6 @@ export default class ViewPhotos extends React.Component {
       <View style={{margin:30, alignSelf: 'center'}}>
         <Modal
           transparent={true}
-          style={{backgroundColor: '#91A3B0'}}
           animationType="slide"
           // presentationStyle="pageSheet"
           visible={this.state.modalVisible}
@@ -79,7 +40,7 @@ export default class ViewPhotos extends React.Component {
             this.closeModal; //change this
           }}>
           <View style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'center', flex: 1}}>
-            <View style={{backgroundColor: 'white', height: 300}}>
+            <View style={{backgroundColor: '#333', borderColor: 'white', borderWidth: 2, height: 300}}>
             <TextInput
               style={{height: 200, width: 300, alignSelf: 'center', backgroundColor: 'white', borderColor: 'gray', borderWidth: 1, margin: 15}}
               placeholder="Type here..."
@@ -90,7 +51,7 @@ export default class ViewPhotos extends React.Component {
             <View style={styles.button}>
                 <TouchableHighlight 
                   style={styles.touchable}
-                  onPress={() => this.addBio()}>
+                  onPress={() => this.updateBio()}>
                 <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>SUBMIT</Text>
               </TouchableHighlight>
               </View>
