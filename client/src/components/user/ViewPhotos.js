@@ -40,20 +40,29 @@ export default class ViewPhotos extends React.Component {
             this.closeModal; //change this
           }}>
           <View style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'center', flex: 1}}>
-            <View style={{backgroundColor: '#333', borderColor: 'white', borderWidth: 2, height: 300}}>
-            <TextInput
-              style={{height: 200, width: 300, alignSelf: 'center', backgroundColor: 'white', borderColor: 'gray', borderWidth: 1, margin: 15}}
-              placeholder="Type here..."
-              placeholderTextColor="#333"
-              name="input"
-              onChangeText={(text) => this.setState({input: text})}
-            />
-            <View style={styles.button}>
-                <TouchableHighlight 
-                  style={styles.touchable}
-                  onPress={() => this.updateBio()}>
-                <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>SUBMIT</Text>
-              </TouchableHighlight>
+              <View style={{backgroundColor: '#333', borderColor: 'white', borderWidth: 2, height: 300}}>
+              <TextInput
+                style={{height: 200, width: 300, alignSelf: 'center', backgroundColor: 'white', borderColor: 'gray', borderWidth: 1, margin: 15}}
+                placeholder="Type here..."
+                placeholderTextColor="#333"
+                name="input"
+                onChangeText={(text) => this.setState({input: text})}
+              />
+              <View style={styles.buttonContainer}>
+                <View style={styles.button}>
+                    <TouchableHighlight 
+                      style={styles.touchable}
+                      onPress={() => this.updateBio()}>
+                    <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>SUBMIT</Text>
+                  </TouchableHighlight>
+                </View>
+                <View style={styles.button}>
+                    <TouchableHighlight 
+                      style={styles.touchable}
+                      onPress={() => this.props.showEdit()}>
+                    <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>CANCEL</Text>
+                  </TouchableHighlight>
+                </View>
               </View>
             </View>
           </View>
@@ -65,17 +74,16 @@ export default class ViewPhotos extends React.Component {
 
 var styles = StyleSheet.create({
   button: {
-    marginTop: 10,
-    width: 150,
+    margin: 10,
+    width: 70,
     height: 30,
-    alignSelf: 'center',
     borderColor: '#D7D7D7',
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center'
   },
   buttonContainer: {
-    width: '100%',
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
