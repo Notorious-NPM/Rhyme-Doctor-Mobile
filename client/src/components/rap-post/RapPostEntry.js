@@ -19,7 +19,7 @@ class RapPostEntry extends React.Component {
       alertStatus: '',
       alertMessage: '',
       timer: undefined,
-      likes: this.props.rapPost.like_count,
+      likes: props.rapPost.like_count,
       hidden: true,
     };
   }
