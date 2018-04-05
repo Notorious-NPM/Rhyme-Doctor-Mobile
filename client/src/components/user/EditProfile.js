@@ -4,10 +4,8 @@ import Expo, { ImagePicker } from 'expo';
 import { StyleSheet, Text, View, Image, TextInput, Button, TouchableHighlight, CameraRoll, PermissionsAndroid, Alert, ScrollView } from 'react-native';
 import SessionBar from '../navbar/SessionBar';
 import EditBio from './EditBio';
-// import Stats from './Stats';
-// import ProfileImage from './ProfileImage';
-// import Bio from './Bio';
-// import FriendButton from '../buttons/FriendButton';
+
+import styles from './EditProfileCss';
 
 import { location, port } from '../../../../config'
 
@@ -22,7 +20,6 @@ export default class EditProfile extends React.Component {
       bio: '',
       editBio: false
     };
-    // this.addBio = this.addBio.bind(this);
   }
 
   componentDidMount() {
@@ -131,42 +128,3 @@ export default class EditProfile extends React.Component {
     );
   }
 }
-
-var styles = StyleSheet.create({
-  button: {
-    marginTop: 15,
-    width: 150,
-    height: 30,
-    alignSelf: 'center',
-    borderColor: '#D7D7D7',
-    borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  buttonContainer: {
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#333',
-    // alignItems: 'center',
-    // justifyContent: 'center'
-  },
-  innerContainer : {
-    margin: 20,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  bio: {
-    flex: 1,
-    marginTop: 5,
-    // flexDirection: 'column',
-    alignSelf: 'center'
-  }
-  // topContainer: {
-  //   flexDirection: 'row'
-  // }
-});
