@@ -2,8 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import Alert from '../alert';
 import Comments from './comments';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { LinearGradient } from 'expo';
+import InputScrollView from 'react-native-input-scroll-view';
 
 import { location, port } from '../../../../config';
 import styles from './RapPostEntryCss';
@@ -133,7 +134,9 @@ class RapPostEntry extends React.Component {
     const { nav } = this.props;
 
     return (
-      <View style={styles.main}>
+      <View
+        style={styles.main}
+      >
         <View>
           {alert && <Alert message={alertMessage} status={alertStatus} />}
           <View style={styles.buttonMain}>
