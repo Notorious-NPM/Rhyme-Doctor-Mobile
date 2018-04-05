@@ -3,15 +3,10 @@ import axios from 'axios';
 import { StyleSheet, Text, View, Image, TextInput, Button } from 'react-native';
 import SessionBar from '../navbar/SessionBar';
 import UserPosts from './UserPosts';
-// import UserPosts from './UserPosts';
-// import Stats from './Stats';
-// import ProfileImage from './ProfileImage';
-// import Bio from './Bio';
-// import FriendButton from '../buttons/FriendButton';
+
+import styles from './ProfileCss';
 
 import { location, port } from '../../../../config'
-
-// import store from '../../redux/store';
 
 export default class Profile extends React.Component {
   constructor(props) {
@@ -37,12 +32,6 @@ export default class Profile extends React.Component {
     }
   }
 
-  // componentDidMount() {
-  //   this.setState(store.getState());  // eslint-disable-line
-  //   store.subscribe(() => {
-  //     this.setState(store.getState());
-  //   });
-  // }
 
   getUserData = async (username) => {
     try {
@@ -71,7 +60,6 @@ export default class Profile extends React.Component {
   }
 
   render() {
-    // const { state } = this.props.location;
     return (
         <View style={styles.container}>
           <SessionBar nav={this.props}/>
@@ -86,9 +74,7 @@ export default class Profile extends React.Component {
               </View>
             </View>
             <View style={{marginTop: 10}}>
-              {/* <Text style={{color:'white', fontSize:14, fontWeight: 'bold', marginLeft: 10}}>About Me</Text> */}
               <Text style={{color:'white', fontSize:14, marginLeft: 10}}>{this.state.bio}</Text>
-              {/* <Text>{this.state.userPosts.length}</Text> */}
             </View>
             <View
               style={{
@@ -104,38 +90,3 @@ export default class Profile extends React.Component {
   }
 }
 
-
-var styles = StyleSheet.create({
-  button: {
-    margin: 10,
-    borderColor: '#D7D7D7',
-    borderWidth: 1
-  },
-  buttonContainer: {
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#333',
-    // alignItems: 'center',
-    // justifyContent: 'center'
-  },
-  innerContainer : {
-    margin: 10
-  },
-  image: {
-    flexDirection: 'column'
-  },
-  bio: {
-    flex: 1,
-    marginTop: 5,
-    flexDirection: 'column',
-    alignSelf: 'center'
-  },
-  topContainer: {
-    flexDirection: 'row'
-  }
-});

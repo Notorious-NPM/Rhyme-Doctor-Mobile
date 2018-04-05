@@ -69,7 +69,7 @@ export default class Home extends React.Component {
                   // onPress={onPressLearnMore}
                   onPress={() => alert('add function here')}
                   title="Post"
-                  color="white"
+                  color="#333"
                   // accessibilityLabel="Learn more about this purple button"
                 />
               </View>
@@ -78,7 +78,7 @@ export default class Home extends React.Component {
                   // onPress={onPressLearnMore}
                   onPress={() => alert('add function here')}
                   title="Hit API"
-                  color="white"
+                  color="#333"
                   // accessibilityLabel="Learn more about this purple button"
                 />
               </View>

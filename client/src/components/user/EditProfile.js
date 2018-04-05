@@ -1,158 +1,130 @@
 import React from 'react';
 import axios from 'axios';
-import { StyleSheet, Text, View, Image, TextInput, Button } from 'react-native';
+import Expo, { ImagePicker } from 'expo';
+import { StyleSheet, Text, View, Image, TextInput, Button, TouchableHighlight, CameraRoll, PermissionsAndroid, Alert, ScrollView } from 'react-native';
 import SessionBar from '../navbar/SessionBar';
-import UserPosts from './UserPosts';
-// import UserPosts from './UserPosts';
-// import Stats from './Stats';
-// import ProfileImage from './ProfileImage';
-// import Bio from './Bio';
-// import FriendButton from '../buttons/FriendButton';
+import EditBio from './EditBio';
+
+import styles from './EditProfileCss';
 
 import { location, port } from '../../../../config'
 
-// import store from '../../redux/store';
+import store from '../../redux/store';
 
 export default class EditProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userPosts: [],
       username: '',
-      likeCount: '',
       image: '',
       bio: '',
-      received: false,
+      editBio: false
     };
   }
 
   componentDidMount() {
-    // if (this.props.location.state) {
-    //   const { username } = this.props.location.state;
-    //   this.getUserData(username);
-    //   this.getUserPosts(username);
-    // } else {
       this.getUserData();
-      this.getUserPosts();
-    // }
   }
 
-  // componentDidMount() {
-  //   this.setState(store.getState());  // eslint-disable-line
-  //   store.subscribe(() => {
-  //     this.setState(store.getState());
-  //   });
-  // }
+  pickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      base64: true
+    })
 
-  getUserData = (username) => {
-      axios.get(`https://${location}:${port}/api/profile`)
-        .then((res) => {
-          this.setState({
-            username: res.data.name,
-            likeCount: res.data.like_count,
-            image: {uri: res.data.image},
-            bio: res.data.bio,
-            received: true,
-          })
-        })
+    let apiUrl = 'https://api.cloudinary.com/v1_1/dkwbeount/image/upload';
 
-        .catch(function(err) {
-          console.log('err', err)
-        })
-  }
+    let xhr = new XMLHttpRequest();
+    var fd = new FormData();
 
-  // getUserData = async (username) => {
-  //   try {
-  //     const userData = username ? await axios.get('http://{location}:3000/api/profile', { params: { name: username } }) : await axios.get('http://{location}:3000/api/profile');
-  //     this.setState({
-  //       username: userData.data.name,
-  //       likeCount: userData.data.like_count,
-  //       image: userData.data.image,
-  //       bio: userData.data.bio,
-  //       received: true,
-  //     });
-  //   } catch (err) {
-  //     console.log('Failed to get user posts');
-  //   }
-  // }
+    
+    fd.append('upload_preset', 'hkhkmnpg');
+    fd.append('file', `data:image/png;base64,${result.base64}`);
 
-  getUserPosts = async (username) => {
-    try {
-      const userPosts = username ? await axios.get(`http://${location}:3421/api/profile/posts`, { params: { name: username } }) : await axios.get(`http://${location}:3421/api/profile/posts`);
+    axios.post(apiUrl, fd,{ headers: {'X-Requested-With': 'XMLHttpRequest' },
+    }).then(res => {
+      const {data} = res;
+      const fileUrl = data.secure_url;
       this.setState({
-        userPosts: userPosts.data,
+        image: {uri: fileUrl}
       });
-      // console.log(userPosts);
+      axios.put(`https://${location}:${port}/api/profile/image`, { image: fileUrl })
+        .then(res2 => {
+          console.log('Pic changed');
+        })
+        .catch(err => Alert.alert('Error changing profile picture'));
+    });
+  }
+
+  showEdit() {
+    this.setState({
+      editBio: !this.state.editBio
+    })
+  }
+
+  addBio(input) {
+    this.setState({
+      bio: input,
+      editBio: !this.state.editBio
+    })
+    
+  }
+  
+  getUserData = async (username) => {
+    try {
+      const userData = username ? await axios.get(`https://${location}:${port}/api/profile`, { params: { name: username } }) : await axios.get(`http://${location}:3421/api/profile`);
+      this.setState({
+        username: userData.data.name,
+        likeCount: userData.data.like_count,
+        image: {uri: userData.data.image},
+        bio: userData.data.bio,
+        received: true
+      });
     } catch (err) {
       console.log('Failed to get user posts');
     }
   }
 
   render() {
-    // const { state } = this.props.location;
     return (
         <View style={styles.container}>
           <SessionBar nav={this.props}/>
           <View style={styles.innerContainer}>
-            <View style={styles.topContainer}>
-              <View style={styles.image}>
-                <Image source={this.state.image} style={{height: 100, width: 100}}/>
+            <View style={styles.stats}>
+              <Text style={{color:'white', fontSize:25, fontWeight: 'bold', alignSelf: 'center'}}>{this.state.username}</Text>
+            </View>
+            <View style={styles.image}>
+              <Image source={this.state.image} style={{height: 150, width: 150, alignSelf: 'center', marginTop: 15}}/>
+              <View style={styles.button}>
+                <TouchableHighlight 
+                  style={styles.touchable}
+                  onPress={() => this.pickImage()}>
+                  <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>CHANGE PICTURE</Text>
+                </TouchableHighlight>
               </View>
             </View>
-              {/* <View style={styles.bio}>
-                <Text style={{color:'white', fontSize:20, fontWeight: 'bold', marginLeft: 65}}>{this.state.username}</Text>
-                <Text style={{color:'white', fontSize:16, fontWeight: 'bold', marginLeft: 85}}>Likes: {this.state.likeCount}</Text>
-              </View>
-            <View style={{marginTop: 10}}>
-              <Text style={{color:'white', fontSize:14, marginLeft: 10}}>{this.state.bio}</Text>
+            <View style={{marginTop: 20, width: 300}}>
+              <View
+                style={{
+                  borderBottomColor: '#686868',
+                  borderBottomWidth: 2,
+                  marginTop: 15,
+                }}
+              />
+              <Text style={{color:'#D7D7D7', fontSize:14, textAlign: 'center', marginTop: 15}}>{this.state.bio}</Text>
             </View>
-            <View
-              style={{
-                borderBottomColor: '#686868',
-                borderBottomWidth: 1,
-                marginTop: 15
-              }}
-            /> */}
+            <View style={styles.button}>
+              <TouchableHighlight 
+                style={styles.touchable}
+                onPress={() => this.showEdit()}>
+                <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>EDIT BIO</Text>
+              </TouchableHighlight>
+            </View>
+            <View>
+              {this.state.editBio && <EditBio addBio={(input) => this.addBio(input)} showEdit={() => this.showEdit()}/>}
+            </View>
           </View>
-          <Text> Edit Are goes here</Text>
-        </View>
+      </View>
     );
   }
 }
-
-
-var styles = StyleSheet.create({
-  button: {
-    margin: 10,
-    borderColor: '#D7D7D7',
-    borderWidth: 1
-  },
-  buttonContainer: {
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#333',
-    // alignItems: 'center',
-    // justifyContent: 'center'
-  },
-  innerContainer : {
-    margin: 10
-  },
-  bio: {
-    flex: 1,
-    marginTop: 5,
-    // flexDirection: 'column',
-    alignSelf: 'center'
-  },
-  image: {
-    alignSelf: 'center',
-    height: 200
-  }
-  // topContainer: {
-  //   flexDirection: 'row'
-  // }
-});
