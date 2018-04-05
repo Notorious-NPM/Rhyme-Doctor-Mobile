@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         color: '#D7D7D7',
         fontWeight: '700',
+        fontFamily: 'serif',
         textDecorationLine: 'underline',
       },
       contributor: {

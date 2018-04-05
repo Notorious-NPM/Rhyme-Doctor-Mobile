@@ -29,7 +29,7 @@ var styles = StyleSheet.create({
       title: {
         fontSize: 20,
         fontWeight: '700',
-        // fontFamily: 'Didot-Bold'
+        fontFamily: 'Didot-Bold'
       },
       top: {
         height: 20,
@@ -64,7 +64,6 @@ var styles = StyleSheet.create({
       title: {
         fontSize: 20,
         fontWeight: '700',
-        // fontFamily: 'Didot-Bold'
       },
       top: {
         height: 20,
