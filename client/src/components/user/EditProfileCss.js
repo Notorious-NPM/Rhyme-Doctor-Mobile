@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
       bio: {
         flex: 1,
         marginTop: 5,
-        // flexDirection: 'column',
         alignSelf: 'center'
       }
     },

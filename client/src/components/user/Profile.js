@@ -8,8 +8,6 @@ import styles from './ProfileCss';
 
 import { location, port } from '../../../../config'
 
-// import store from '../../redux/store';
-
 export default class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -62,7 +60,6 @@ export default class Profile extends React.Component {
   }
 
   render() {
-    // const { state } = this.props.location;
     return (
         <View style={styles.container}>
           <SessionBar nav={this.props}/>
@@ -77,9 +74,7 @@ export default class Profile extends React.Component {
               </View>
             </View>
             <View style={{marginTop: 10}}>
-              {/* <Text style={{color:'white', fontSize:14, fontWeight: 'bold', marginLeft: 10}}>About Me</Text> */}
               <Text style={{color:'white', fontSize:14, marginLeft: 10}}>{this.state.bio}</Text>
-              {/* <Text>{this.state.userPosts.length}</Text> */}
             </View>
             <View
               style={{
