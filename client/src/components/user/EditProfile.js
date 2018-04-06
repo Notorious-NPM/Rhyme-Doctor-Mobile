@@ -16,7 +16,7 @@ export default class EditProfile extends React.Component {
     super(props);
     this.state = {
       username: '',
-      image: '',
+      image: null,
       bio: '',
       editBio: false
     };
@@ -41,7 +41,7 @@ export default class EditProfile extends React.Component {
       const {data} = res;
       const fileUrl = data.secure_url;
       this.setState({
-        image: {uri: fileUrl}
+        image: fileUrl
       });
       axios.put(`https://${location}:${port}/api/profile/image`, { image: fileUrl })
         .then(res2 => {
@@ -91,7 +91,7 @@ export default class EditProfile extends React.Component {
       this.setState({
         username: userData.data.name,
         likeCount: userData.data.like_count,
-        image: {uri: userData.data.image},
+        image: userData.data.image,
         bio: userData.data.bio,
         received: true
       });
@@ -109,7 +109,7 @@ export default class EditProfile extends React.Component {
               <Text style={{color:'white', fontSize:25, fontWeight: 'bold', alignSelf: 'center'}}>{this.state.username}</Text>
             </View>
             <View style={styles.image}>
-              <Image source={this.state.image} style={{height: 150, width: 150, alignSelf: 'center', marginTop: 15}}/>
+              { this.state.image && <Image source={{uri: this.state.image}} style={{height: 150, width: 150, alignSelf: 'center', marginTop: 15}}/>}
               <View style={styles.button}>
                 <TouchableHighlight 
                   style={styles.touchable}
