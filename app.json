@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Rhyme Doctor",
-    "icon": "./smiling-globe.png",
+    "icon": "./RhymeDoctor.png",
     "version": "1.0.0",
     "slug": "rhyme-doctor-mobile",
     "sdkVersion": "25.0.0",
