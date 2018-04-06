@@ -57,14 +57,16 @@ class FriendButton extends Component {
   render() {
     const { areFriends } = this.state;
     const action = areFriends ? 'De-Friend' : 'Add Friend';
-
-    return (
-      <TouchableHighlight
-        style={styles.button}
-        onPress={() => this.handleFriendButton()}> 
-        <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>{action}</Text>
-      </TouchableHighlight>
-    );
+    if (this.state.received) {
+      return (
+        <TouchableHighlight
+          style={styles.button}
+          onPress={() => this.handleFriendButton()}> 
+          <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>{action}</Text>
+        </TouchableHighlight>
+      );
+    }
+    return null;
   }
 }
 
