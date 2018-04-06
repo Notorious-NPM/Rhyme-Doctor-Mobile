@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
+import { TouchableHighlight, Text } from 'react-native';
 import axios from 'axios';
+import { location, port } from '../../../../config';
+import styles from './ButtonCss';
 
 class FriendButton extends Component {
-  constructor(props) { // this.props.username
+  constructor(props) {
     super(props);
     this.state = {
       areFriends: false,
+      received: false
     };
   }
 
@@ -18,9 +22,12 @@ class FriendButton extends Component {
     };
 
     axios
-      .get('/api/user/checkFriendship', options)
+      .get(`https://${location}:${port}/api/user/checkFriendship`, options)
       .then(({ data }) =>
-        this.setState({ areFriends: JSON.parse(data) }))
+        this.setState({ 
+          areFriends: JSON.parse(data),
+          received: true
+        }))
       .catch(err => console.log('Friend componentMount error: ', err));
   }
 
@@ -34,7 +41,7 @@ class FriendButton extends Component {
     const action = areFriends ? 'delete' : 'post';
     payload = action === 'delete' ? { data: payload } : payload;
 
-    axios[action]('/api/user/friend', payload)
+    axios[action](`https://${location}:${port}/api/user/friend`, payload)
       .then(({ data }) => console.log('result of ', action, ' request is: ', data))
       .catch(err => console.log(action, ' request error: ', err));
 
@@ -52,9 +59,11 @@ class FriendButton extends Component {
     const action = areFriends ? 'De-Friend' : 'Add Friend';
 
     return (
-      <div>
-        <button className="btn btn-outline-primary" type="button" onClick={() => this.handleFriendButton()}>{action}</button>
-      </div>
+      <TouchableHighlight
+        style={styles.button}
+        onPress={() => this.handleFriendButton()}> 
+        <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>{action}</Text>
+      </TouchableHighlight>
     );
   }
 }
