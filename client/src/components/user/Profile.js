@@ -70,7 +70,7 @@ export default class Profile extends React.Component {
               </View>
               <View style={styles.bio}>
                 <Text style={{color:'white', fontSize:20, fontWeight: 'bold', marginLeft: 65}}>{this.state.username}</Text>
-                <Text style={{color:'white', fontSize:16, fontWeight: 'bold', marginLeft: 85}}>Likes: {this.state.likeCount}</Text>
+                <Text style={{color:'white', fontSize:16, fontWeight: 'bold', marginLeft: 65}}>Likes: {this.state.likeCount}</Text>
               </View>
             </View>
             <View style={{marginTop: 10}}>
