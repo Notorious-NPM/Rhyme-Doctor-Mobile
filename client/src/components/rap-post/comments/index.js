@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Keyboard, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { Dimensions, Keyboard, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import InputScrollView from 'react-native-input-scroll-view';
 import { LinearGradient } from 'expo';
 import styles from './CommentCss';
