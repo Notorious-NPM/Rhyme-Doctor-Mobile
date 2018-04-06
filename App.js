@@ -11,6 +11,7 @@ import Login from './client/src/components/top/Login';
 import Signup from './client/src/components/top/Signup';
 import About from './client/src/components/about/About';
 import EditProfile from './client/src/components/user/EditProfile';
+import Privacy from './client/src/components/privacy';
 
 const RootStack = StackNavigator(
   {
@@ -32,6 +33,9 @@ const RootStack = StackNavigator(
     },
     About: {
       screen: About,
+    },
+    Privacy: {
+      screen: Privacy,
     },
     EditProfile: {
       screen: EditProfile,

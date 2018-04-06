@@ -70,6 +70,10 @@ class SessionBar extends React.Component {
                 <Text style={styles.menuText}>About</Text>
               </MenuOption>
               <View style={styles.bottomRule} />
+              <MenuOption value={'Privacy'}>
+                <Text style={styles.menuText}>Privacy</Text>
+              </MenuOption>
+              <View style={styles.bottomRule} />
               <MenuOption value={'EditProfile'}>
                 <Text style={styles.menuText}>Edit Profile</Text>
               </MenuOption>
