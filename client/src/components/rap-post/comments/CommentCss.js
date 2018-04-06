@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
       commentsPopShow: {
         position: 'absolute',
         width: '100%',
-        bottom: 150,
+        bottom: 220,
         left: 0,
         backgroundColor: 'white',
       },

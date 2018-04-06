@@ -21,6 +21,11 @@ const styles = StyleSheet.create({
       },
       main: {
         backgroundColor: '#333',
+      },
+      title: {
+        color: '#EADC5B', 
+        fontSize: 50, 
+        padding: 5,
       }
     }
   })

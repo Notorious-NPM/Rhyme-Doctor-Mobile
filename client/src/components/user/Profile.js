@@ -3,10 +3,10 @@ import axios from 'axios';
 import { StyleSheet, Text, View, Image, TextInput, Button } from 'react-native';
 import SessionBar from '../navbar/SessionBar';
 import UserPosts from './UserPosts';
-
+import FriendButton from '../buttons/FriendButton';
 import styles from './ProfileCss';
-
-import { location, port } from '../../../../config'
+import { location, port } from '../../../../config';
+import store from '../../redux/store';
 
 export default class Profile extends React.Component {
   constructor(props) {
@@ -21,7 +21,7 @@ export default class Profile extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     if (this.props.navigation.state.params) {
       const { username } = this.props.navigation.state.params;
       this.getUserData(username);
@@ -30,6 +30,18 @@ export default class Profile extends React.Component {
       this.getUserData();
       this.getUserPosts();
     }
+    if (this.props.navigation.state.params && this.props.navigation.state.params.username) {
+      this.setState({
+        username: this.props.navigation.state.params.username,
+      });
+    }
+  }
+
+  componentDidMount() {
+    this.setState(store.getState());  // eslint-disable-line
+    store.subscribe(() => {
+      this.setState(store.getState());
+    });
   }
 
 
@@ -70,12 +82,13 @@ export default class Profile extends React.Component {
               </View>
               <View style={styles.bio}>
                 <Text style={{color:'white', fontSize:20, fontWeight: 'bold', marginLeft: 65}}>{this.state.username}</Text>
-                <Text style={{color:'white', fontSize:16, fontWeight: 'bold', marginLeft: 85}}>Likes: {this.state.likeCount}</Text>
+                <Text style={{color:'white', fontSize:16, fontWeight: 'bold', marginLeft: 65}}>Likes: {this.state.likeCount}</Text>
               </View>
             </View>
             <View style={{marginTop: 10}}>
-              <Text style={{color:'white', fontSize:14, marginLeft: 10}}>{this.state.bio}</Text>
+              <Text style={{color:'white', fontSize:14, marginLeft: 10, textAlign: 'center'}}>{this.state.bio}</Text>
             </View>
+              {(this.state.received && this.state.username !== this.state.user && <FriendButton username={this.state.username} />)}
             <View
               style={{
                 borderBottomColor: '#686868',
