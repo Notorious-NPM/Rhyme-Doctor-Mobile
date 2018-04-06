@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-
-import { Image, View, ListView, StyleSheet, Text, TouchableHighlight, Platform, ScrollView, Modal, Alert, TextInput } from 'react-native';
+import { View, StyleSheet, TouchableHighlight, Modal, Alert, TextInput, Platform } from 'react-native';
 
 import API_KEY from './config';
 import { location, port } from '../../../../config';
