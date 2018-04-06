@@ -15,7 +15,7 @@ export default class Profile extends React.Component {
       userPosts: [],
       username: '',
       likeCount: '',
-      image: '',
+      image: null,
       bio: '',
       received: false,
     };
@@ -51,7 +51,7 @@ export default class Profile extends React.Component {
       this.setState({
         username: userData.data.name,
         likeCount: userData.data.like_count,
-        image: {uri: userData.data.image},
+        image: userData.data.image,
         bio: userData.data.bio,
         received: true
       });
@@ -78,7 +78,7 @@ export default class Profile extends React.Component {
           <View style={styles.innerContainer}>
             <View style={styles.topContainer}>
               <View style={styles.image}>
-                <Image source={this.state.image} style={{height: 100, width: 100}}/>
+                {this.state.image && <Image source={{ uri: this.state.image }} style={{height: 100, width: 100}}/>}
               </View>
               <View style={styles.bio}>
                 <Text style={{color:'white', fontSize:20, fontWeight: 'bold', marginLeft: 65}}>{this.state.username}</Text>

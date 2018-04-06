@@ -10,21 +10,12 @@ class UserPosts extends React.Component {
   render() {
     const userPosts = this.props.userPosts || [];
     return (
-    // <View style={styles.main}>
     <ScrollView style={styles.view}>
-    {/* <Text>{userPosts.length}</Text> */}
       {userPosts.map((userPost, i) => (<RapPostEntry
         rapPost={userPost}
         key={i}
-        // getRapPosts={this.getRapPosts}
-        // username={this.state.username}
       />))}
     </ScrollView>
-  // </View>
-    // return (
-    //   <div className="row">
-    //     {userPosts.map((userPost, i) => <RapPostEntry rapPost={userPost} key={i} getUserPosts={this.props.getUserPosts} getUserData={this.props.getUserData} onProfile />).reverse()}
-    //   </div>
     );
   }
 }
