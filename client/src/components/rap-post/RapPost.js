@@ -7,7 +7,6 @@ import { LinearGradient } from 'expo';
 import store from '../../redux/store.js';
 import RapPostEntry from './RapPostEntry';
 import SessionBar from '../navbar/SessionBar';
-import Loading from './Loading';
 import Direction from '../buttons/Direction';
 
 import styles from './RapPostCss';
