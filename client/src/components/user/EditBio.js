@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import { View, StyleSheet, TouchableHighlight, Modal, Alert, TextInput, Platform } from 'react-native';
+import { View, StyleSheet, TouchableHighlight, Modal, TextInput, Platform } from 'react-native';
 
 import API_KEY from './config';
 import { location, port } from '../../../../config';
@@ -49,16 +49,16 @@ export default class EditBio extends React.Component {
               />
               <View style={styles.buttonContainer}>
                 <View style={styles.button}>
-                    <TouchableHighlight 
-                      style={styles.touchable}
-                      onPress={() => this.updateBio()}>
+                  <TouchableHighlight 
+                    style={styles.touchable}
+                    onPress={() => this.updateBio()}>
                     <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>SUBMIT</Text>
                   </TouchableHighlight>
                 </View>
                 <View style={styles.button}>
-                    <TouchableHighlight 
-                      style={styles.touchable}
-                      onPress={() => this.props.showEdit()}>
+                  <TouchableHighlight 
+                    style={styles.touchable}
+                    onPress={() => this.props.showEdit()}>
                     <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>CANCEL</Text>
                   </TouchableHighlight>
                 </View>
