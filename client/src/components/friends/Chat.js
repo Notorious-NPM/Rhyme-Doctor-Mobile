@@ -25,13 +25,15 @@ class Chat extends Component {
     });
 
     await this.socket.on('server.sendMsg', ({ msg, randomCode }) => {
+      let message = { text: msg };
       if (randomCode === this.state.randomCode) {
-        msg = 'Me: ' + msg;
-        msg.text
+        // msg = 'Me: ' + msg;
+        message.position = 'right';
       } else {
-        msg = this.props.friendName + ': ' + msg;
+        // msg = this.props.friendName + ': ' + msg;
+        message.position = 'left';
       }
-      this.setState({ messages: [...this.state.messages, msg] });
+      this.setState({ messages: [...this.state.messages, message] });
     });
 
     this.setState({ socket: this.socket }) // eslint-disable-line
@@ -83,10 +85,17 @@ class Chat extends Component {
               onContentSizeChange={(contentWidth, contentHeight) => {        
               this.scrollView.scrollToEnd({animated: true});
             }}>
-              {messages.map((text, i) => {
+              {messages.map((message, i) => {
                 return (
-                  <View style={styles.txtBubble} key={i}>
-                    <Text style={styles.chatText} key={i}>{text}</Text>
+                  <View 
+                    style={[
+                      styles.txtBubbleContainer,
+                      { alignItems: message.position === 'left' ? 'flex-start' : 'flex-end' }
+                    ]} 
+                    key={i}>
+                    <View style={[styles.txtBubble, { backgroundColor: message.position === 'left' ? '#E8EDF9' : '#FFFFAF' }]}>
+                      <Text style={[styles.chatText, { textAlign: message.position }]} key={i}>{message.text}</Text>
+                    </View>
                   </View>
                 )
               })}

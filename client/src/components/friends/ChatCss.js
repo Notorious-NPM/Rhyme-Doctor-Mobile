@@ -64,15 +64,16 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         paddingRight: 10,
       },
-      txtBubble:{
-        backgroundColor: 'grey',
+      txtBubbleContainer:{
+        flexWrap: 'wrap',
+      },
+      txtBubble: {
         borderRadius: 10,
         marginTop: 5,
         marginRight: 5,
         marginLeft: 5,
-        flex: 1,
-        height: 30,
-      },
+        maxWidth: '90%',
+      }
     }, 
     android: {
       close: {
