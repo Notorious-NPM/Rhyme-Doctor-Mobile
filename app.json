@@ -9,7 +9,8 @@
       "bundleIdentifier": "com.notoriousnpm.rhymedoctor"
     },
     "android": {
-      "package": "com.notoriousnpm.rhymedoctor"
+      "package": "com.notoriousnpm.rhymedoctor",
+      "versionCode": 2
     }
   }
 }
