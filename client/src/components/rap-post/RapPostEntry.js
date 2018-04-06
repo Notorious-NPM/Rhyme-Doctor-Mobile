@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Alert from '../alert';
 import Comments from './comments';
-import { Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { LinearGradient } from 'expo';
 import InputScrollView from 'react-native-input-scroll-view';
 
