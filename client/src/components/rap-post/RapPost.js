@@ -8,7 +8,7 @@ import store from '../../redux/store.js';
 import RapPostEntry from './RapPostEntry';
 import SessionBar from '../navbar/SessionBar';
 import Loading from './Loading';
-import LoopMsg from './LoopMsg';
+import Direction from '../buttons/Direction';
 
 import styles from './RapPostCss';
 import { location, port } from '../../../../config';
@@ -18,20 +18,12 @@ class RapPost extends React.Component {
     super(props);
     this.state = store.getState();
     store.subscribe(() => {
-      this.state = store.getState();
+      this.setState(store.getState());
     });
-    this.state.scrollable = true;
   }
 
   componentDidMount = () => {
     this.getRapPosts();
-  }
-
-  backToStart = () => {
-    const context = this;
-    context.setState({ displayLoopMsg: true });
-
-    setTimeout(() => context.setState({ displayLoopMsg: false }), 5000);
   }
 
   getRapPosts = async () => {
@@ -44,21 +36,26 @@ class RapPost extends React.Component {
       const rapPosts = await axios.get(url);
       this.setState({
         rapPosts: rapPosts.data,
+        selectedPost: 0,
       });
     } catch (err) {
       alert('Failed to get rap posts.');
     }
   }
 
-  // disableScroll = () => {
-  //   this.setState({ scrollable: false })
-  // }
-  changeScroll = () => {
-    this.setState({ scrollable: !this.state.scrollable });
+  directionHandler = (direction) => {
+    let { rapPosts, selectedPost } = this.state;
+    if (direction === 'previous' && selectedPost > 0) {
+      this.setState({ selectedPost: selectedPost - 1 });
+    }
+
+    if (direction === 'next' && selectedPost < rapPosts.length - 1) {
+      this.setState({ selectedPost: selectedPost + 1 });
+    }
   }
 
   render() {
-    const { scrollable, rapPosts } = this.state;
+    const { selectedPost, rapPosts } = this.state;
     let pic = {
       uri: 'https://i.imgur.com/vWA2TAB.jpg'
     };
@@ -67,43 +64,26 @@ class RapPost extends React.Component {
       <View style={styles.main}>
         <SessionBar nav={this.props} />
         <ScrollView
-          scrollEnabled={scrollable}
           indicatorStyle={'white'}
           maximumZoomScale={2.0}
         >
           <View>
             <Image source={pic} style={{ alignSelf: 'stretch', height: 200}}/>
           </View>
-          {this.state.displayLoopMsg && <LoopMsg />}
-          <TouchableOpacity onPress={this.changeScroll} style={styles.scrollContainer}>
-            <LinearGradient 
-              colors={['#FEFCEA', '#FFFFAD', '#FFFF64', '#FFFFAD']} 
-              locations={[0, 0.12, 0.38, 0.71]}
-              style={styles.scrollButton}
-            >
-              <Text style={styles.scrollText}>
-                {scrollable ? 's  c  r  o  l  l    m  o  d  e' : 's  w  i  p  e    m  o  d  e'}
-              </Text>
-            </LinearGradient>
-          </TouchableOpacity>
-          {rapPosts && 
-            <SwipeCards
-              containerStyle={{ flex: 1, width: '80%', zIndex: 4 }}
-              cards={rapPosts}
-              onClickHandler={() => 'do nothing'}
-              renderCard={(cardData) =>
-                <RapPostEntry  
-                  nav={this.props}
-                  rapPost={cardData}
-                  key={(Math.random() * 100000).toString()}
-                  getRapPosts={this.getRapPosts}
-                  username={this.state.username}/>
-              }
-              showYup={false}
-              showNope={false}
-              loop={true}
-              onLoop={this.backToStart}
-              dragY={true}
+          <View style={styles.directionContainer}>
+            <TouchableOpacity onPress={() => this.directionHandler('previous')}>
+              <Direction direction={"previous"}/>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.directionHandler('next')}>
+              <Direction direction={"next"}/>
+            </TouchableOpacity>
+          </View>
+          {rapPosts && selectedPost >= 0 && 
+            <RapPostEntry
+              nav={this.props}
+              rapPost={rapPosts[selectedPost]}
+              getRapPosts={this.getRapPosts}
+              username={this.state.username}
             />}
         </ScrollView>
       </View>
