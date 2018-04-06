@@ -16,7 +16,17 @@ export default styles = StyleSheet.create({
       }
     },
     android: {
-
+      main: {
+        marginBottom: 10, 
+        width: 80,
+        height: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 4,
+      },
+      text: {
+        fontSize: 15
+      }
     }
   })
 })
