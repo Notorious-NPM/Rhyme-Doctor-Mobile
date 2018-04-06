@@ -2,14 +2,15 @@
   "expo": {
     "name": "Rhyme Doctor",
     "icon": "./RhymeDoctor.png",
-    "version": "1.0.1",
+    "version": "2.0.0",
     "slug": "rhyme-doctor-mobile",
     "sdkVersion": "25.0.0",
     "ios": {
       "bundleIdentifier": "com.notoriousnpm.rhymedoctor"
     },
     "android": {
-      "package": "com.notoriousnpm.rhymedoctor"
+      "package": "com.notoriousnpm.rhymedoctor",
+      "versionCode": 2
     }
   }
 }
