@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
-import { Image, View, ListView, StyleSheet, Text, TouchableHighlight, ScrollView, Modal, Alert, TextInput } from 'react-native';
+import { Image, View, ListView, StyleSheet, Text, TouchableHighlight, Platform, ScrollView, Modal, Alert, TextInput } from 'react-native';
 
 import API_KEY from './config';
 import { location, port } from '../../../../config'
@@ -73,39 +73,74 @@ export default class EditBio extends React.Component {
 }
 
 var styles = StyleSheet.create({
-  button: {
-    margin: 10,
-    width: 70,
-    height: 30,
-    borderColor: '#D7D7D7',
-    borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  buttonContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#333',
-    // alignItems: 'center',
-    // justifyContent: 'center'
-  },
-  innerContainer : {
-    margin: 20,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  bio: {
-    flex: 1,
-    marginTop: 5,
-    // flexDirection: 'column',
-    alignSelf: 'center'
-  }
-  // topContainer: {
-  //   flexDirection: 'row'
-  // }
+  ...Platform.select({
+    ios: {
+      button: {
+        margin: 10,
+        width: 70,
+        height: 30,
+        borderColor: '#D7D7D7',
+        borderWidth: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+      },
+      buttonContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+      },
+      container: {
+        flex: 1,
+        backgroundColor: '#333',
+      },
+      innerContainer : {
+        margin: 20,
+        alignItems: 'center',
+        justifyContent: 'center'
+      },
+      bio: {
+        flex: 1,
+        marginTop: 5,
+        alignSelf: 'center'
+      }
+    },
+    android: {
+      button: {
+        margin: 10,
+        width: 70,
+        height: 30,
+        borderColor: '#D7D7D7',
+        borderWidth: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+      },
+      buttonContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+      },
+      container: {
+        flex: 1,
+        backgroundColor: '#333',
+        // alignItems: 'center',
+        // justifyContent: 'center'
+      },
+      innerContainer : {
+        margin: 20,
+        alignItems: 'center',
+        justifyContent: 'center'
+      },
+      bio: {
+        flex: 1,
+        marginTop: 5,
+        // flexDirection: 'column',
+        alignSelf: 'center'
+      }
+      // topContainer: {
+      //   flexDirection: 'row'
+      // }
+    }
+  })
 });
