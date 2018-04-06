@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Expo, { ImagePicker } from 'expo';
-import { StyleSheet, Text, View, Image, TextInput, Button, TouchableHighlight, Alert, ScrollView } from 'react-native';
+import { Text, View, Image, Button, TouchableHighlight, Alert, ScrollView } from 'react-native';
 import SessionBar from '../navbar/SessionBar';
 import EditBio from './EditBio';
 
