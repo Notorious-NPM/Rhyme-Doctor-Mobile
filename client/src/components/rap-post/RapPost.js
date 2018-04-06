@@ -81,6 +81,7 @@ class RapPost extends React.Component {
           {rapPosts && selectedPost >= 0 && 
             <RapPostEntry
               nav={this.props}
+              key={Math.random() * 123456789}
               rapPost={rapPosts[selectedPost]}
               getRapPosts={this.getRapPosts}
               username={this.state.username}
@@ -92,18 +93,3 @@ class RapPost extends React.Component {
 }
 
 export default RapPost;
-
-//  {/* <ScrollView>
-//             <View>
-//               <Image source={pic} style={{ alignSelf: 'stretch', height: 200}}/>
-//             </View>
-//             <View style={styles.view}>
-//             {rapPosts.map((rapPost, i) => (<RapPostEntry
-//               nav={this.props}
-//               rapPost={rapPost}
-//               key={i}
-//               getRapPosts={this.getRapPosts}
-//               username={this.state.username}
-//             />))}
-//             </View>
-//           </ScrollView> */}
