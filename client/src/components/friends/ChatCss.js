@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
       mobilePopShow: {
         position: 'absolute',
         width: '100%',
-        top: '48%',
+        top: '30%',
         left: 0,
       },
       chatDisplay: {
