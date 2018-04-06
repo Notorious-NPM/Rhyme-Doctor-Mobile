@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Expo, { ImagePicker } from 'expo';
-import { StyleSheet, Text, View, Image, TextInput, Button, TouchableHighlight, CameraRoll, PermissionsAndroid, Alert, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, Button, TouchableHighlight, Alert, ScrollView } from 'react-native';
 import SessionBar from '../navbar/SessionBar';
 import EditBio from './EditBio';
 
@@ -26,12 +26,7 @@ export default class EditProfile extends React.Component {
       this.getUserData();
   }
 
-  pickImage = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      base64: true
-    })
-
+  uploadImageToCloud(image) {
     let apiUrl = 'https://api.cloudinary.com/v1_1/dkwbeount/image/upload';
 
     let xhr = new XMLHttpRequest();
@@ -39,7 +34,7 @@ export default class EditProfile extends React.Component {
 
     
     fd.append('upload_preset', 'hkhkmnpg');
-    fd.append('file', `data:image/png;base64,${result.base64}`);
+    fd.append('file', `data:image/png;base64,${image}`);
 
     axios.post(apiUrl, fd,{ headers: {'X-Requested-With': 'XMLHttpRequest' },
     }).then(res => {
@@ -54,6 +49,26 @@ export default class EditProfile extends React.Component {
         })
         .catch(err => Alert.alert('Error changing profile picture'));
     });
+  }
+
+  pickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      base64: true
+    })
+    if (result.base64) {
+      this.uploadImageToCloud(result.base64);
+    }
+  }
+
+  takePhoto = async () => {
+    let result = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      base64: true
+    });
+    if (result.base64) {
+      this.uploadImageToCloud(result.base64);
+    }
   }
 
   showEdit() {
@@ -98,7 +113,17 @@ export default class EditProfile extends React.Component {
               <View style={styles.button}>
                 <TouchableHighlight 
                   style={styles.touchable}
-                  onPress={() => this.pickImage()}>
+                  onPress={() => 
+                    Alert.alert(
+                      'Change Profile Pic',
+                      'Choose One Below',
+                      [
+                        {text: 'Camera Roll', onPress: () => this.pickImage()},
+                        {text: 'Take Photo', onPress: () => this.takePhoto()}
+                      ],
+                      { cancelable: true }
+                    )
+                  }>
                   <Text style={{color: '#D7D7D7', fontWeight: 'bold'}}>CHANGE PICTURE</Text>
                 </TouchableHighlight>
               </View>
