@@ -24,17 +24,6 @@ const styles = StyleSheet.create({
       }
     },
     android: {
-      button: {
-        margin: 10,
-        borderColor: '#D7D7D7',
-        borderWidth: 1
-      },
-      buttonContainer: {
-        width: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'row',
-      },
       container: {
         flex: 1,
         backgroundColor: '#333',

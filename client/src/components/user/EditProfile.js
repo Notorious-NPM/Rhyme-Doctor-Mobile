@@ -7,7 +7,7 @@ import EditBio from './EditBio';
 
 import styles from './EditProfileCss';
 
-import { location, port } from '../../../../config'
+import { location, port } from '../../../../config';
 
 import store from '../../redux/store';
 
