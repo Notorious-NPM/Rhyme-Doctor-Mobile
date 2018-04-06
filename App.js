@@ -41,6 +41,9 @@ const RootStack = StackNavigator(
   {
     initialRouteName: 'Login',
     headerMode: 'none',
+    navigationOptions: {
+      gesturesEnabled: false,
+    }
   }
 )
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client/dist/socket.io';
-import { Keyboard, ScrollView, Text, TextInput, View } from 'react-native';
+import { Keyboard, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 import { location, socketPort } from '../../../../config';
 import styles from './ChatCss';
@@ -25,12 +25,15 @@ class Chat extends Component {
     });
 
     await this.socket.on('server.sendMsg', ({ msg, randomCode }) => {
+      let message = { text: msg };
       if (randomCode === this.state.randomCode) {
-        msg = 'Me: ' + msg;
+        // msg = 'Me: ' + msg;
+        message.position = 'right';
       } else {
-        msg = this.props.friendName + ': ' + msg;
+        // msg = this.props.friendName + ': ' + msg;
+        message.position = 'left';
       }
-      this.setState({ messages: [...this.state.messages, msg] });
+      this.setState({ messages: [...this.state.messages, message] });
     });
 
     this.setState({ socket: this.socket }) // eslint-disable-line
@@ -62,13 +65,19 @@ class Chat extends Component {
 
   render() {
     const { messages, unhideInput } = this.state;
+    const { friendName } = this.props;
 
     return (
       <ScrollView>
       <View>
         <View style={styles.main}>
-          <View>
-            <Text style={styles.close} onPress={() => this.props.changeSelectedChat(-1)}>X</Text>
+          <View style={styles.chatHeader}>
+            <View style={styles.friendNameContainer}>
+              <Text style={styles.friendNameText}>{friendName}</Text>
+            </View>
+            <TouchableOpacity onPress={() => this.props.changeSelectedChat(-1)} style={styles.closeContainer}>
+              <Text style={styles.close}>BACK</Text>
+            </TouchableOpacity>
           </View>
           <View style={styles.chatDisplay}>
             <ScrollView     
@@ -76,10 +85,17 @@ class Chat extends Component {
               onContentSizeChange={(contentWidth, contentHeight) => {        
               this.scrollView.scrollToEnd({animated: true});
             }}>
-              {messages.map((text, i) => {
+              {messages.map((message, i) => {
                 return (
-                  <View style={styles.txtBubble} key={i}>
-                    <Text style={styles.chatText} key={i}>{text}</Text>
+                  <View 
+                    style={[
+                      styles.txtBubbleContainer,
+                      { alignItems: message.position === 'left' ? 'flex-start' : 'flex-end' }
+                    ]} 
+                    key={i}>
+                    <View style={[styles.txtBubble, { backgroundColor: message.position === 'left' ? '#E8EDF9' : '#FFFFAF' }]}>
+                      <Text style={[styles.chatText, { textAlign: message.position }]} key={i}>{message.text}</Text>
+                    </View>
                   </View>
                 )
               })}
