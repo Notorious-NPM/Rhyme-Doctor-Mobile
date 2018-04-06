@@ -8,6 +8,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#333',
         flex: 1,
       },
+      directionContainer: {
+        marginTop: 5,
+        marginBottom: 5,
+        marginLeft: 10,
+        marginRight: 10,
+        flexDirection: 'row',
+        justifyContent:'space-between',
+      },
       view: {
         paddingLeft: 20,
         paddingRight: 30,
@@ -22,9 +30,17 @@ const styles = StyleSheet.create({
       scrollButton: {
         alignItems: 'center',
         justifyContent: 'center',
-        height: 10,
+        height: 20,
         width: '80%',
         borderRadius: 6,
+      },
+      scrollModal: {
+        position: 'absolute',
+        width: '100%',
+        borderWidth: 1,
+        borderColor: 'blue',
+        zIndex: 5,
+        left: 0,
       },
       scrollText: {
         fontSize: 10,
